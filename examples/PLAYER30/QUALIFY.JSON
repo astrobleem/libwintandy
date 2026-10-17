@@ -73,5 +73,17 @@
     "MOD/VGM/VGZ",
     "automaticbass"
   ],
-  "external_TSOUND_SHA256": "7461d227846830f3ff604c40cf31ad0e3fb34122a13de6269e86de02cc4209e5"
+  "external_TSOUND_SHA256": "7461d227846830f3ff604c40cf31ad0e3fb34122a13de6269e86de02cc4209e5",
+  "evidence_revision": {
+    "archive_bytes": 183144,
+    "archive_entries": 111,
+    "archive_sha256": "d4d73d2d66439d8f0fdb3463027dbec1acbe37d3725aa65fb08894b9e69b4eeb",
+    "runtime_changed": false,
+    "native_rerun": false,
+    "changes": [
+      "Exact saved eleven-product pair inputs/commands/logs/results",
+      "Historical source-only versus later native provenance",
+      "Deterministic five-fixture GUI QA generator and pinned fixture hashes"
+    ]
+  }
 }

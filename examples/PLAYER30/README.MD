@@ -2,7 +2,7 @@
 
 Download [WINLIB30.ZIP](WINLIB30.ZIP?raw=1) and read its INSTALL.MD before running.
 The archive includes corresponding source, build recipes, the tested program
-set, three original synthetic scores, native logs and an actual window crop.
+set, three original synthetic QA score assets, native logs and an actual window crop.
 No Microsoft files, driver, tools, fonts, ROMs or third-party songs are included.
 
 The native Tandy HX 8088 / 640 KB / stock-CGA Windows 3.0 real-mode GUI case
@@ -18,6 +18,16 @@ Keep that dependency's published source/license. Installation is manual in a
 matching disposable guest; the launcher checks compatibility and installs no
 Windows driver. MOD/VGM/VGZ, automatic bass and PCjr audio remain unfinished.
 
-Archive: 138,101 bytes, 96 entries, SHA-256
-`12d2e62616975d6bc7d4c41e48492100c14947752fc8ad95faa770ea32350870`.
+Archive: 183,144 bytes, 111 entries, SHA-256
+`d4d73d2d66439d8f0fdb3463027dbec1acbe37d3725aa65fb08894b9e69b4eeb`.
 The original source-only snapshot remains unchanged at commit 80b1431.
+
+This evidence correction preserves all nine runtime files byte-for-byte and
+retains the existing native 58-check result; unchanged runtime was not rerun.
+The archive now supplies the exact saved eleven-product paired build recipe,
+commands, input hashes and logs. Its six-product standalone player recipe is
+identified separately. Historical source-only records are clearly scoped.
+TESTS/NATIVE/MAKEGUIQA.PY recreates the five additional first-party synthetic
+GUI fixtures in an explicit empty directory. They are test assets, separate
+from the three synthetic QA examples in RUNTIME. No third-party music or
+sample payload is added.
