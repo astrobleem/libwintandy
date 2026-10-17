@@ -1,0 +1,1 @@
+Original synthetic QA fixtures only. MAKE_INPUTS.PY generates the baseline files. HOST/MAKE_GZVECT.PY generates GZ31/GZ32/RS30/RS31 and SOURCE/GZVECT.H. MOD sample lengths are zero. No third-party music or samples.

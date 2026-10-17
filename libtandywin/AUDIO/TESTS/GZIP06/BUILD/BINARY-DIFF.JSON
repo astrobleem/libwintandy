@@ -1,0 +1,36 @@
+{
+  "old_bytes": 47997,
+  "new_bytes": 47997,
+  "changed_bytes": 2,
+  "differences": [
+    {
+      "offset": 138,
+      "before": 108,
+      "after": 110
+    },
+    {
+      "offset": 38914,
+      "before": 30,
+      "after": 32
+    }
+  ],
+  "NE_header_offset": 128,
+  "checksum_field_range": [
+    136,
+    139
+  ],
+  "checksum_differences": [
+    {
+      "offset": 138,
+      "before": 108,
+      "after": 110
+    }
+  ],
+  "code_or_data_differences": [
+    {
+      "offset": 38914,
+      "before": 30,
+      "after": 32
+    }
+  ]
+}

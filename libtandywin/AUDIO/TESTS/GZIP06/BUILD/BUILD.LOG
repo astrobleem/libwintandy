@@ -1,0 +1,38 @@
+MINIPLAY.C
+RAWAPP.C
+RAWFILE.C
+FMTAPP.C
+FMTAPP.C(25) : warning C4135: conversion between different integral types
+FMTAPP.C(37) : warning C4135: conversion between different integral types
+FMTAPP.C(76) : warning C4061: long/short mismatch in argument : conversion supplied
+FMTCORE.C
+FMTCORE.C(53) : warning C4135: conversion between different integral types
+FMTCORE.C(57) : warning C4135: conversion between different integral types
+VGM.C
+VGMGRP.C
+MODPLAY.C
+MODPLAY.C(354) : warning C4135: conversion between different integral types
+MODPLAY.C(366) : warning C4135: conversion between different integral types
+MODPLAY.C(453) : warning C4135: conversion between different integral types
+GUNZIP.C
+GZIPGUI.C
+GZIPGUI.C(8) : warning C4135: conversion between different integral types
+
+Microsoft (R) Segmented-Executable Linker  Version 5.01.17
+Copyright (C) Microsoft Corp 1984-1988.  All rights reserved.
+
+Object Modules [.OBJ]: MINIPLAY.OBJ RAWFILE.OBJ RAWAPP.OBJ FMTAPP.OBJ FMTCORE.OBJ VGM.OBJ VGMGRP.OBJ MODPLAY.OBJ GUNZIP.OBJ
+Run File [MINIPLAY.EXE]: MINIPLAY.EXE
+List File [NUL.MAP]: MINIPLAY.MAP
+Libraries [.LIB]: C:\LIB\SLIBCEW.LIB C:\LIB\LIBW.LIB
+Definitions File [NUL.DEF]: MINIPLAY.DEF
+
+Microsoft (R) Segmented-Executable Linker  Version 5.01.17
+Copyright (C) Microsoft Corp 1984-1988.  All rights reserved.
+
+Object Modules [.OBJ]: GZIPGUI.OBJ GUNZIP.OBJ
+Run File [GZIPGUI.EXE]: GZIPGUI.EXE
+List File [NUL.MAP]: GZIPGUI.MAP
+Libraries [.LIB]: C:\LIB\SLIBCEW.LIB C:\LIB\LIBW.LIB
+Definitions File [NUL.DEF]: GZIPGUI.DEF
+PASS

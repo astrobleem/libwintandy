@@ -1,0 +1,29 @@
+{
+  "bytes": 312963,
+  "entries": 227,
+  "sha256": "44990d4546b3eaf5808e2b3f2746d438bbf9962d78cc36a8e276e0f7abfdedde",
+  "build": {
+    "status": "PASS",
+    "seconds": 14.563000000081956,
+    "products": [
+      {
+        "name": "MINIPLAY.EXE",
+        "bytes": 47997,
+        "sha256": "6e94d2b8f41cdd7c9dcb2b5f5849f2df1c0713dff1fa10128dbc27f7f19130ab"
+      },
+      {
+        "name": "GZIPGUI.EXE",
+        "bytes": 10157,
+        "sha256": "c9ff5fee55aae4bdb34f64c7119baee808bbb7ef511e3d8ad7c43caa2408f85a"
+      }
+    ]
+  },
+  "native_checks": 88,
+  "native_seconds": 124.43699999991804,
+  "baseline_native_checks": 171,
+  "code_change_bytes": 1,
+  "MINIPLAY_file_bytes": 47997,
+  "no_new_runtime_memory": true,
+  "fixture_regeneration": "PASS",
+  "publication_audit": "PASS"
+}

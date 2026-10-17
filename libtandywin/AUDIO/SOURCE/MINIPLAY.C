@@ -3,7 +3,9 @@
 #define WINVER 0x0300
 #include <windows.h>
 #include "LWAUDIO.H"
-static WORD rawKind;
+#include "FMTAPP.H"
+static WORD rawKind,formatKind,formatPaused;
+#define PAUSE 109
 static void caption(char *);
 static WORD closeFile(void);
 #define PLAY 101
@@ -38,7 +40,8 @@ static void serviceForeground(void)
  DWORD now=GetTickCount();
  if(playing && now-lastService>=55UL){
   lastService=now;
-  if(rawKind){WORD r=RawPump();if(r!=1){++successes;if(!closeFile())caption(r==0?"Done":"Clock limit");}}
+  if(formatKind){WORD r=FmtPump();if(r!=1){++successes;if(!closeFile())caption(r==0?"Done":FmtReason());}}
+  else if(rawKind){WORD r=RawPump();if(r!=1){++successes;if(!closeFile())caption(r==0?"Done":"Clock limit");}}
   else if(foregroundPump)foregroundPump();++foregroundCalls;
  }
 }
@@ -104,10 +107,11 @@ static void layout(HWND w)
  MoveWindow(trackBox,8,20,width-16,12,TRUE);
  MoveWindow(clockBox,8,36,52,12,TRUE);MoveWindow(label,64,36,width-72,12,TRUE);
  MoveWindow(fileBox,4,58,width-8,14,TRUE);
- bw=(width-16)/3;
+ bw=(width-20)/4;
  MoveWindow(GetDlgItem(w,PLAY),4,76,bw,22,TRUE);
  MoveWindow(GetDlgItem(w,STOP),8+bw,76,bw,22,TRUE);
- MoveWindow(GetDlgItem(w,ADD),12+2*bw,76,width-16-2*bw,22,TRUE);
+ MoveWindow(GetDlgItem(w,PAUSE),12+2*bw,76,bw,22,TRUE);
+ MoveWindow(GetDlgItem(w,ADD),16+3*bw,76,width-20-3*bw,22,TRUE);
  MoveWindow(listBox,4,listY,width-8,height-listY-4,TRUE);
  trackName();InvalidateRect(w,0,FALSE);
 }
@@ -126,6 +130,7 @@ static void addFile(void)
 static WORD closeFile(void)
 {
  DWORD r;playing=0;
+ if(formatKind){if(FmtClose()){caption("Retry");return 1;}formatKind=formatPaused=0;SetWindowText(GetDlgItem(mainWindow,PAUSE),"Pause");}
  if(rawKind){if(RawClose()){caption("Retry");return 1;}rawKind=0;}
  if(device){
   command(device,MC_STOP,0L,0L);
@@ -144,7 +149,9 @@ static void play(void)
  SendMessage(listBox,LB_SETCURSEL,found,0L);
  lstrcpy(activeName,filename);trackName();lastSecond=0xffff;SetWindowText(clockBox,"00:00");
  caption("Opening");UpdateWindow(mainWindow);UpdateWindow(label);UpdateWindow(trackBox);
- i=lstrlen(filename);rawKind=0;
+ i=lstrlen(filename);rawKind=formatKind=0;
+ if(i>=4){if(!lstrcmpi(filename+i-4,".VGM")||!lstrcmpi(filename+i-4,".VGZ"))formatKind=3;else if(!lstrcmpi(filename+i-4,".MOD"))formatKind=4;}
+ if(formatKind){r=FmtOpen(filename,formatKind);if(r){if(FmtClose()){caption("Retry");return;}formatKind=0;caption(FmtReason());return;}playing=1;formatPaused=0;lastService=GetTickCount();SetTimer(mainWindow,1,55,0);caption(FmtReason());return;}
  if(i>=4){if(!lstrcmpi(filename+i-4,".TND"))rawKind=1;else if(!lstrcmpi(filename+i-4,".SND"))rawKind=2;}
  if(rawKind){r=RawOpen(filename,rawKind);if(r){if(RawClose()){caption("Retry");return;}rawKind=0;wsprintf(text,"Raw E%lu",r);caption(text);return;}
   playing=1;lastService=GetTickCount();SetTimer(mainWindow,1,55,0);caption("Queued");return;}
@@ -182,7 +189,7 @@ LONG FAR PASCAL ControlProc(HWND w,WORD m,WORD a,LONG b)
    else if(a==VK_UP && listSelected) --listSelected;else if(a==VK_DOWN && listSelected+1<listCount)++listSelected;else if(a==VK_HOME)listSelected=0;else if(a==VK_END)listSelected=listCount-1;
    listKeepVisible(w);InvalidateRect(w,0,FALSE);PostMessage(mainWindow,WM_COMMAND,PLAYLIST,MAKELONG(w,LBN_SELCHANGE));return 0L;
   }
- } else if(id==PLAY || id==STOP || id==ADD){
+ } else if(id==PLAY || id==STOP || id==ADD || id==PAUSE){
   if(m==WM_LBUTTONDOWN){SetFocus(w);SetCapture(w);SetWindowWord(w,0,1);InvalidateRect(w,0,FALSE);return 0L;}
   if(m==WM_LBUTTONUP){ReleaseCapture();GetClientRect(w,&r);i=GetWindowWord(w,0);SetWindowWord(w,0,0);InvalidateRect(w,0,FALSE);
    if(i && (int)LOWORD(b)>=0 && (int)LOWORD(b)<r.right && (int)HIWORD(b)>=0 && (int)HIWORD(b)<r.bottom)SendMessage(mainWindow,WM_COMMAND,id,MAKELONG(w,BN_CLICKED));return 0L;}
@@ -203,7 +210,7 @@ LONG FAR PASCAL ControlProc(HWND w,WORD m,WORD a,LONG b)
    }
   } else {
    n=GetWindowText(w,buf,sizeof(buf));
-   if(id==PLAY || id==STOP || id==ADD){bevel(dc,&r,GetWindowWord(w,0));SetTextColor(dc,lightColor);SetBkColor(dc,panelColor);
+   if(id==PLAY || id==STOP || id==ADD || id==PAUSE){bevel(dc,&r,GetWindowWord(w,0));SetTextColor(dc,lightColor);SetBkColor(dc,panelColor);
     if(n)TextOut(dc,(r.right-n*charWidth)/2,(r.bottom-charHeight)/2,buf,n);
     if(GetFocus()==w){MoveTo(dc,4,r.bottom-4);LineTo(dc,r.right-4,r.bottom-4);}
    } else if(n){i=r.right/charWidth;if(n>i)n=i;if(n)TextOut(dc,0,0,buf,n);}
@@ -215,17 +222,19 @@ LONG FAR PASCAL ControlProc(HWND w,WORD m,WORD a,LONG b)
 LONG FAR PASCAL WndProc(HWND w,WORD message,WORD a,LONG b)
 {
  DWORD r;
+ if(message==WM_USER+50)return FmtDebug(a);
  if(message==WM_USER+49)return RawDebug(a==0?1:a);
  if(message==WM_USER+47)return a?device:playing;
  if(message==WM_USER+45){lastAck=a;return 0L;}
  if(message==WM_USER+46)return lastAck;
  if(message==WM_USER+42)return a==2?lastSecond:(a?clockRedraws:foregroundCalls);
  if(message==WM_CREATE){
-  HINSTANCE inst=((LPCREATESTRUCT)b)->hInstance;HWND buttons[3];WORD i;
+  HINSTANCE inst=((LPCREATESTRUCT)b)->hInstance;HWND buttons[4];WORD i;
   mainWindow=w;trace("WM_CREATE");
   fileBox=CreateWindow("EDIT",filename,WS_CHILD|WS_VISIBLE|WS_BORDER|ES_AUTOHSCROLL|WS_TABSTOP,4,58,140,14,w,FILEBOX,inst,0L);
   buttons[0]=CreateWindow("ClassicButton","Play",WS_CHILD|WS_VISIBLE|WS_TABSTOP,4,76,44,22,w,PLAY,inst,0L);
   buttons[1]=CreateWindow("ClassicButton","Stop",WS_CHILD|WS_VISIBLE|WS_TABSTOP,52,76,44,22,w,STOP,inst,0L);
+  buttons[3]=CreateWindow("ClassicButton","Pause",WS_CHILD|WS_VISIBLE|WS_TABSTOP,100,76,44,22,w,PAUSE,inst,0L);
   buttons[2]=CreateWindow("ClassicButton","Add",WS_CHILD|WS_VISIBLE|WS_TABSTOP,100,76,44,22,w,ADD,inst,0L);
   trackBox=CreateWindow("ClassicLCD",baseName(filename),WS_CHILD|WS_VISIBLE|SS_LEFT,8,20,132,12,w,108,inst,0L);
   clockBox=CreateWindow("ClassicLCD","00:00",WS_CHILD|WS_VISIBLE|SS_LEFT,8,36,52,12,w,CLOCKBOX,inst,0L);
@@ -233,7 +242,7 @@ LONG FAR PASCAL WndProc(HWND w,WORD message,WORD a,LONG b)
   listBox=CreateWindow("ClassicList","",WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP|LBS_NOTIFY|LBS_NOINTEGRALHEIGHT,4,112,140,44,w,PLAYLIST,inst,0L);
   SendMessage(fileBox,WM_SETFONT,compactFont,0L);SendMessage(trackBox,WM_SETFONT,compactFont,0L);
   SendMessage(clockBox,WM_SETFONT,compactFont,0L);SendMessage(label,WM_SETFONT,compactFont,0L);SendMessage(listBox,WM_SETFONT,compactFont,0L);
-  for(i=0;i<3;++i)SendMessage(buttons[i],WM_SETFONT,compactFont,0L);
+  for(i=0;i<4;++i)SendMessage(buttons[i],WM_SETFONT,compactFont,0L);
   lstrcpy(activeName,filename);addFile();
   lstrcpy(playlist[1],directory);lstrcat(playlist[1],"PLUCK.TND");SendMessage(listBox,LB_ADDSTRING,0,(LONG)(LPSTR)"PLUCK.TND");
   lstrcpy(playlist[2],directory);lstrcat(playlist[2],"CHIME.SND");SendMessage(listBox,LB_ADDSTRING,0,(LONG)(LPSTR)"CHIME.SND");playlistCount=3;
@@ -256,6 +265,7 @@ LONG FAR PASCAL WndProc(HWND w,WORD message,WORD a,LONG b)
  if(message==WM_COMMAND){
   if(a==PLAY)play();
   else if(a==STOP){if(!closeFile())caption("Stopped");}
+  else if(a==PAUSE){if(formatKind&&playing){if(!FmtPause()){formatPaused=!formatPaused;SetWindowText(GetDlgItem(w,PAUSE),formatPaused?"Resume":"Pause");caption(formatPaused?"Paused":FmtReason());}else caption("Pause unavailable");}}
   else if(a==ADD)addFile();
   else if(a==PLAYLIST && HIWORD(b)==LBN_SELCHANGE){
    WORD n=(WORD)SendMessage(listBox,LB_GETCURSEL,0,0L);if(n<playlistCount){SetWindowText(fileBox,playlist[n]);if(!playing){lstrcpy(activeName,playlist[n]);trackName();}}
@@ -269,6 +279,7 @@ LONG FAR PASCAL WndProc(HWND w,WORD message,WORD a,LONG b)
   }return 0L;
  }
  if(message==WM_TIMER){
+  if(playing && formatKind){r=FmtPosition();if((WORD)(r/1000UL)!=lastSecond){lastSecond=(WORD)(r/1000UL);wsprintf(text,"%02u:%02u",lastSecond/60,lastSecond%60);SetWindowText(clockBox,text);}}
   if(playing && rawKind){r=RawPosition();if((WORD)(r/1000UL)!=lastSecond){lastSecond=(WORD)(r/1000UL);wsprintf(text,"%02u:%02u",lastSecond/60,lastSecond%60);SetWindowText(clockBox,text);}}
   if(playing && device){st.item=MC_POSITION;r=command(device,MC_STATUS,MC_ITEM,(DWORD)(LPVOID)&st);if(!r && (WORD)(st.result/1000UL)!=lastSecond){lastSecond=(WORD)(st.result/1000UL);wsprintf(text,"%02u:%02u",lastSecond/60,lastSecond%60);SetWindowText(clockBox,text);++clockRedraws;}}
   if(automatic){
@@ -294,7 +305,7 @@ int PASCAL WinMain(HINSTANCE inst,HINSTANCE prev,LPSTR cmd,int show)
  if(automatic)log=_lcreat("C:\\MINIPLAY.LOG",0);
  check("entered_WinMain",1);
  wsprintf(text,"CMD %s\r\n",cmd);logText();
- n=GetModuleFileName(inst,directory,sizeof(directory));if(!n || n>=sizeof(directory)-13)return 1;for(i=0;i<n;++i)if(directory[i]=='\\' || directory[i]=='/')last=i+1;directory[last]=0;RawInit(directory);
+ n=GetModuleFileName(inst,directory,sizeof(directory));if(!n || n>=sizeof(directory)-13)return 1;for(i=0;i<n;++i)if(directory[i]=='\\' || directory[i]=='/')last=i+1;directory[last]=0;RawInit(directory);FmtInit(directory);
  lstrcpy(dll,directory);lstrcat(dll,"MCITNDY.DLL");wsprintf(text,"DLL %s\r\n",(LPSTR)dll);logText();module=LoadLibrary(dll);
  wsprintf(text,"LOAD_RESULT %u\r\n",module);logText();
  if(module<32){MessageBox(0,"Keep MCITNDY.DLL with this player.","MIDI Player",MB_OK);return 1;}

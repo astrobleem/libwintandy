@@ -1,0 +1,65 @@
+In file included from <private-workspace>\formats-adopt\HOST\TEST_BURST.C:2:
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C: In function 'burstByte':
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:51:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   51 |  if(value&128)burstLatch=(value>>4)&7;r=burstLatch;
+      |  ^~
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:51:39: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   51 |  if(value&128)burstLatch=(value>>4)&7;r=burstLatch;
+      |                                       ^
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:55:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   55 |  if(r==6)noiseWrites++;burstHash=((burstHash<<5)|(burstHash>>11))^value;burstWriteCount++;output(value);
+      |  ^~
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:55:24: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   55 |  if(r==6)noiseWrites++;burstHash=((burstHash<<5)|(burstHash>>11))^value;burstWriteCount++;output(value);
+      |                        ^~~~~~~~~
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C: In function 'TCOpen':
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:94:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   94 |  if(OpenSound()<0)return 1;owner=GetCurrentTask();if(!owner){CloseSound();return 1;}StopSound();
+      |  ^~
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:94:28: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   94 |  if(OpenSound()<0)return 1;owner=GetCurrentTask();if(!owner){CloseSound();return 1;}StopSound();
+      |                            ^~~~~
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C: In function 'TCStart':
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:107:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  107 |  if(pinCode())return 2;t=CreateSystemTimer(55,(FARPROC)NullEntry);if(!t){unpinCode();return 2;}
+      |  ^~
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:107:24: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  107 |  if(pinCode())return 2;t=CreateSystemTimer(55,(FARPROC)NullEntry);if(!t){unpinCode();return 2;}
+      |                        ^
+In file included from <private-workspace>/formats-adopt/SOURCE/TIMECLK.C:2:
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:110:26: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+  110 |  if(!p||HiInstall(HIWORD((DWORD)p))){active=0;HiDetach();KillSystemTimer(t);unpinCode();return 2;}
+      |                          ^
+<private-workspace>\formats-adopt\HOST\STUB/windows.h:12:36: note: in definition of macro 'HIWORD'
+   12 | #define HIWORD(v) ((WORD)(((DWORD)(v))>>16))
+      |                                    ^
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C: In function 'TCPause':
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:138:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  138 |  if(HiMetric(9)&&HiStop())return 1;f=SaveIRQ();userPaused=1;mute();RestoreIRQ(f);return 0;}
+      |  ^~
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:138:36: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  138 |  if(HiMetric(9)&&HiStop())return 1;f=SaveIRQ();userPaused=1;mute();RestoreIRQ(f);return 0;}
+      |                                    ^
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C: In function 'TCFlush':
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:143:2: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+  143 |  for(n=0;timer&&HiStatus()&&n<4000;n++)Yield();if(timer&&HiStatus())return 1;
+      |  ^~~
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:143:48: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+  143 |  for(n=0;timer&&HiStatus()&&n<4000;n++)Yield();if(timer&&HiStatus())return 1;
+      |                                                ^~
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C: In function 'TCLiveApply':
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:156:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  156 |  if(!owns()||!source||burstMode)return 1;liveFirst=*source;
+      |  ^~
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:156:42: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  156 |  if(!owns()||!source||burstMode)return 1;liveFirst=*source;
+      |                                          ^~~~~~~~~
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C: In function 'TCBPush':
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:180:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  180 |  if(source->count>TCB_WRITES)return 3;at=source->at;
+      |  ^~
+<private-workspace>/formats-adopt/SOURCE/TIMECLK.C:180:39: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  180 |  if(source->count>TCB_WRITES)return 3;at=source->at;
+      |                                       ^~
+
+actual RAWCLK burst: 3271 checks, 0 failures, unsafe IRQ calls=0

@@ -1,0 +1,76 @@
+CHECK launch got=1 want=1
+CHECK window got=1 want=1
+CHECK queued_ack got=1 want=1
+CHECK queued_ack got=2 want=2
+STATE actual=VGM PSG expected=VGM PSG
+CHECK state got=1 want=1
+CHECK VGM_active got=1 want=1
+CHECK burst_mode got=1 want=1
+CHECK exclusive got=1 want=1
+CHECK raw_writes got=1 want=1
+CHECK queued_ack got=3 want=3
+STATE actual=Paused expected=Paused
+CHECK state got=1 want=1
+CHECK paused got=1 want=1
+CHECK pause_writes_frozen got=2161 want=2161
+CHECK pause_clock_frozen got=58751 want=58751
+CHECK queued_ack got=4 want=4
+STATE actual=VGM PSG expected=VGM PSG
+CHECK state got=1 want=1
+CHECK resumed got=1 want=1
+CHECK resume_error got=0 want=0
+CHECK queued_ack got=5 want=5
+CHECK queued_ack got=6 want=6
+STATE actual=VGM PSG expected=VGM PSG
+CHECK state got=1 want=1
+CHECK VGZ_active got=1 want=1
+CHECK queued_ack got=7 want=7
+STATE actual=Stopped expected=Stopped
+CHECK state got=1 want=1
+CHECK stop_free got=3 want=3
+CHECK queued_ack got=8 want=8
+CHECK queued_ack got=9 want=9
+CHECK queued_ack got=10 want=10
+STATE actual=Done expected=Done
+CHECK state got=1 want=1
+CHECK EOF_sound_free got=3 want=3
+CHECK EOF_error got=0 want=0
+CHECK VGM_byte_hash got=54622 want=54622
+CHECK VGM_byte_count got=131 want=131
+CHECK intentional_noise_writes got=3 want=3
+CHECK queued_ack got=11 want=11
+CHECK queued_ack got=12 want=12
+CHECK queued_ack got=13 want=13
+STATE actual=Done expected=Done
+CHECK state got=1 want=1
+CHECK EOF_sound_free got=3 want=3
+CHECK EOF_error got=0 want=0
+CHECK VGZ_same_byte_hash got=54622 want=54622
+CHECK VGZ_same_byte_count got=131 want=131
+CHECK queued_ack got=14 want=14
+CHECK queued_ack got=15 want=15
+STATE actual=MOD PSG expected=MOD PSG
+CHECK state got=1 want=1
+CHECK queued_ack got=16 want=16
+STATE actual=Done expected=Done
+CHECK state got=1 want=1
+CHECK EOF_sound_free got=3 want=3
+CHECK EOF_error got=0 want=0
+CHECK MOD_no_noise_retrigger got=0 want=0
+CHECK MOD_groups got=48 want=48
+CHECK queued_ack got=17 want=17
+CHECK queued_ack got=18 want=18
+CHECK four_lane_refused got=0 want=0
+CHECK four_lane_sound_free got=3 want=3
+CHECK queued_ack got=19 want=19
+CHECK queued_ack got=20 want=20
+CHECK fast_refused got=0 want=0
+CHECK fast_sound_free got=3 want=3
+CHECK queued_ack got=21 want=21
+CHECK queued_ack got=22 want=22
+CHECK bad_crc_refused got=0 want=0
+CHECK bad_crc_sound_free got=3 want=3
+REFILL admission=0 minimum_sampled_queued=512 refused_at=0:0 clock=0:0 queued=0 source=0 groups=0
+MEMORY free_before=260992 free_after=260992
+CHECK no_heap_loss got=1 want=1
+CHECK queued_ack got=23 want=23

@@ -1,0 +1,80 @@
+{
+  "results": [
+    {
+      "case": "formats",
+      "command": [
+        "C:\\msys64\\ucrt64\\bin\\gcc.exe",
+        "-x",
+        "c",
+        "-std=c89",
+        "-Wall",
+        "-Wextra",
+        "-pedantic",
+        "-I",
+        "<private-workspace>\\formats-adopt\\SOURCE",
+        "-I",
+        "<private-workspace>\\formats-adopt\\HOST\\STUB",
+        "<private-workspace>\\formats-adopt\\HOST\\TEST_FMTS.C",
+        "<private-workspace>\\formats-adopt\\SOURCE\\FMTCORE.C",
+        "<private-workspace>\\formats-adopt\\SOURCE\\VGM.C",
+        "<private-workspace>\\formats-adopt\\SOURCE\\VGMGRP.C",
+        "<private-workspace>\\formats-adopt\\SOURCE\\MODPLAY.C",
+        "<private-workspace>\\formats-adopt\\SOURCE\\GUNZIP.C",
+        "-o",
+        "<private-workspace>\\formats-work\\GZIP-RED\\formats.exe"
+      ],
+      "compile": 0,
+      "passed": false,
+      "exit": 1,
+      "output": "FAIL line17: r==v->error\nFAIL line17: n==v->used\nFAIL line17: !memcmp(plain,v->plain,v->used)\nFAIL line18: plain[0]=='A'\nFAIL line17: r==v->error\nFAIL line17: n==v->used\nFAIL line17: !memcmp(plain,v->plain,v->used)\nFAIL line18: plain[0]=='A'\nFAIL line17: r==v->error\nFAIL line17: n==v->used\nFAIL line17: !memcmp(plain,v->plain,v->used)\nFAIL line18: plain[0]=='A'\nFAIL line17: r==v->error\nFAIL line17: n==v->used\nFAIL line17: !memcmp(plain,v->plain,v->used)\nFAIL line18: plain[0]=='A'\nFAIL line17: r==v->error\nFAIL line17: n==v->used\nFAIL line17: !memcmp(plain,v->plain,v->used)\nFAIL line18: plain[0]=='A'\nFAIL line18: plain[0]=='A'\nFAIL line18: plain[0]=='A'\nformat producer: 160 checks, 22 failures\n"
+    },
+    {
+      "case": "burst",
+      "command": [
+        "C:\\msys64\\ucrt64\\bin\\gcc.exe",
+        "-x",
+        "c",
+        "-std=c89",
+        "-Wall",
+        "-Wextra",
+        "-pedantic",
+        "-I",
+        "<private-workspace>\\formats-adopt\\SOURCE",
+        "-I",
+        "<private-workspace>\\formats-adopt\\HOST\\STUB",
+        "<private-workspace>\\formats-adopt\\HOST\\TEST_BURST.C",
+        "-o",
+        "<private-workspace>\\formats-work\\GZIP-RED\\burst.exe"
+      ],
+      "compile": 0,
+      "passed": true,
+      "exit": 0,
+      "output": "actual RAWCLK burst: 3271 checks, 0 failures, unsafe IRQ calls=0\n"
+    },
+    {
+      "case": "mod",
+      "command": [
+        "C:\\msys64\\ucrt64\\bin\\gcc.exe",
+        "-x",
+        "c",
+        "-std=c89",
+        "-Wall",
+        "-Wextra",
+        "-pedantic",
+        "-I",
+        "<private-workspace>\\formats-adopt\\SOURCE",
+        "-I",
+        "<private-workspace>\\formats-adopt\\HOST\\STUB",
+        "<private-workspace>\\formats-adopt\\HOST\\TEST_MOD.C",
+        "<private-workspace>\\formats-adopt\\SOURCE\\MODPLAY.C",
+        "-o",
+        "<private-workspace>\\formats-work\\GZIP-RED\\mod.exe"
+      ],
+      "compile": 0,
+      "passed": true,
+      "exit": 0,
+      "output": "MOD parser tests passed\n"
+    }
+  ],
+  "scope": "Packaged production source; host fake hardware is not native timing proof"
+}

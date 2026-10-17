@@ -1,0 +1,78 @@
+MINIPLAY.C
+RAWAPP.C
+RAWFILE.C
+FMTAPP.C
+FMTAPP.C(25) : warning C4135: conversion between different integral types
+FMTAPP.C(37) : warning C4135: conversion between different integral types
+FMTAPP.C(76) : warning C4061: long/short mismatch in argument : conversion supplied
+FMTCORE.C
+FMTCORE.C(53) : warning C4135: conversion between different integral types
+FMTCORE.C(57) : warning C4135: conversion between different integral types
+VGM.C
+VGMGRP.C
+MODPLAY.C
+MODPLAY.C(354) : warning C4135: conversion between different integral types
+MODPLAY.C(366) : warning C4135: conversion between different integral types
+MODPLAY.C(453) : warning C4135: conversion between different integral types
+GUNZIP.C
+TIMECLK.C
+TIMECLK.C(41) : warning C4135: conversion between different integral types
+TIMECLK.C(42) : warning C4135: conversion between different integral types
+TIMECLK.C(43) : warning C4135: conversion between different integral types
+FMTGUI.C
+FULLGUI.C
+FULLGUI.C(42) : warning C4101: 'before' : unreferenced local variable
+FULLGUI.C(42) : warning C4101: 'clockBefore' : unreferenced local variable
+Microsoft (R) Macro Assembler Version 5.10 
+Copyright (C) Microsoft Corp 1981, 1988.  All rights reserved.
+
+
+  49500 + 416786 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors
+Microsoft (R) Macro Assembler Version 5.10 
+Copyright (C) Microsoft Corp 1981, 1988.  All rights reserved.
+
+
+  49562 + 400340 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors
+
+Microsoft (R) Segmented-Executable Linker  Version 5.01.17
+Copyright (C) Microsoft Corp 1984-1988.  All rights reserved.
+
+Object Modules [.OBJ]: CLOCK.OBJ WINHOOK.OBJ TIMECLK.OBJ
+Run File [CLOCK.EXE]: RAWCLK.DLL
+List File [NUL.MAP]: RAWCLK.MAP
+Libraries [.LIB]: C:\LIB\SLIBCEW.LIB C:\LIB\LIBW.LIB
+Definitions File [NUL.DEF]: TIMECLK.DEF
+
+Microsoft (R) Segmented-Executable Linker  Version 5.01.17
+Copyright (C) Microsoft Corp 1984-1988.  All rights reserved.
+
+Object Modules [.OBJ]: MINIPLAY.OBJ RAWFILE.OBJ RAWAPP.OBJ FMTAPP.OBJ FMTCORE.OBJ VGM.OBJ VGMGRP.OBJ MODPLAY.OBJ GUNZIP.OBJ
+Run File [MINIPLAY.EXE]: MINIPLAY.EXE
+List File [NUL.MAP]: MINIPLAY.MAP
+Libraries [.LIB]: C:\LIB\SLIBCEW.LIB C:\LIB\LIBW.LIB
+Definitions File [NUL.DEF]: MINIPLAY.DEF
+
+Microsoft (R) Segmented-Executable Linker  Version 5.01.17
+Copyright (C) Microsoft Corp 1984-1988.  All rights reserved.
+
+Object Modules [.OBJ]: FMTGUI.OBJ
+Run File [FMTGUI.EXE]: FMTGUI.EXE
+List File [NUL.MAP]: FMTGUI.MAP
+Libraries [.LIB]: C:\LIB\SLIBCEW.LIB C:\LIB\LIBW.LIB
+Definitions File [NUL.DEF]: FMTGUI.DEF
+
+Microsoft (R) Segmented-Executable Linker  Version 5.01.17
+Copyright (C) Microsoft Corp 1984-1988.  All rights reserved.
+
+Object Modules [.OBJ]: FULLGUI.OBJ
+Run File [FULLGUI.EXE]: FULLGUI.EXE
+List File [NUL.MAP]: FULLGUI.MAP
+Libraries [.LIB]: C:\LIB\SLIBCEW.LIB C:\LIB\LIBW.LIB
+Definitions File [NUL.DEF]: FULLGUI.DEF
+PASS

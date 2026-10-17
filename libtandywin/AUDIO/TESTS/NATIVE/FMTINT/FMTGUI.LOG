@@ -1,0 +1,38 @@
+CHECK launch got=1 want=1
+CHECK window got=1 want=1
+CHECK queued_ack got=1 want=1
+CHECK queued_ack got=2 want=2
+STATE actual=VGM PSG expected=VGM PSG
+CHECK state got=1 want=1
+CHECK VGM_active got=1 want=1
+CHECK burst_mode got=1 want=1
+CHECK exclusive got=1 want=1
+CHECK raw_writes got=1 want=1
+CHECK queued_ack got=3 want=3
+STATE actual=Paused expected=Paused
+CHECK state got=1 want=1
+CHECK paused got=1 want=1
+CHECK pause_writes_frozen got=2167 want=2167
+CHECK pause_clock_frozen got=52874 want=52874
+CHECK queued_ack got=4 want=4
+STATE actual=VGM PSG expected=VGM PSG
+CHECK state got=1 want=1
+CHECK resumed got=1 want=1
+CHECK resume_error got=0 want=0
+CHECK queued_ack got=5 want=5
+CHECK queued_ack got=6 want=6
+STATE actual=VGM PSG expected=VGM PSG
+CHECK state got=1 want=1
+CHECK VGZ_active got=1 want=1
+CHECK queued_ack got=7 want=7
+STATE actual=Stopped expected=Stopped
+CHECK state got=1 want=1
+CHECK stop_free got=3 want=3
+REFILL admission=0 minimum_sampled_queued=308 refused_at=0:0 clock=0:0 queued=0 source=0 groups=0
+MEMORY free_before=261344 free_after=261344
+CHECK no_heap_loss got=1 want=1
+CHECK queued_ack got=8 want=8
+CHECK queued_ack got=9 want=9
+CHECK close_destroyed got=0 want=0
+CHECK close_free got=3 want=3
+FINAL failures=0 checks=30

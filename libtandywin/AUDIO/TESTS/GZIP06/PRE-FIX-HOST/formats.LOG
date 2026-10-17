@@ -1,0 +1,132 @@
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C: In function 'FXOpen':
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C:7:2: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+    7 |  for(i=0;i<sizeof(*s);i++)p[i]=0;s->kind=kind;
+      |  ^~~
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C:7:34: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+    7 |  for(i=0;i<sizeof(*s);i++)p[i]=0;s->kind=kind;
+      |                                  ^
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C:8:2: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+    8 |  for(i=0;i<4;i++)s->lane[i]=255;for(i=0;i<3;i++)s->volume[i]=15;
+      |  ^~~
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C:8:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+    8 |  for(i=0;i<4;i++)s->lane[i]=255;for(i=0;i<3;i++)s->volume[i]=15;
+      |                                 ^~~
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C: In function 'terminal':
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C:17:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   17 |  if(s->terminal)return 0;s->terminal=1;
+      |  ^~
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C:17:26: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   17 |  if(s->terminal)return 0;s->terminal=1;
+      |                          ^
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C: In function 'FXNext':
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C:28:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   28 |  if(s->error)return -1;if(s->done)return terminal(s,b);
+      |  ^~
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C:28:24: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   28 |  if(s->error)return -1;if(s->done)return terminal(s,b);
+      |                        ^~
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C:35:5: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   35 |     if(s->nextAt<=s->loopAt)return fail(s,8);s->looped=1;
+      |     ^~
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C:35:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   35 |     if(s->nextAt<=s->loopAt)return fail(s,8);s->looped=1;
+      |                                              ^
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C:54:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   54 |    if(v==3)return fail(s,9);s->lane[c]=(unsigned char)v;
+      |    ^~
+<private-workspace>\formats-adopt\SOURCE\FMTCORE.C:54:29: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   54 |    if(v==3)return fail(s,9);s->lane[c]=(unsigned char)v;
+      |                             ^
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C: In function 'build':
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:8:2: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+    8 |  for(i=0;i<16;i++)t->count[i]=0;for(i=0;i<n;i++){if(lens[i]>15)return 0;t->count[lens[i]]++;}
+      |  ^~~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:8:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+    8 |  for(i=0;i<16;i++)t->count[i]=0;for(i=0;i<n;i++){if(lens[i]>15)return 0;t->count[lens[i]]++;}
+      |                                 ^~~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:12:2: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+   12 |  for(i=0;i<n;i++)if((len=lens[i])!=0)t->symbol[offsets[len]++]=i;return 1;
+      |  ^~~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:12:66: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+   12 |  for(i=0;i<n;i++)if((len=lens[i])!=0)t->symbol[offsets[len]++]=i;return 1;
+      |                                                                  ^~~~~~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C: In function 'decode':
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:16:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   16 |   if(code>=first&&code-first<count)return t->symbol[index+code-first];index+=count;first=(first+count)<<1;code<<=1;}
+      |   ^~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:16:71: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   16 |   if(code>=first&&code-first<count)return t->symbol[index+code-first];index+=count;first=(first+count)<<1;code<<=1;}
+      |                                                                       ^~~~~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C: In function 'gz_decode':
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:33:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   33 |  if(get(&s)!=31||get(&s)!=139||get(&s)!=8)return 1;flags=get(&s);if(flags&0xe0)return 1;
+      |  ^~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:33:52: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   33 |  if(get(&s)!=31||get(&s)!=139||get(&s)!=8)return 1;flags=get(&s);if(flags&0xe0)return 1;
+      |                                                    ^~~~~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:43:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   43 |    if((GZ16)(n^len)!=65535U)return 1;while(n--&&!s.error)emit(&s,(GZ8)get(&s));continue;}
+      |    ^~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:43:38: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   43 |    if((GZ16)(n^len)!=65535U)return 1;while(n--&&!s.error)emit(&s,(GZ8)get(&s));continue;}
+      |                                      ^~~~~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:46:4: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+   46 |    for(i=0;i<32;i++)lens[i]=5;if(!build(&dist,lens,32))return 3;
+      |    ^~~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:46:31: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+   46 |    for(i=0;i<32;i++)lens[i]=5;if(!build(&dist,lens,32))return 3;
+      |                               ^~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:49:4: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+   49 |    for(i=0;i<19;i++)cl[i]=0;for(i=0;i<ncl;i++)cl[co[i]]=(GZ8)bits(&s,3);if(!build(&ct,cl,19))return 3;
+      |    ^~~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:49:29: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+   49 |    for(i=0;i<19;i++)cl[i]=0;for(i=0;i<ncl;i++)cl[co[i]]=(GZ8)bits(&s,3);if(!build(&ct,cl,19))return 3;
+      |                             ^~~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:54:5: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   54 |     if(rep>n-i)return 3;while(rep--)lens[i++]=(GZ8)len;
+      |     ^~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:54:25: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   54 |     if(rep>n-i)return 3;while(rep--)lens[i++]=(GZ8)len;
+      |                         ^~~~~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:59:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   59 |    if(sym>285)return 3;sym-=257;len=lb[sym]+bits(&s,le[sym]);sym=decode(&s,&dist);if(sym<0||sym>=30)return 3;
+      |    ^~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:59:24: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   59 |    if(sym>285)return 3;sym-=257;len=lb[sym]+bits(&s,le[sym]);sym=decode(&s,&dist);if(sym<0||sym>=30)return 3;
+      |                        ^~~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:64:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   64 |  if(s.error)return s.error;s.nbits=0;s.bits=0;
+      |  ^~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:64:28: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   64 |  if(s.error)return s.error;s.nbits=0;s.bits=0;
+      |                            ^
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:67:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   67 |  if((crc^0xffffffffUL)!=want||plain!=(GZ32)s.used)return 4;*used=s.used;return 0;
+      |  ^~
+<private-workspace>\formats-adopt\SOURCE\GUNZIP.C:67:60: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   67 |  if((crc^0xffffffffUL)!=want||plain!=(GZ32)s.used)return 4;*used=s.used;return 0;
+      |                                                            ^
+
+FAIL line17: r==v->error
+FAIL line17: n==v->used
+FAIL line17: !memcmp(plain,v->plain,v->used)
+FAIL line18: plain[0]=='A'
+FAIL line17: r==v->error
+FAIL line17: n==v->used
+FAIL line17: !memcmp(plain,v->plain,v->used)
+FAIL line18: plain[0]=='A'
+FAIL line17: r==v->error
+FAIL line17: n==v->used
+FAIL line17: !memcmp(plain,v->plain,v->used)
+FAIL line18: plain[0]=='A'
+FAIL line17: r==v->error
+FAIL line17: n==v->used
+FAIL line17: !memcmp(plain,v->plain,v->used)
+FAIL line18: plain[0]=='A'
+FAIL line17: r==v->error
+FAIL line17: n==v->used
+FAIL line17: !memcmp(plain,v->plain,v->used)
+FAIL line18: plain[0]=='A'
+FAIL line18: plain[0]=='A'
+FAIL line18: plain[0]=='A'
+format producer: 160 checks, 22 failures

@@ -1,0 +1,47 @@
+{
+  "bytes": 256793,
+  "sha256": "57d98655dcf54c0f166cc57585bb0f084bd8f71bd42ea19fc6a7c7741bf1859a",
+  "entries": 177,
+  "native_cases": [
+    {
+      "case": "FMTINT",
+      "description": "Interactive controls",
+      "checks": 30,
+      "failures": 0,
+      "seconds": 262.18800000008196,
+      "lease_released": true,
+      "source_image_unchanged": true
+    },
+    {
+      "case": "FMTEOF",
+      "description": "EOF and refusal",
+      "checks": 43,
+      "failures": 0,
+      "seconds": 118.20300000021234,
+      "lease_released": true,
+      "source_image_unchanged": true
+    },
+    {
+      "case": "FMTFULL02",
+      "description": "Long streams, loop, maximum burst",
+      "checks": 40,
+      "failures": 0,
+      "seconds": 222.53099999995902,
+      "lease_released": true,
+      "source_image_unchanged": true
+    },
+    {
+      "case": "FMTREG",
+      "description": "Legacy MIDI/TND/AGI regression",
+      "checks": 58,
+      "failures": 0,
+      "seconds": 175.9839999997057,
+      "lease_released": true,
+      "source_image_unchanged": true
+    }
+  ],
+  "core_preview_unchanged": true,
+  "no_emulator_owned": true,
+  "pre_audit_sha256": "105d94871d406188de7aaa7480dd1bc7e7014c1245de3daa9dc5340b7a92bdb8",
+  "audit": "FORMATS30/AUDIT.JSON"
+}

@@ -1,0 +1,49 @@
+CHECK launch got=1 want=1
+CHECK window got=1 want=1
+CHECK queued_ack got=1 want=1
+CHECK queued_ack got=2 want=2
+STATE actual=VGM PSG expected=VGM PSG
+CHECK state got=1 want=1
+CHECK queued_ack got=3 want=3
+STATE actual=Done expected=Done
+CHECK state got=1 want=1
+CHECK EOF_sound_free got=3 want=3
+CHECK EOF_error got=0 want=0
+CHECK long_VGM_hash got=9118 want=9118
+CHECK long_VGM_writes got=2411 want=2411
+CHECK queued_ack got=4 want=4
+CHECK queued_ack got=5 want=5
+STATE actual=VGM PSG expected=VGM PSG
+CHECK state got=1 want=1
+CHECK queued_ack got=6 want=6
+STATE actual=Done expected=Done
+CHECK state got=1 want=1
+CHECK EOF_sound_free got=3 want=3
+CHECK EOF_error got=0 want=0
+CHECK long_VGZ_hash got=9118 want=9118
+CHECK long_VGZ_writes got=2411 want=2411
+CHECK queued_ack got=7 want=7
+CHECK queued_ack got=8 want=8
+CHECK queued_ack got=9 want=9
+STATE actual=Done expected=Done
+CHECK state got=1 want=1
+CHECK EOF_sound_free got=3 want=3
+CHECK EOF_error got=0 want=0
+CHECK loop_hash got=62286 want=62286
+CHECK loop_writes got=142 want=142
+CHECK loop_noise got=6 want=6
+CHECK queued_ack got=10 want=10
+CHECK queued_ack got=11 want=11
+CHECK queued_ack got=12 want=12
+STATE actual=Done expected=Done
+CHECK state got=1 want=1
+CHECK EOF_sound_free got=3 want=3
+CHECK EOF_error got=0 want=0
+CHECK maximum_burst_hash got=3585 want=3585
+CHECK maximum_burst_writes got=16 want=16
+REFILL admission=0 minimum_sampled_queued=512 refused_at=0:0 clock=0:0 queued=0 source=0 groups=0
+MEMORY free_before=261344 free_after=261344
+CHECK no_heap_loss got=1 want=1
+CHECK close_destroyed got=0 want=0
+CHECK close_free got=3 want=3
+FINAL failures=0 checks=40

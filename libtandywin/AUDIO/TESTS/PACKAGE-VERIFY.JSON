@@ -1,0 +1,106 @@
+{
+  "production_source_match_BUILD04": [
+    "MINIPLAY.C",
+    "MINIPLAY.DEF",
+    "MINIPLAY.RSP",
+    "RAWAPP.C",
+    "RAWAPP.H",
+    "RAWFILE.C",
+    "RAWFILE.H",
+    "LWAUDIO.H",
+    "MCIAPI.H",
+    "TIMECLK.H",
+    "TIMECLK.C",
+    "TIMECLK.DEF",
+    "TIMECLK.RSP",
+    "CLOCK.ASM",
+    "WINHOOK.ASM",
+    "TCBURST.H",
+    "FMTAPP.C",
+    "FMTAPP.H",
+    "FMTCORE.C",
+    "FMTCORE.H",
+    "GUNZIP.C",
+    "GUNZIP.H",
+    "VGM.C",
+    "VGM.H",
+    "VGMGRP.C",
+    "VGMGRP.H",
+    "MODPLAY.C",
+    "MODPLAY.H"
+  ],
+  "harness_source_match_HARNESS05": true,
+  "regenerated_inputs_equal": [
+    {
+      "name": "BAD.MOD",
+      "bytes": 2108,
+      "sha256": "f16705856eb1bc867acc658de13f3196fe8f646227e0c14a1bf60dd07a9a9810"
+    },
+    {
+      "name": "BAD.VGZ",
+      "bytes": 175,
+      "sha256": "eea89b8ad51ac42d062f4ba99242567af5233ff87902520a9a5e7f848a829483"
+    },
+    {
+      "name": "FAST.VGM",
+      "bytes": 127,
+      "sha256": "e161f1ee74ab949c90681fdadc7ffa2fda2abd2d5f6ecd1622e4e874871c7978"
+    },
+    {
+      "name": "FIXED.VGZ",
+      "bytes": 265,
+      "sha256": "d36652a1b06cf156b5f75d424dfb2741bb009a3e14df7d819d0c53744b031bb0"
+    },
+    {
+      "name": "FOUR.MOD",
+      "bytes": 2108,
+      "sha256": "0883c2982d3876bf7ced57ce7c60b2bec299831e65e75ee327d11f71e3ca42fb"
+    },
+    {
+      "name": "LONG.VGM",
+      "bytes": 6087,
+      "sha256": "3995a19a361c4578ac29906f4f08a471f539b7c61d551ffa79aa58663776c135"
+    },
+    {
+      "name": "LONG.VGZ",
+      "bytes": 211,
+      "sha256": "47703eb11d586369ed8301ddafa35dcef15acb8a09cd17d01471f5cf874085f2"
+    },
+    {
+      "name": "LOOP.VGM",
+      "bytes": 237,
+      "sha256": "c7f14a10b768b0d0533fb9855ce1c25734f18efc130bd9a4012b40adbe045b70"
+    },
+    {
+      "name": "MAX.VGM",
+      "bytes": 98,
+      "sha256": "e4c4a5241f5060b008053ede318f13f1ba4967c1293dc188a660ae8f38713e5b"
+    },
+    {
+      "name": "README.TXT",
+      "bytes": 202,
+      "sha256": "9debbb1df91004c8c9714f887dd4966ae90ddb58ba41465f4cc149f8346f09bb"
+    },
+    {
+      "name": "SHORT.VGM",
+      "bytes": 387,
+      "sha256": "89f204cb51e9aabc86b7e42b31cc9402d3789f0e2ca9d9b410a572b27f4205bc"
+    },
+    {
+      "name": "SHORT.VGZ",
+      "bytes": 175,
+      "sha256": "e5a88dad1f2039b585857a04f296e56fd91fd0aa7d694ab35b58699433e59ee1"
+    },
+    {
+      "name": "STORE.VGZ",
+      "bytes": 6110,
+      "sha256": "00238749d07c3c2d8fe68b3bf200e4482bc6d5c902ca14411ea81bdbd410436f"
+    },
+    {
+      "name": "THREE.MOD",
+      "bytes": 2108,
+      "sha256": "b6b832f9a5c5530308b93fc82f61ba34c329b3fbfdcf53c977a646241966caa6"
+    }
+  ],
+  "note": "Only generator, packaging and documentation changed after production/native build; candidate production sources match their saved compiler inputs."
+}
