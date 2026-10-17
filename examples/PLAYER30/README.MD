@@ -1,0 +1,23 @@
+# Windows 3.0 native player preview
+
+Download [WINLIB30.ZIP](WINLIB30.ZIP?raw=1) and read its INSTALL.MD before running.
+The archive includes corresponding source, build recipes, the tested program
+set, three original synthetic scores, native logs and an actual window crop.
+No Microsoft files, driver, tools, fonts, ROMs or third-party songs are included.
+
+The native Tandy HX 8088 / 640 KB / stock-CGA Windows 3.0 real-mode GUI case
+passed 58 checks with zero failures. Free memory was 292,992 bytes before and
+after, and the bridge restored the original vectors and returned cleanly to
+DOS. See [QUALIFY.JSON](QUALIFY.JSON). This is a bounded emulator result;
+physical hardware, listening/fidelity and calibrated CPU timing are untested.
+
+The exact external TSOUND prerequisite is the driver already published in
+[PITWIN](https://github.com/astrobleem/oemsound-tandy/releases/tag/sound-exp-v0.1.0-pit.20261007),
+SHA-256 7461d227846830f3ff604c40cf31ad0e3fb34122a13de6269e86de02cc4209e5.
+Keep that dependency's published source/license. Installation is manual in a
+matching disposable guest; the launcher checks compatibility and installs no
+Windows driver. MOD/VGM/VGZ, automatic bass and PCjr audio remain unfinished.
+
+Archive: 138,101 bytes, 96 entries, SHA-256
+`12d2e62616975d6bc7d4c41e48492100c14947752fc8ad95faa770ea32350870`.
+The original source-only snapshot remains unchanged at commit 80b1431.
