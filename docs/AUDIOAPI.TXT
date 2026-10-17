@@ -1,33 +1,32 @@
-Audio interface proposal - no shipped audio implementation
+libwintandy audio facade - Windows3.0 source candidate
 
-Reuse R4's existing MDAPI.H/TIMECLK.H ABI and ordinary foreground caller
-helpers. The intended public audio header will forward audited declarations;
-this proposal does not create a second event or expressive patch format.
-Actual R4 declarations, license and ABI pins must be reviewed before binding.
+LWAUDIO.H forwards the real R4 MCIAPI.H and restored guarded RAWAPP.H.
+MINIPLAY's app-local MCITNDY path still feeds MIDICLK and RAWCLK; its TND/AGI
+path still uses RAWAPP/RAWFILE and RAWCLK. API names, export ordinals, packed
+messages, generation and timestamp semantics are unchanged. MDAPI.H and
+TIMECLK.H remain the advanced provider contracts. No new expressive patch
+format, live callback, mixer, owner task or scheduler is introduced.
 
-Keep RAWCLK.DLL as the sole audio clock/PSG owner and MIDICLK.DLL as the
-foreground renderer/producer. No new Windows task, DLL-owned callback,
-DOS direct-PSG path or separate timer may bypass existing ownership.
+The R4 raw-score utility collided with the player's RAWAPP.H name. This source
+candidate restores the exact R3 declarations with guards and assigns guarded
+RAWSCORE.H to the utility. Five raw-port include changes remain in the isolated
+complete-source worktree. Their musical/data content is not bundled here.
+Fresh player/RAWQA/five-port builds are required before binary publication.
+Historical R4 tests apply to their exact recorded binaries, not a fresh build
+from the defective historical header. Provider/IRQ/ownership bodies are intact.
 
-Preserve timestamp units (PIT cycles), generation acknowledgements, complete
-timestamp-group commits, queue capacity and accepted-minus-delivered pending
-accounting. FULL accepts nothing: retain and retry the exact suffix. EOF
-completes after drain and terminal silence. These are existing contract
-requirements reported by the R4 owner, pending source review.
+Retain PIT-cycle raw timestamps, full-group commits, generation checks and
+accepted-minus-delivered pending accounting. FULL accepts nothing: retain/retry
+the exact suffix. EOF means actual drain and terminal silence. Pause retains
+owner/queue and freezes/mutes; resume continues. Acknowledged Reset precedes
+stop/restart/refill; successful Close precedes unload/destruction. BUSY retains
+handles/modules for retry. Use genuine FAR buffers and audited DS/SS handling.
+No parsing, allocation, Windows/DOS calls or client callback belongs in IRQ.
 
-Pause mutes/freezes while retaining owner/queue; resume continues. Stop and
-restart use acknowledged Reset with a new generation, then refill/start.
-Close must succeed before destruction or DLL unload; BUSY retains handle
-and modules for retry. Keep genuine FAR output buffers and audited DS/SS
-handling. IRQ work must remain bounded and contain no parser, allocation,
-USER/DOS or client callbacks.
+The facade exposes the existing semantics without promising universal 1ms or
+live-key latency. Stage5 instrument steps remain55ms and prepared-frame minimum
+spacing remains8ms. No AY hardware envelopes, sampled vocals or RPI evaluator
+are added. The app-local MCI module is not a full MMSYSTEM implementation.
 
-MINIPLAY already has two producer paths: SMF through its app-local MCI MIDI
-module and MIDICLK; TND/AGI raw events through RAWFILE and RAWCLK. Keep those
-paths and existing playlist/GDI UI. MCI app-local support does not imply a
-complete Windows MMSYSTEM implementation. Live latency and hardware behavior
-remain separate validation scopes.
-
-Hardware-specific noise/LFSR/retrigger behavior belongs to the audited
-provider. Do not substitute AY envelopes, sampled vocals or a new patch
-format. No audio compatibility, timing or native binary claim is made here.
+UI integration does not apply text suppression to MINIPLAY's custom controls;
+their GDI painting, clipping, playlist and invalidation bodies remain unchanged.

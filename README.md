@@ -1,23 +1,28 @@
 # libwintandy
 
-Small shared components for 8086 Windows 3.0 applications. The first component
-is the existing USER/GDI repaint helper, now exposed by `LWTANDY.H`. Historical
-`libtandywin` directory and `Ltw` API names remain compatible.
+Small shared components for 8086 Windows 3.0 applications. The historical
+`libtandywin` directory and existing API names remain compatible.
 
-This initial source package contains the UI component only. Audio adoption is
-proposed in docs/AUDIOAPI.TXT; no audio implementation or player binary is
-included. DOS libtandy remains a separate project.
+* `LWTANDY.H` exposes the unchanged USER repaint helpers. TShell's isolated
+  adoption changes its include/build boundary only; 24 original host checks
+  pass and expanded source is identical.
+* `LWAUDIO.H` forwards the existing app-local MCI/raw-player declarations.
+  The isolated MINIPLAY (styled Tandy-Winamp) candidate uses this facade.
+  Reused R4 provider source is in libtandywin/AUDIO, with its original event
+  formats, timing and exclusive ownership. No replacement scheduler is added.
 
-Include your own licensed Windows 3.0 WINDOWS.H, then LWTANDY.H. Compile
-libtandywin/LTWUI.C into each caller. See libtandywin/README.TXT for contracts
-and docs/BUILD.TXT for host and Win16 build recipes.
+This is a source candidate. No native binaries are included. Fresh MSC6 player,
+RAWQA and five raw-port rebuilds and native Windows3.0 checks remain required
+before new binary publication. R4's header collision and historical evidence
+limits are documented in libtandywin/AUDIO/FACADE/ERRATUM.JSON and STATUS.TXT.
+Host checks cover source behavior and layouts; they do not certify IRQ timing,
+Windows pixels, the Win16 ABI, or physical hardware.
 
-The 24 original host mock checks pass against the unchanged implementation.
-TShell's old and new includes produced identical host preprocessor output.
-These checks establish USER call behavior and an unchanged expansion, not a
-fresh native Windows build, pixel equivalence, or physical hardware coverage.
-Native checks are pending an emulator slot. See docs/ADOPT.TXT.
+UI code uses USER/GDI and has no Tandy display dependency. Current R4 audio
+admission/backend is qualified for its exact Tandy HX fixture only; PCjr audio
+is pending. The application API can remain the same when a PCjr backend is
+qualified. No PCjr Setup/JRGRAB, Windows3.1 or protected-mode work is included.
 
-All files in this source package are first-party source, original mocks,
-metadata, or documentation under LICENSE. No Windows headers, fonts, media,
-compiler, emulator, third-party music, or native binaries are bundled.
+See docs/BUILD.TXT and docs/ADOPT.TXT. No Windows files, SDK, fonts, tools,
+ROMs, emulator, songs or captured media are bundled. Project source is MIT;
+the RAWFILE format/table attribution retains LICENSE-TNDY.TXT as well.

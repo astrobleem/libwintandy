@@ -1,0 +1,17 @@
+PCjr capability scope
+
+The UI helpers call USER with caller-owned HWNDs and contain no display mode,
+BIOS, port or Tandy framebuffer assumptions. Their application interface is
+usable with a Windows3.0 display backend; PCjr native UI testing is separate.
+
+Audio applications call the MCI/raw/MD interfaces, not machine ports. Preserve
+those interfaces so a future capability-selected backend can support PCjr
+without an application rewrite. Capability checks belong in backend admission
+and its owned startup adapter, ahead of sound/timer acquisition.
+
+Current R4 TPLAY/TSTART explicitly require the qualified Tandy HX BIOS and IRQ0
+identity. CLOCK/TBRIDGE use0C0h writes. This is not PCjr coverage. PCjr routing,
+BIOS/IRQ/ownership/restore behavior and native audio qualification remain pending;
+do not bypass the existing whitelist or assume that hardware shares a backend.
+No new PCjr backend is implemented in this first adoption batch. Existing
+PCjr Setup/JRGRAB work stays with its owner. Windows3.1/RLX is out of scope.
