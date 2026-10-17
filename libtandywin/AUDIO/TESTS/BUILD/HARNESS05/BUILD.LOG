@@ -1,0 +1,35 @@
+INTERGUI.C
+
+Microsoft (R) Segmented-Executable Linker  Version 5.01.17
+Copyright (C) Microsoft Corp 1984-1988.  All rights reserved.
+
+Object Modules [.OBJ]: INTERGUI.OBJ
+Run File [INTERGUI.EXE]: INTERGUI.EXE
+List File [NUL.MAP]: INTERGUI.MAP
+Libraries [.LIB]: C:\LIB\SLIBCEW.LIB C:\LIB\LIBW.LIB
+Definitions File [NUL.DEF]: INTERGUI.DEF
+EOFGUI.C
+EOFGUI.C(47) : warning C4101: 'before' : unreferenced local variable
+EOFGUI.C(47) : warning C4101: 'clockBefore' : unreferenced local variable
+
+Microsoft (R) Segmented-Executable Linker  Version 5.01.17
+Copyright (C) Microsoft Corp 1984-1988.  All rights reserved.
+
+Object Modules [.OBJ]: EOFGUI.OBJ
+Run File [EOFGUI.EXE]: EOFGUI.EXE
+List File [NUL.MAP]: EOFGUI.MAP
+Libraries [.LIB]: C:\LIB\SLIBCEW.LIB C:\LIB\LIBW.LIB
+Definitions File [NUL.DEF]: EOFGUI.DEF
+FULLGUI.C
+FULLGUI.C(48) : warning C4101: 'before' : unreferenced local variable
+FULLGUI.C(48) : warning C4101: 'clockBefore' : unreferenced local variable
+
+Microsoft (R) Segmented-Executable Linker  Version 5.01.17
+Copyright (C) Microsoft Corp 1984-1988.  All rights reserved.
+
+Object Modules [.OBJ]: FULLGUI.OBJ
+Run File [FULLGUI.EXE]: FULLGUI.EXE
+List File [NUL.MAP]: FULLGUI.MAP
+Libraries [.LIB]: C:\LIB\SLIBCEW.LIB C:\LIB\LIBW.LIB
+Definitions File [NUL.DEF]: FULLGUI.DEF
+PASS

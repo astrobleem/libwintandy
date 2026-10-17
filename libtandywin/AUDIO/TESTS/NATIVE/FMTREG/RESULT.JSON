@@ -1,0 +1,150 @@
+{
+  "completed": true,
+  "error": null,
+  "seconds": 175.9839999997057,
+  "profile": {
+    "case": "FMTREG",
+    "source": "external-private-seed/BASE.IMG (not distributed)",
+    "source_sha256": "b8a2693afdeca383a5d6a5d3834494284eaa46cab70c5269ee2cce61be3f187f",
+    "fresh_products": [
+      {
+        "name": "RAWCLK.DLL",
+        "bytes": 10814,
+        "sha256": "0a3528ee7729b50b4bb69d2d4d3caca5c1b92c260030ac29b80ba148975948e0"
+      },
+      {
+        "name": "MINIPLAY.EXE",
+        "bytes": 47997,
+        "sha256": "7e2481905edeebbe3648ce1d28856afa7f947ee2ae67061bf9117ad061bb2763"
+      }
+    ],
+    "harness_original_from_seed": true,
+    "launch": "TPLAY C:\\CW /TEST",
+    "log": "RAWGUI.LOG",
+    "expected_checks": 58,
+    "profile": "TandyHX8088 4772728Hz 640KB stockCGA Win3.0real",
+    "scope": "Legacy MIDI/TND/AGI native regression with original pinned58-check harness"
+  },
+  "frames": [
+    {
+      "name": "FRAME00.PNG",
+      "log_tail": "CHECK visible_window got=1 want=1",
+      "sha256": "4497ffd592ab8bce657ebd1b5c1020b024c5c2b0007af57299d549b5ba78a68a"
+    },
+    {
+      "name": "FRAME01.PNG",
+      "log_tail": "CHECK queued_input_ack got=1 want=1",
+      "sha256": "f376007d9074bcbf3000e6049d1e14bc1e14d4347493a6a5b07b19a48469f8a8"
+    },
+    {
+      "name": "FRAME02.PNG",
+      "log_tail": "CHECK queued_input_ack got=2 want=2",
+      "sha256": "2ef50cc0891028cb8ec587d635211f9556a5506a66c863e34989a36033ddc372"
+    },
+    {
+      "name": "FRAME03.PNG",
+      "log_tail": "CHECK queued_input_ack got=3 want=3",
+      "sha256": "bb41171539d83a0cba14d2906cc2f6817e789219ecf2188e5df9e40f005bdb82"
+    },
+    {
+      "name": "FRAME04.PNG",
+      "log_tail": "CHECK TND_PSG_writes got=1 want=1",
+      "sha256": "e8feaa7bc9bc4ee43d89bbb434205b278a681b913c84f89a2638ac12255a8e41"
+    },
+    {
+      "name": "FRAME05.PNG",
+      "log_tail": "CHECK queued_input_ack got=5 want=5",
+      "sha256": "e444cf5e34b2d54bc8ef0141dbb1e605f3a337af8fa695940842ee537c923705"
+    },
+    {
+      "name": "FRAME06.PNG",
+      "log_tail": "CHECK queued_input_ack got=6 want=6",
+      "sha256": "12e219f886689dd024baaf7000d91849a4774939c4f579cb088bc4a71592800a"
+    },
+    {
+      "name": "FRAME07.PNG",
+      "log_tail": "CHECK queued_input_ack got=7 want=7",
+      "sha256": "4110a0f84a3df7dae89e316eb421adb1a296ee2bdd7ff7abfdba7accf18c874b"
+    },
+    {
+      "name": "FRAME08.PNG",
+      "log_tail": "CHECK queued_input_ack got=8 want=8",
+      "sha256": "9cbc926fa6461bed4c38bdcba3bb0daca07d973e752691b2d45fc19252c22efe"
+    },
+    {
+      "name": "FRAME09.PNG",
+      "log_tail": "CHECK queued_input_ack got=9 want=9",
+      "sha256": "810917e533f7cc2d4e11073881dab15140719fdcae23008ccda4787c82395db4"
+    },
+    {
+      "name": "FRAME10.PNG",
+      "log_tail": "CHECK queued_input_ack got=10 want=10",
+      "sha256": "cb7e9e1004c36a04696343c55a3b58593344a3fcaf714375ef22435a5d645a60"
+    },
+    {
+      "name": "FRAME11.PNG",
+      "log_tail": "CHECK queued_input_ack got=13 want=13",
+      "sha256": "f68ded6a4354ddad117c43397582fef93228e68c7a285908d3c824c5c7780f22"
+    },
+    {
+      "name": "FRAME12.PNG",
+      "log_tail": "CHECK queued_input_ack got=15 want=15",
+      "sha256": "0f9a02c59de29e77e84b834ee7d11718d9ac9323590af488d359f1d4230075b7"
+    },
+    {
+      "name": "FRAME13.PNG",
+      "log_tail": "CHECK queued_input_ack got=18 want=18",
+      "sha256": "462b801922aa62ac2e719709c55df837f1fcc1ed6ab396db99b11a10d0b3d939"
+    },
+    {
+      "name": "FRAME14.PNG",
+      "log_tail": "CHECK restart_active got=1 want=1",
+      "sha256": "fdc4ac319597ca3d544031036e012ce811435ec60442652cedcb78d51e6d5da0"
+    },
+    {
+      "name": "FRAME15.PNG",
+      "log_tail": "CHECK queued_input_ack got=21 want=21",
+      "sha256": "2f6eef4906fcb21ca1dedf7b646008b8825cab6566358ba7c18f993a319ef6a8"
+    },
+    {
+      "name": "FRAME16.PNG",
+      "log_tail": "CHECK queued_input_ack got=24 want=24",
+      "sha256": "ecf06693cc8a5bb39fe19a4738b620d318110fde79c98b8ffb343b04f5b9212e"
+    },
+    {
+      "name": "FRAME17.PNG",
+      "log_tail": "CHECK Windows_still_running got=1 want=1",
+      "sha256": "50d75f70f49630c7f61250169822d3f10c17cc958edcc1e105380d8bc1314881"
+    },
+    {
+      "name": "FRAME18.PNG",
+      "log_tail": "FINAL failures=0 checks=58",
+      "sha256": "a16587f380eb247efd5f39ec52ce9bed84697bfb0f8d64d8bd9e482d472e2866"
+    }
+  ],
+  "source_unchanged": true,
+  "observed_log_steps": [
+    "CHECK visible_window got=1 want=1",
+    "CHECK queued_input_ack got=1 want=1",
+    "CHECK queued_input_ack got=2 want=2",
+    "CHECK queued_input_ack got=3 want=3",
+    "CHECK TND_PSG_writes got=1 want=1",
+    "CHECK queued_input_ack got=5 want=5",
+    "CHECK queued_input_ack got=6 want=6",
+    "CHECK queued_input_ack got=7 want=7",
+    "CHECK queued_input_ack got=8 want=8",
+    "CHECK queued_input_ack got=9 want=9",
+    "CHECK queued_input_ack got=10 want=10",
+    "CHECK queued_input_ack got=13 want=13",
+    "CHECK queued_input_ack got=15 want=15",
+    "CHECK queued_input_ack got=18 want=18",
+    "CHECK restart_active got=1 want=1",
+    "CHECK queued_input_ack got=21 want=21",
+    "CHECK queued_input_ack got=24 want=24",
+    "CHECK Windows_still_running got=1 want=1",
+    "FINAL failures=0 checks=58"
+  ],
+  "host_poll_guest_seconds": 2,
+  "audio": "native register/lifecycle checks only; no listening or physical capture",
+  "public_record_note": "Private seed pathname normalized; local original RESULT.JSON retained unchanged."
+}

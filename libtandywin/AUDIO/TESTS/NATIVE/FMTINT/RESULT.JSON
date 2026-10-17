@@ -1,0 +1,100 @@
+{
+  "completed": true,
+  "error": null,
+  "seconds": 262.18800000008196,
+  "profile": {
+    "case": "FMTINT",
+    "source": "external-private-seed/BASE.IMG (not distributed)",
+    "source_sha256": "b8a2693afdeca383a5d6a5d3834494284eaa46cab70c5269ee2cce61be3f187f",
+    "fresh_products": [
+      {
+        "name": "RAWCLK.DLL",
+        "bytes": 10814,
+        "sha256": "0a3528ee7729b50b4bb69d2d4d3caca5c1b92c260030ac29b80ba148975948e0"
+      },
+      {
+        "name": "MINIPLAY.EXE",
+        "bytes": 47997,
+        "sha256": "7e2481905edeebbe3648ce1d28856afa7f947ee2ae67061bf9117ad061bb2763"
+      },
+      {
+        "name": "INTERGUI.EXE",
+        "bytes": 6093,
+        "sha256": "10415f41a9279ca3398be5e30611fa55a6b14d185664b05bf84945dba16eb63f",
+        "alias": "RAWGUI.EXE"
+      }
+    ],
+    "launch": "TPLAY C:\\CW /TEST",
+    "log": "FMTGUI.LOG",
+    "expected_checks": null,
+    "profile": "TandyHX8088 4772728Hz 640KB stockCGA Win3.0real",
+    "scope": "Actual integrated VGM/VGZ/MOD GUI and byte-order/lifecycle; no listening claim"
+  },
+  "frames": [
+    {
+      "name": "FRAME00.PNG",
+      "log_tail": "CHECK launch got=1 want=1",
+      "sha256": "b02bcf99139658a642edd299e9fdd9470531448bf54e95e52c88ef2458a370b4"
+    },
+    {
+      "name": "FRAME01.PNG",
+      "log_tail": "CHECK queued_ack got=1 want=1",
+      "sha256": "2986a1b09e0d0e4953eb245d56f105afa7b8a86e256610165b4d8b7582ed2a8e"
+    },
+    {
+      "name": "FRAME02.PNG",
+      "log_tail": "CHECK raw_writes got=1 want=1",
+      "sha256": "c083bd1c4e4dd25477681e11c13ee6becb0dfce2ed87d078966f6d94a5abde7d"
+    },
+    {
+      "name": "FRAME03.PNG",
+      "log_tail": "CHECK pause_clock_frozen got=52874 want=52874",
+      "sha256": "99dcafc30a620e9e3eb4995f6ec82ce653f713099c7f16496329a87c83dcb528"
+    },
+    {
+      "name": "FRAME04.PNG",
+      "log_tail": "CHECK resume_error got=0 want=0",
+      "sha256": "6ab8ee2146d0d79a749a9122fce668f4fcc00717938855b69a8b08f2c6502594"
+    },
+    {
+      "name": "FRAME05.PNG",
+      "log_tail": "CHECK queued_ack got=5 want=5",
+      "sha256": "9ea0647d9d334910d2131469213363399d748a95e238569d65030eb2fdb8de88"
+    },
+    {
+      "name": "FRAME06.PNG",
+      "log_tail": "CHECK VGZ_active got=1 want=1",
+      "sha256": "c95ea3b18f118bca4cc072783fec3d6bb5d76674bf684d27f697ede3d3c8acc8"
+    },
+    {
+      "name": "FRAME07.PNG",
+      "log_tail": "CHECK queued_ack got=8 want=8",
+      "sha256": "9a20fe513c6464c056411e3e1ea9574c96318af8ab1560982f2ba76c271418d8"
+    },
+    {
+      "name": "FRAME08.PNG",
+      "log_tail": "CHECK queued_ack got=9 want=9",
+      "sha256": "1423a98d60b2034ef90939fed5119946feb524cc27f7ce714613c99a92c4968f"
+    },
+    {
+      "name": "FRAME09.PNG",
+      "log_tail": "FINAL failures=0 checks=30",
+      "sha256": "11e0ebcec0b7cf8b342107e2d8c9238648313a235cdd48b9dc9151360bfb7fa4"
+    }
+  ],
+  "source_unchanged": true,
+  "observed_log_steps": [
+    "CHECK launch got=1 want=1",
+    "CHECK queued_ack got=1 want=1",
+    "CHECK raw_writes got=1 want=1",
+    "CHECK pause_clock_frozen got=52874 want=52874",
+    "CHECK resume_error got=0 want=0",
+    "CHECK queued_ack got=5 want=5",
+    "CHECK VGZ_active got=1 want=1",
+    "CHECK queued_ack got=8 want=8",
+    "CHECK queued_ack got=9 want=9",
+    "FINAL failures=0 checks=30"
+  ],
+  "audio": "native register/lifecycle checks only; no listening or physical capture",
+  "public_record_note": "Private seed pathname normalized; local original RESULT.JSON retained unchanged."
+}

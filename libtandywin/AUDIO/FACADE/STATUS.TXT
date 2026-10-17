@@ -1,3 +1,7 @@
+Historical facade-only record below. It does not describe the later
+format feature or current native qualification. See ../QUALIFY.MD and
+../PROVENANCE.JSON for the separately tested 171-check format preview.
+
 Isolated Windows3.0 libwintandy audio adoption candidate
 
 Access resolved using an already-present explicitly authorized local Downloads

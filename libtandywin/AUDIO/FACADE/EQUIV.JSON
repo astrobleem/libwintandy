@@ -53,5 +53,7 @@
       "name": "TBRIDGE.ASM",
       "sha256": "35589608781d651d8a42b31fdd84a2f2745baee3fc11c4b3acb1bfe65a4446af"
     }
-  ]
+  ],
+  "stage": "Historical facade extraction; not a source-equivalence claim for the later format feature",
+  "current_format_preview": "../QUALIFY.MD and PROVENANCE.JSON: 171 checks / 0 failures"
 }

@@ -1,0 +1,160 @@
+{
+  "completed": false,
+  "error": "AssertionError('state got=1 want=1\\r\\nCHECK EOF_sound_free got=3 want=3\\r\\nCHECK EOF_error got=0 want=0\\r\\nCHECK VGZ_same_byte_hash got=54622 want=54622\\r\\nCHECK VGZ_same_byte_count got=131 want=131\\r\\nCHECK queued_ack got=14 want=14\\r\\nCHECK queued_ack got=15 want=15\\r\\nSTATE actual=MOD PSG expected=MOD PSG\\r\\nCHECK state got=1 want=1\\r\\nCHECK queued_ack got=16 want=16\\r\\nSTATE actual=Done expected=Done\\r\\nCHECK state got=1 want=1\\r\\nCHECK EOF_sound_free got=3 want=3\\r\\nCHECK EOF_error got=0 want=0\\r\\nCHECK MOD_no_noise_retrigger got=0 want=0\\r\\nCHECK MOD_groups got=48 want=48\\r\\nCHECK queued_ack got=17 want=17\\r\\nCHECK queued_ack got=18 want=18\\r\\nCHECK four_lane_refused got=0 want=0\\r\\nCHECK four_lane_sound_free got=3 want=3\\r\\nCHECK queued_ack got=19 want=19\\r\\nCHECK queued_ack got=20 want=20\\r\\nCHECK fast_refused got=0 want=0\\r\\nCHECK fast_sound_free got=3 want=3\\r\\nCHECK queued_ack got=21 want=21\\r\\nCHECK queued_ack got=22 want=22\\r\\nCHECK bad_crc_refused got=0 want=0\\r\\nCHECK bad_crc_sound_free got=3 want=3\\r\\nMEMORY free_before=261408 free_after=261408\\r\\nCHECK no_heap_loss got=1 want=1\\r\\nCHECK queued_ack got=23 want=23\\r\\nCHECK queued_ack got=24 want=24\\r\\nCHECK close_destroyed got=0 want=0\\r\\nCHECK close_free got=3 want=3\\r\\nFINAL failures=7 checks=68\\r\\n')",
+  "seconds": 200.21799999987707,
+  "profile": {
+    "case": "FMT02",
+    "source": "external-private-seed/BASE.IMG (not distributed)",
+    "source_sha256": "b8a2693afdeca383a5d6a5d3834494284eaa46cab70c5269ee2cce61be3f187f",
+    "fresh_products": [
+      {
+        "name": "RAWCLK.DLL",
+        "bytes": 10814,
+        "sha256": "4bfc3d9dc8910a72f2db5818eda43740da67f3517bf1571dc5cda85e59e8fc57"
+      },
+      {
+        "name": "MINIPLAY.EXE",
+        "bytes": 47997,
+        "sha256": "6f7dc7156c80b06606e418bddd162305a208e53ae12f8a7a8f0cff784d6bd827"
+      },
+      {
+        "name": "FMTGUI.EXE",
+        "bytes": 6349,
+        "sha256": "10eada56635d5186120866b500edae5b497280bdd53eb98347be837a220de996"
+      }
+    ],
+    "launch": "TPLAY C:\\CW /TEST",
+    "log": "FMTGUI.LOG",
+    "expected_checks": null,
+    "profile": "TandyHX8088 4772728Hz 640KB stockCGA Win3.0real",
+    "scope": "Actual integrated VGM/VGZ/MOD GUI and byte-order/lifecycle; no listening claim"
+  },
+  "frames": [
+    {
+      "name": "FRAME00.PNG",
+      "log_tail": "CHECK launch got=1 want=1",
+      "sha256": "ec327d20f2f9c896dd7fdc0690f3b40eaabf8632be77e8fd4b5da80bbaae91a4"
+    },
+    {
+      "name": "FRAME01.PNG",
+      "log_tail": "CHECK queued_ack got=1 want=1",
+      "sha256": "55a35f8abb726c646e00979bb3605ccd8be1b81c88fb05d16e4adfc0490c6a30"
+    },
+    {
+      "name": "FRAME02.PNG",
+      "log_tail": "CHECK state got=1 want=1",
+      "sha256": "802363bc6dd2903c826fd04bea802f2380f4080b302f9a383a3b8902b8ef3e95"
+    },
+    {
+      "name": "FRAME03.PNG",
+      "log_tail": "CHECK queued_ack got=3 want=3",
+      "sha256": "2cbfb54175428c50651674f1e5f15955e8a85cc812f85eac6aba2eeee57ef521"
+    },
+    {
+      "name": "FRAME04.PNG",
+      "log_tail": "CHECK state got=0 want=1",
+      "sha256": "ac65ba8b1b490b6e4f4c2250d0fa96b7008dbb8fdf7249a2e30d31dddaad30c6"
+    },
+    {
+      "name": "FRAME05.PNG",
+      "log_tail": "CHECK queued_ack got=5 want=5",
+      "sha256": "766c8f20e0d66d32d62b52f38a326e7fc85d901b681115feb5012bda36a3065e"
+    },
+    {
+      "name": "FRAME06.PNG",
+      "log_tail": "CHECK VGZ_active got=0 want=1",
+      "sha256": "f823c47973ebf237cc84dc6278eb7b2010e74c7c81baa33a17a3c4f4b1973805"
+    },
+    {
+      "name": "FRAME07.PNG",
+      "log_tail": "CHECK queued_ack got=8 want=8",
+      "sha256": "fab69b17532b74be1039df2bfb6e38fb98638d18520e296827cb23c6f0ab4ca0"
+    },
+    {
+      "name": "FRAME08.PNG",
+      "log_tail": "CHECK queued_ack got=9 want=9",
+      "sha256": "73548eeae5359a5750ca3d38f94ebd19c709860a1f9cdd7336b62e33548857df"
+    },
+    {
+      "name": "FRAME09.PNG",
+      "log_tail": "CHECK intentional_noise_writes got=3 want=3",
+      "sha256": "93bd018fc56774963dc939af0f52269842e4652505bbfe4aa4d4f394a4281c25"
+    },
+    {
+      "name": "FRAME10.PNG",
+      "log_tail": "CHECK queued_ack got=11 want=11",
+      "sha256": "f23e89ff2f38e847711cce52d609e3132fdf3b84be86374771828749154d6ad2"
+    },
+    {
+      "name": "FRAME11.PNG",
+      "log_tail": "CHECK queued_ack got=12 want=12",
+      "sha256": "3574f5930744f16149fdaf51070b9d880aab393201812476840e9e920b6451b1"
+    },
+    {
+      "name": "FRAME12.PNG",
+      "log_tail": "CHECK queued_ack got=14 want=14",
+      "sha256": "d362e6964bd7e2dd50eadce3be2c607cd828a9395ea24932398e6459306573a5"
+    },
+    {
+      "name": "FRAME13.PNG",
+      "log_tail": "CHECK state got=1 want=1",
+      "sha256": "f41640825bbf68663e2431c9bd8252f7bb3f16b26731fc9819feb6f6cf9d6f62"
+    },
+    {
+      "name": "FRAME14.PNG",
+      "log_tail": "CHECK queued_ack got=17 want=17",
+      "sha256": "f4f544b289d88cfadb4d5b6e0a79a5a3fcac8eb88b117c1504f8a71be159afcb"
+    },
+    {
+      "name": "FRAME15.PNG",
+      "log_tail": "CHECK queued_ack got=19 want=19",
+      "sha256": "4be1b5da5ba123b3404ef5512a42afaa1aee603bff3602010530377ca8905cc3"
+    },
+    {
+      "name": "FRAME16.PNG",
+      "log_tail": "CHECK fast_sound_free got=3 want=3",
+      "sha256": "1d839cab9ad10526ed9bde074bcc893a8c3cc2fd62e6462e81cf0ffefb8a00ef"
+    },
+    {
+      "name": "FRAME17.PNG",
+      "log_tail": "CHECK queued_ack got=21 want=21",
+      "sha256": "85d05f6270b297e0141762a975f2ec97721af1bc1667ac0902dc0fdab81e9987"
+    },
+    {
+      "name": "FRAME18.PNG",
+      "log_tail": "CHECK no_heap_loss got=1 want=1",
+      "sha256": "d692aca4eda4b2d84764b67785736307e766858d5f6a31092554ce636f8cc04f"
+    },
+    {
+      "name": "FRAME19.PNG",
+      "log_tail": "CHECK queued_ack got=23 want=23",
+      "sha256": "919e3affc7511c46a7a6e8121ddb6b8c7f39ff243a3df434704dbbdbaa39ada7"
+    }
+  ],
+  "source_unchanged": true,
+  "observed_log_steps": [
+    "CHECK launch got=1 want=1",
+    "CHECK queued_ack got=1 want=1",
+    "CHECK state got=1 want=1",
+    "CHECK queued_ack got=3 want=3",
+    "CHECK state got=0 want=1",
+    "CHECK queued_ack got=5 want=5",
+    "CHECK VGZ_active got=0 want=1",
+    "CHECK queued_ack got=8 want=8",
+    "CHECK queued_ack got=9 want=9",
+    "CHECK intentional_noise_writes got=3 want=3",
+    "CHECK queued_ack got=11 want=11",
+    "CHECK queued_ack got=12 want=12",
+    "CHECK queued_ack got=14 want=14",
+    "CHECK state got=1 want=1",
+    "CHECK queued_ack got=17 want=17",
+    "CHECK queued_ack got=19 want=19",
+    "CHECK fast_sound_free got=3 want=3",
+    "CHECK queued_ack got=21 want=21",
+    "CHECK no_heap_loss got=1 want=1",
+    "CHECK queued_ack got=23 want=23",
+    "CHECK queued_ack got=24 want=24",
+    "FINAL failures=7 checks=68"
+  ],
+  "audio": "native register/lifecycle checks only; no listening or physical capture"
+}

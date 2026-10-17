@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "seconds": 5.0,
+  "products": [
+    {
+      "name": "INTERGUI.EXE",
+      "bytes": 6093,
+      "sha256": "10415f41a9279ca3398be5e30611fa55a6b14d185664b05bf84945dba16eb63f"
+    },
+    {
+      "name": "EOFGUI.EXE",
+      "bytes": 5709,
+      "sha256": "b6af0a66eed5341c6cd6c68dea8d7d68793c601280f7ac0624df3d446ab269d3"
+    },
+    {
+      "name": "FULLGUI.EXE",
+      "bytes": 5581,
+      "sha256": "92c76d45cc275750378b8ed9e7aa2933b9f2da5d22e203f251617959cf9665ed"
+    }
+  ]
+}
