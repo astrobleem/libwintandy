@@ -1,30 +1,28 @@
-# Native-tested Windows 3.0 format preview
+# Current gzip compatibility preview
 
-This separate opt-in preview adds VGM/VGZ and bounded MOD PSG arrangements to
-MINIPLAY. Open/play/stop/pause/resume/restart, exact raw-write ordering,
-unsupported-input refusal and old MIDI/TND/AGI behavior pass the recorded
-four-case native fixture: 171 checks, zero failures.
+The current MINIPLAY accepts dynamic Huffman headers declaring 31 or 32
+distance entries, while still rejecting reserved distance symbols 30/31 if
+actually decoded. The buffers already cover the wider header; production
+source changes one character. The fresh 47,997-byte MINIPLAY differs from the
+baseline in that comparison byte and its NE checksum only, with no file/data/
+stack growth and no timer/ownership change.
 
-Download [LibWinTandy-Win30-Formats-Native-Preview-20261017.zip](LibWinTandy-Win30-Formats-Native-Preview-20261017.zip). It includes corresponding first-party source, preserved
-licenses, original synthetic inputs and generators, host tests, build recipes,
-saved commands/maps/logs, actual native receipts and guarded runtime files.
-No third-party music, sample data, R-Type converter, OS, fonts, compiler, ROM,
-external TSOUND driver or emulator image is included.
+Download [LibWinTandy-Win30-Formats-Gzip-Fix-Preview-20261017.zip](LibWinTandy-Win30-Formats-Gzip-Fix-Preview-20261017.zip): 312963 bytes,227 files, SHA256
+`44990d4546b3eaf5808e2b3f2746d438bbf9962d78cc36a8e276e0f7abfdedde`. The [manifest](MANIFEST.JSON) lists its contents and hashes.
+It contains corresponding first-party source, tested binaries, original
+synthetic fixtures/generators and saved build/test evidence. No Windows,
+SDK/toolchain, driver, ROM/font, emulator image, third-party song or sample
+payload is included. See [audit](../../libtandywin/AUDIO/AUDIT.JSON).
 
-SHA-256: `57d98655dcf54c0f166cc57585bb0f084bd8f71bd42ea19fc6a7c7741bf1859a` (256793 bytes, 177 entries).
+Recorded author-run validation: 160 format checks, 3271 backend checks and MOD
+suite; fresh MSC6/G0 rebuild; 88 focused native decoder/MINIPLAY UI checks,
+zero failures. All 31/32 header positives and actual reserved-symbol negatives
+are covered, with exact playback hash/count and safe refusal. This is not
+public CI or a reviewer rerun. See [current revision](../../libtandywin/AUDIO/GZIP-HDIST.MD)
+and [qualification/costs](../../libtandywin/AUDIO/QUALIFY.MD).
 
-Read [qualification and cost](../../libtandywin/AUDIO/QUALIFY.MD),
-[source profile and ownership](../../libtandywin/AUDIO/FORMATS30.MD),
-and [additive RAWCLK API](../../libtandywin/AUDIO/BURST-API.MD).
-The [archive manifest](MANIFEST.JSON) lists the files inside FORMATS30 with
-sizes and SHA-256 hashes; [AUDIT.JSON](../../libtandywin/AUDIO/AUDIT.JSON)
-records exclusions and metadata normalization.
-MOD sample timbres are not reproduced. The register/lifecycle checks do not
-establish listening fidelity, physical hardware behavior or a CPU speedup.
-
-The existing core preview PRs remain independent. The actual screenshot below
-comes from the full-stream native case; it is not a mockup.
-
-![Actual MINIPLAY VGZ playback](MINIPLAY.PNG)
-
-Native validation is recorded author-run evidence, not public CI or an independent reviewer rerun.
+The [original format preview](LibWinTandy-Win30-Formats-Native-Preview-20261017.zip)
+and BASELINE-PACKAGE.JSON retain the earlier BUILD04 binary/171-check record.
+Those 171 checks were not rerun in full on the header-only revision. MOD remains
+a square-wave arrangement, with no sampled-timbre or listening-fidelity claim.
+PCjr, Windows3.1 and calibrated CPU/physical-audio qualification remain separate.

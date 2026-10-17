@@ -45,7 +45,7 @@ int gz_decode(GZREAD read,void *user,GZ32 size,GZ8 GZ_FAR *out,GZ16 cap,GZ16 *us
   if(type==1){for(i=0;i<288;i++)lens[i]=(GZ8)(i<144?8:i<256?9:i<280?7:8);if(!build(&lit,lens,288))return 3;
    for(i=0;i<32;i++)lens[i]=5;if(!build(&dist,lens,32))return 3;
   }else{
-   nlit=257+bits(&s,5);ndist=1+bits(&s,5);ncl=4+bits(&s,4);if(nlit>286||ndist>30)return 3;
+   nlit=257+bits(&s,5);ndist=1+bits(&s,5);ncl=4+bits(&s,4);if(nlit>286||ndist>32)return 3;
    for(i=0;i<19;i++)cl[i]=0;for(i=0;i<ncl;i++)cl[co[i]]=(GZ8)bits(&s,3);if(!build(&ct,cl,19))return 3;
    n=nlit+ndist;i=0;while(i<n&&!s.error){sym=decode(&s,&ct);if(sym<0)break;
     if(sym<16){lens[i++]=(GZ8)sym;continue;}

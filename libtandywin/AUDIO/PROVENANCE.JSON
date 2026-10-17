@@ -2,46 +2,8 @@
   "scope": "Native-tested Windows3.0 format playback preview; opt-in draft, not a physical/listening/performance qualification",
   "base_audio_adopt_commit": "c11869a95090620592f7916a685650fd39109498",
   "source_archive_sha256": "16dba56dc07aa41122058b91bf582c5add1868b6de54a08c4f6d60c0a024857d",
-  "production_build": "TESTS/BUILD/BUILD04",
+  "production_build": "TESTS/GZIP06/BUILD",
   "split_harness_build": "TESTS/BUILD/HARNESS05",
-  "native_cases": [
-    {
-      "case": "FMTINT",
-      "description": "Interactive controls",
-      "checks": 30,
-      "failures": 0,
-      "seconds": 262.18800000008196,
-      "lease_released": true,
-      "source_image_unchanged": true
-    },
-    {
-      "case": "FMTEOF",
-      "description": "EOF and refusal",
-      "checks": 43,
-      "failures": 0,
-      "seconds": 118.20300000021234,
-      "lease_released": true,
-      "source_image_unchanged": true
-    },
-    {
-      "case": "FMTFULL02",
-      "description": "Long streams, loop, maximum burst",
-      "checks": 40,
-      "failures": 0,
-      "seconds": 222.53099999995902,
-      "lease_released": true,
-      "source_image_unchanged": true
-    },
-    {
-      "case": "FMTREG",
-      "description": "Legacy MIDI/TND/AGI regression",
-      "checks": 58,
-      "failures": 0,
-      "seconds": 175.9839999997057,
-      "lease_released": true,
-      "source_image_unchanged": true
-    }
-  ],
   "runtime": [
     {
       "path": "RUNTIME/CHIME.SND",
@@ -61,7 +23,7 @@
     {
       "path": "RUNTIME/MINIPLAY.EXE",
       "bytes": 47997,
-      "sha256": "7e2481905edeebbe3648ce1d28856afa7f947ee2ae67061bf9117ad061bb2763"
+      "sha256": "6e94d2b8f41cdd7c9dcb2b5f5849f2df1c0713dff1fa10128dbc27f7f19130ab"
     },
     {
       "path": "RUNTIME/PLUCK.TND",
@@ -193,12 +155,32 @@
     {
       "path": "SOURCE/GUNZIP.C",
       "bytes": 4646,
-      "sha256": "f82928c26a1034b8d41999ea6c773cd55b524358f1929e6b10507a1b8d302f99"
+      "sha256": "93456cac29bc219a0f9827d660e31d86e2543d130d0dcfa99878abb7431879f1"
     },
     {
       "path": "SOURCE/GUNZIP.H",
       "bytes": 513,
       "sha256": "dd74eb947151e8c4ed8b65c883e473cac32f41727ad48b399bd998d184a4a6f2"
+    },
+    {
+      "path": "SOURCE/GZIPGUI.C",
+      "bytes": 3870,
+      "sha256": "51d8eb4ab137e7a04fa14bbf6861a5fb9fea6d1173eb405b76c45efe58f92325"
+    },
+    {
+      "path": "SOURCE/GZIPGUI.DEF",
+      "bytes": 123,
+      "sha256": "1d8a1d76c62e3c84ca45b0c2e1cb868ad2ead4846daaa7bd840823cdf0dd2da6"
+    },
+    {
+      "path": "SOURCE/GZIPGUI.RSP",
+      "bytes": 94,
+      "sha256": "9c486432ce08c957b74483c96b319cf95af1e63eb604cea3a6bb2a682b80107e"
+    },
+    {
+      "path": "SOURCE/GZVECT.H",
+      "bytes": 3439,
+      "sha256": "61f8e9686e946704fb09b02c797a53b369b3bca3dc8b002674ef7ab8394dd20e"
     },
     {
       "path": "SOURCE/INSTR.C",
@@ -497,5 +479,53 @@
     "Windows/SDK/compiler",
     "fonts/ROMs/emulator",
     "disk images"
-  ]
+  ],
+  "baseline_native_cases": [
+    {
+      "case": "FMTINT",
+      "description": "Interactive controls",
+      "checks": 30,
+      "failures": 0,
+      "seconds": 262.18800000008196,
+      "lease_released": true,
+      "source_image_unchanged": true
+    },
+    {
+      "case": "FMTEOF",
+      "description": "EOF and refusal",
+      "checks": 43,
+      "failures": 0,
+      "seconds": 118.20300000021234,
+      "lease_released": true,
+      "source_image_unchanged": true
+    },
+    {
+      "case": "FMTFULL02",
+      "description": "Long streams, loop, maximum burst",
+      "checks": 40,
+      "failures": 0,
+      "seconds": 222.53099999995902,
+      "lease_released": true,
+      "source_image_unchanged": true
+    },
+    {
+      "case": "FMTREG",
+      "description": "Legacy MIDI/TND/AGI regression",
+      "checks": 58,
+      "failures": 0,
+      "seconds": 175.9839999997057,
+      "lease_released": true,
+      "source_image_unchanged": true
+    }
+  ],
+  "baseline_production_build": "TESTS/BUILD/BUILD04",
+  "current_native": {
+    "case": "GZIP06",
+    "checks": 88,
+    "failures": 0,
+    "seconds": 124.43699999991804,
+    "record": "TESTS/GZIP06/NATIVE/RESULT.JSON"
+  },
+  "current_revision": "One-byte gzip dynamic header-count widening; reserved distance-use guard preserved.",
+  "binary_comparison": "TESTS/GZIP06/BUILD/BINARY-DIFF.JSON"
 }

@@ -45,7 +45,7 @@ with (out/"HOST.LOG").open("wb") as log:
 text=(out/"MMLAB/BUILD.LOG").read_text(errors="replace")
 if "PASS" not in text or "FAIL" in text:raise SystemExit("Fresh build failed; inspect BUILD.LOG")
 files=[]
-for name in ["MINIPLAY.EXE","RAWCLK.DLL","INTERGUI.EXE","EOFGUI.EXE","FULLGUI.EXE","RAWGUI.EXE"]:
+for name in ["MINIPLAY.EXE","RAWCLK.DLL","INTERGUI.EXE","EOFGUI.EXE","FULLGUI.EXE","RAWGUI.EXE","GZIPGUI.EXE"]:
  f=out/"MMLAB"/name;data=bytearray(f.read_bytes())
  if name!="TBRIDGE.EXE":
   ne=struct.unpack_from("<I",data,0x3c)[0]

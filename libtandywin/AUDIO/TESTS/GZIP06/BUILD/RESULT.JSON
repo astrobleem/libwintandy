@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "seconds": 14.563000000081956,
+  "products": [
+    {
+      "name": "MINIPLAY.EXE",
+      "bytes": 47997,
+      "sha256": "6e94d2b8f41cdd7c9dcb2b5f5849f2df1c0713dff1fa10128dbc27f7f19130ab"
+    },
+    {
+      "name": "GZIPGUI.EXE",
+      "bytes": 10157,
+      "sha256": "c9ff5fee55aae4bdb34f64c7119baee808bbb7ef511e3d8ad7c43caa2408f85a"
+    }
+  ]
+}

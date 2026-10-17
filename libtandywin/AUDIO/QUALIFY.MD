@@ -1,4 +1,30 @@
-# Format preview qualification
+# Current gzip compatibility revision
+
+Current GZIP06 MINIPLAY passes 88 focused author-run native checks: all nine
+decoder vectors, accepted 31/32-entry VGZ playback to exact EOF/hash/count,
+standard VGZ regression and actual reserved-distance refusal before SOUND.
+Both dynamic and fixed reserved 30/31 cases emit the leading literal then
+return Huffman error 3, with the output canary intact. The current host suite
+passes 160 format checks, 3271 backend checks and the MOD suite.
+
+Native elapsed 124.437 seconds; outer shared gate released, owned process stopped,
+source image unchanged, original vectors restored and clean Windows 0/DOS text
+return. MEMORY free_before=257280 free_after=257280
+
+MSC6/G0 build: 14.563 seconds. MINIPLAY remains 47,997 bytes, SHA256
+`6e94d2b8f41cdd7c9dcb2b5f5849f2df1c0713dff1fa10128dbc27f7f19130ab`. Compared with BUILD04, one comparison immediate changes 30 to 32 and one
+NE checksum byte changes. All other executable bytes are identical. File,
+segment, data and stack sizes are unchanged. No IRQ/owner change, CPU-percent,
+listening or physical-audio claim is made. Current records are TESTS/GZIP06;
+all referenced current-run screenshots are included.
+
+The original 171-check baseline below belongs to BUILD04's earlier binary
+identity. It was not rerun in full on the header-only revision. Its source
+GUNZIP and 115-check host test are retained under TESTS/BASELINE. The existing
+RAWCLK/MIDI/MCI/launcher dependencies are unchanged. These are recorded
+author-run results, not public CI or reviewer reruns.
+
+# Original BUILD04 qualification (historical baseline)
 
 The exact BUILD04 production runtime passed all four bounded native cases in
 the Tandy HX 8088 4.772728 MHz, 640 KB, stock CGA, Windows 3.0 real-mode fixture.

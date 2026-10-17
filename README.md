@@ -9,8 +9,11 @@ Small shared components for 8086 Windows 3.0 applications. The historical
   adds foreground VGM/VGZ and bounded MOD PSG arrangements through a negotiated
   ordered-burst RAWCLK interface. The old TCFRAME ABI and timer owner remain.
 
-The format preview passed 171 native checks in the recorded Tandy HX 8088,
-640 KB, stock CGA, Windows 3.0 real-mode fixture. Source, original synthetic
+The current gzip-header revision passes 88 focused native checks in the Tandy
+HX8088/640KB/stockCGA/Windows3.0 real-mode fixture, plus 160 format host checks,
+3271 backend checks and the MOD suite. Its original BUILD04 baseline retains
+the separate 171-check record; that full suite was not rerun on the header-only
+revision. See [gzip compatibility](libtandywin/AUDIO/GZIP-HDIST.MD). Source, original synthetic
 fixtures, host tests, build evidence and a source-inclusive runtime archive
 are available for review. [Qualification and measured costs](libtandywin/AUDIO/QUALIFY.MD)
 state the precise limits. This is an opt-in draft; earlier facade/source-only

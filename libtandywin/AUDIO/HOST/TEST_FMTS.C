@@ -3,12 +3,20 @@
 #include <string.h>
 #include "FMTCORE.H"
 #include "GUNZIP.H"
+#include "GZVECT.H"
 static unsigned char input[60000],plain[60000];static unsigned long size;static FXCORE core;static FXBURST b;
 static int failures,checks;
 #define C(x) do{checks++;if(!(x)){printf("FAIL line%d: %s\n",__LINE__,#x);failures++;}}while(0)
 static int readat(void *p,unsigned long at,unsigned char *v,unsigned short n){unsigned char *s=p?p:input;if(at>size||n>size-at)return 0;memcpy(v,s+at,n);return 1;}
 static void load(char *p){FILE *f=fopen(p,"rb");if(!f){perror(p);exit(2);}size=fread(input,1,sizeof(input),f);fclose(f);}
 int main(void){unsigned short n;int r;unsigned long count,last;char *names[]={"LONG.VGZ","FIXED.VGZ","STORE.VGZ"};unsigned i;
+ for(i=0;i<GZV_COUNT;i++){
+  const GZVCASE *v=&gzv_cases[i];memcpy(input,v->data,v->size);size=v->size;
+  memset(plain,0xcc,9);plain[8]=0x5a;
+  r=gz_decode(readat,0,size,plain,8,&n);
+  C(r==v->error);C(n==v->used);C(!memcmp(plain,v->plain,v->used));
+  C(plain[8]==0x5a);C(plain[0]=='A');
+ }
  for(i=0;i<3;i++){load(names[i]);C(gz_decode(readat,0,size,plain,60000,&n)==0);C(n>1000);size=n;C(FXPreflight(&core,readat,plain,size,FX_VGM)==0);C(core.groups==1200);}
  load("BAD.VGZ");C(gz_decode(readat,0,size,plain,60000,&n)==4);
  load("SHORT.VGZ");C(gz_decode(readat,0,size,plain,10,&n)==2);

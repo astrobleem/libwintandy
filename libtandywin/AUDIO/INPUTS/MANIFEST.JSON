@@ -25,6 +25,16 @@
     "sha256": "0883c2982d3876bf7ced57ce7c60b2bec299831e65e75ee327d11f71e3ca42fb"
   },
   {
+    "name": "GZ31.VGZ",
+    "bytes": 487,
+    "sha256": "490720b36c083feeba77463f50c5da5940948e66c0e9f41424423513fa980e77"
+  },
+  {
+    "name": "GZ32.VGZ",
+    "bytes": 488,
+    "sha256": "090206f50f279bd52b71fb92b5e981b0359fa3d68abe6ad300a10b55dc8a217b"
+  },
+  {
     "name": "LONG.VGM",
     "bytes": 6087,
     "sha256": "3995a19a361c4578ac29906f4f08a471f539b7c61d551ffa79aa58663776c135"
@@ -46,8 +56,18 @@
   },
   {
     "name": "README.TXT",
-    "bytes": 202,
-    "sha256": "9debbb1df91004c8c9714f887dd4966ae90ddb58ba41465f4cc149f8346f09bb"
+    "bytes": 216,
+    "sha256": "dabfae865504eb8d88278d72e793de5be0d4625c02466ce632b5edb70ae914de"
+  },
+  {
+    "name": "RS30.VGZ",
+    "bytes": 68,
+    "sha256": "96716d7a8688f993680f4bf79089d8b4598b0846f2f16aa07b8dc2aa4bfe846d"
+  },
+  {
+    "name": "RS31.VGZ",
+    "bytes": 68,
+    "sha256": "e59098b084b5469c88dca7143070a826c6b432c9699dce514c86336b1b2aeee8"
   },
   {
     "name": "SHORT.VGM",

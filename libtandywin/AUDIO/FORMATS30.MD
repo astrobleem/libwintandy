@@ -82,7 +82,7 @@ are unchanged.
 
 ## Evidence and cost
 
-`TESTS/HOST/RESULT.JSON` records actual candidate C tests: 115 producer/decoder
+`TESTS/GZIP06/CURRENT-HOST/RESULT.JSON` records actual candidate C tests: 160 producer/decoder
 checks and 3,271 RAWCLK checks, including ring wrap beyond 1,024 groups, FULL
 retry, late refusal, terminal groups, noise bytes and legacy TCFRAME. The IRQ
 test observed zero Windows API calls. Tests use original synthetic data.
@@ -100,7 +100,8 @@ returned to the same 261,344-byte free-space reading after playback. The
 EOF/refusal case likewise returned to its 261,216-byte starting reading;
 different harnesses are not compared as a total resident-memory benchmark.
 
-The current runtime passed 171 native checks across four bounded cases. Read
+The original BUILD04 runtime passed171 native checks. The current header-only
+revision passes 88 focused native checks; see GZIP-HDIST.MD and QUALIFY.MD. Read
 QUALIFY.MD and each TESTS/NATIVE RESULT.JSON for the exact scope and identities.
 Failed attempts and watchdog-incomplete cases remain labelled in TESTS/HISTORY.
 No physical-hardware or listening/fidelity claim follows from host tests.
@@ -115,3 +116,5 @@ The external TSOUND component retains its separate published license.
 Format references: [VGM 1.71 specification](https://github.com/vgmrips/vgmplay-legacy/blob/master/VGMPlay/vgmspec171.txt),
 [DEFLATE RFC1951](https://www.rfc-editor.org/rfc/rfc1951),
 [gzip RFC1952](https://www.rfc-editor.org/rfc/rfc1952).
+
+Current gzip revision build/native details are in TESTS/GZIP06; BUILD04 maps below describe the unchanged baseline sizes. GZIP06 adds no production file/data/stack bytes.

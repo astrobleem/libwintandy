@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "files": [
+    {
+      "path": "SOURCE/GZVECT.H",
+      "bytes": 3439,
+      "sha256": "61f8e9686e946704fb09b02c797a53b369b3bca3dc8b002674ef7ab8394dd20e"
+    },
+    {
+      "path": "INPUTS/GZ31.VGZ",
+      "bytes": 487,
+      "sha256": "490720b36c083feeba77463f50c5da5940948e66c0e9f41424423513fa980e77"
+    },
+    {
+      "path": "INPUTS/GZ32.VGZ",
+      "bytes": 488,
+      "sha256": "090206f50f279bd52b71fb92b5e981b0359fa3d68abe6ad300a10b55dc8a217b"
+    },
+    {
+      "path": "INPUTS/RS30.VGZ",
+      "bytes": 68,
+      "sha256": "96716d7a8688f993680f4bf79089d8b4598b0846f2f16aa07b8dc2aa4bfe846d"
+    },
+    {
+      "path": "INPUTS/RS31.VGZ",
+      "bytes": 68,
+      "sha256": "e59098b084b5469c88dca7143070a826c6b432c9699dce514c86336b1b2aeee8"
+    }
+  ],
+  "baseline_generation": "TESTS/PACKAGE-VERIFY.JSON"
+}

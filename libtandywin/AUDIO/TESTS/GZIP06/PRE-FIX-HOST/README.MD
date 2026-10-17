@@ -1,0 +1,1 @@
+Expected regression proof: the old ndist>30 bound fails22 assertions in the expanded160-check suite. This is not a product pass. Current sources pass160/0; unchanged backend3271/0 and MOD suite pass.
