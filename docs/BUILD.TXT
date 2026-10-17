@@ -1,0 +1,21 @@
+libwintandy build recipes
+
+Host behavior checks (Python 3 and GCC-compatible host C compiler):
+  python libtandywin/TESTS/RUN.PY --cc <path-to-cc>
+The runner selects C89, explicitly treats uppercase .C as C, and adds the
+compiler directory to PATH for Windows DLL dependencies. It bounds compile
+and execution time. The sign-compare diagnostic is suppressed for the
+unchanged Win16 int/sizeof comparison; other selected warnings are errors.
+The mock WINDOWS.H is original test code, never an application SDK.
+
+Win16 recipe with caller-supplied licensed Microsoft C 6 / Windows SDK:
+  CL /nologo /c /G0 /Gw /AS /W3 /Od /I<owned-sdk-include> LTWUI.C
+Link LTWUI.OBJ with the caller's other objects and its existing Win16 USER
+import libraries. Use the same memory model as that caller. This source has
+no DLL exports, new task, timer, TSR, interrupt handler or hardware adapter.
+The caller includes its own WINDOWS.H before LWTANDY.H.
+
+TShell integration changes only LTWUI.H -> LWTANDY.H and copies the new
+header during its existing build. It continues to compile LTWUI.C once.
+The isolated caller's existing MSC6 flags are /G0 /Gw /AS /W3 /Od.
+No native rebuilt executable is distributed by this initial source package.

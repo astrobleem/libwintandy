@@ -1,0 +1,82 @@
+{
+  "scope": "first-party UI source only",
+  "license": "MIT",
+  "native_binaries": [],
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 9,
+      "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 42,
+      "sha256": "45e56138c455df528c8f9333c6d9411024d10385493ad82af84ffa232f794bdc"
+    },
+    {
+      "path": "docs/ADOPT.TXT",
+      "bytes": 2282,
+      "sha256": "1a22b5b229df73795ff104604c372e555d6d95f19b7d4545b5a61034d57a3934"
+    },
+    {
+      "path": "docs/AUDIOAPI.TXT",
+      "bytes": 1932,
+      "sha256": "684387005165b4a095084b7d002b1e10b6c39ef4ad1b9ab09a955ce1167b8fbd"
+    },
+    {
+      "path": "docs/BUILD.TXT",
+      "bytes": 1241,
+      "sha256": "7043e504ae0b61df0ace608a69f5ffd23d008d239c8363e5b24691daf7a166ed"
+    },
+    {
+      "path": "libtandywin/LICENSE",
+      "bytes": 1084,
+      "sha256": "1c444f27b5b0d7397fa2e9c2812f89c2daab73c1f29fcbd91f0d8fc793e4cbd4"
+    },
+    {
+      "path": "libtandywin/LTWUI.C",
+      "bytes": 967,
+      "sha256": "e1cbf3afb23403a7dbc51a9e0065cb896c9b3454f479ce1a93a3206771cb16b7"
+    },
+    {
+      "path": "libtandywin/LTWUI.H",
+      "bytes": 329,
+      "sha256": "c73c30061f82ab28cfee30da1b42e4991014599feabfa3f026e06b350e9dd0e8"
+    },
+    {
+      "path": "libtandywin/LWTANDY.H",
+      "bytes": 145,
+      "sha256": "765db2a718d7852e11ae349d3d93a08da832195b57f53efdac4881aa94f25a1a"
+    },
+    {
+      "path": "libtandywin/README.TXT",
+      "bytes": 2456,
+      "sha256": "cfe03350d2baa5d3fe118c83281e0a808b479d2f29f1563d680774fcd4085dea"
+    },
+    {
+      "path": "libtandywin/TESTS/LTWUITST.C",
+      "bytes": 4278,
+      "sha256": "ccf6802e1590405610a38bce71b55238da7494af176d6b7efa2f96dd59e6ba29"
+    },
+    {
+      "path": "libtandywin/TESTS/RUN.PY",
+      "bytes": 1295,
+      "sha256": "c9de602df8c96c5399aff5d208dbda1ed6f299a7ac71b47a4b5b9a7708ad819c"
+    },
+    {
+      "path": "libtandywin/TESTS/windows.h",
+      "bytes": 656,
+      "sha256": "4068d7e407f1bb2b69acb20c0f977de5320d0ea62e2ebbb9d8a5adc666c58086"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1084,
+      "sha256": "1c444f27b5b0d7397fa2e9c2812f89c2daab73c1f29fcbd91f0d8fc793e4cbd4"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1262,
+      "sha256": "e5e8327f78227b8fd165c506d6bfae2bee6b52af8a7ba2a518ff85c97b8ea9b8"
+    }
+  ]
+}

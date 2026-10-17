@@ -1,0 +1,33 @@
+Audio interface proposal - no shipped audio implementation
+
+Reuse R4's existing MDAPI.H/TIMECLK.H ABI and ordinary foreground caller
+helpers. The intended public audio header will forward audited declarations;
+this proposal does not create a second event or expressive patch format.
+Actual R4 declarations, license and ABI pins must be reviewed before binding.
+
+Keep RAWCLK.DLL as the sole audio clock/PSG owner and MIDICLK.DLL as the
+foreground renderer/producer. No new Windows task, DLL-owned callback,
+DOS direct-PSG path or separate timer may bypass existing ownership.
+
+Preserve timestamp units (PIT cycles), generation acknowledgements, complete
+timestamp-group commits, queue capacity and accepted-minus-delivered pending
+accounting. FULL accepts nothing: retain and retry the exact suffix. EOF
+completes after drain and terminal silence. These are existing contract
+requirements reported by the R4 owner, pending source review.
+
+Pause mutes/freezes while retaining owner/queue; resume continues. Stop and
+restart use acknowledged Reset with a new generation, then refill/start.
+Close must succeed before destruction or DLL unload; BUSY retains handle
+and modules for retry. Keep genuine FAR output buffers and audited DS/SS
+handling. IRQ work must remain bounded and contain no parser, allocation,
+USER/DOS or client callbacks.
+
+MINIPLAY already has two producer paths: SMF through its app-local MCI MIDI
+module and MIDICLK; TND/AGI raw events through RAWFILE and RAWCLK. Keep those
+paths and existing playlist/GDI UI. MCI app-local support does not imply a
+complete Windows MMSYSTEM implementation. Live latency and hardware behavior
+remain separate validation scopes.
+
+Hardware-specific noise/LFSR/retrigger behavior belongs to the audited
+provider. Do not substitute AY envelopes, sampled vocals or a new patch
+format. No audio compatibility, timing or native binary claim is made here.

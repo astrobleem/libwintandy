@@ -1,0 +1,40 @@
+libwintandy architecture and staged adoption
+
+Boundaries
+  LWTANDY.H is the public umbrella; it currently forwards LTWUI.H only.
+  LTWUI.C/H retain the proven implementation and API bytes unchanged.
+  USER owns all controls and repaint scheduling. Callers own window lifetime.
+  No retained background, direct VRAM, hardware PSG, DOS adapter or timer
+  takeover is hidden behind the Windows UI functions.
+
+First narrow UI caller
+  TShell/browser adopts the umbrella include and build copy list in an
+  isolated worktree. Its popup renderer, clipping, hover dirty-state logic,
+  and all existing GDI drawing remain unchanged.
+  The original implementation has a 144-byte automatic text comparison
+  buffer; the facade introduces no state or code. Native CPU/RAM deltas have
+  not been measured. Header-only expansion is identical under host CPP.
+
+Next validation gates
+  Build baseline and facade caller with the same owned MSC6 toolchain.
+  At both accepted 160/320 profiles, compare complete frames for clipped
+  list updates, popup overlap, hover transitions, close/reopen and exposure.
+  Trace unchanged text suppression and one outer batch redraw/erase request.
+  Measure native memory/CPU with existing probes; keep source/runtime hashes.
+  Preserve completed display benchmarks and their accepted payloads.
+
+Audio
+  Audit exact R4 source/license before adding an audio forwarding header.
+  Bind MINIPLAY's existing MIDI/raw producers without rewriting its UI or
+  scheduler. Validate timing, pause/resume, stop/restart, owner contention,
+  close retry and cleanup before distributing a rebuilt player.
+
+Inventory status at this initial source snapshot
+  TShell: facade include/build edited; host checks pass; native checks pending.
+  Other first-party Windows example apps: no facade migration performed.
+  R4's nine MIDI utility apps: reported to share audio provider DLLs already;
+  they have not adopted this facade. Exact source audit is pending.
+  Styled Tandy-Winamp MINIPLAY: first proposed audio caller; not migrated.
+  MPLAYER: unfinished separate work; no full MMSYSTEM compatibility claim.
+  Buddy: separate exact-version bridge and native qualification required.
+  Future video/input extraction is documentation scope only.
