@@ -1,7 +1,9 @@
 # libwintandy
 
-Small shared components for 8086 Windows 3.0 applications. The historical
-`libtandywin` directory and existing API names remain compatible.
+**libwintandy** provides small shared components for 8086 Windows 3.0
+applications. The DOS library is **libtandy** and remains a separate project.
+The historical [`libtandywin/`](libtandywin/) source directory, header names
+and API names remain compatible; see [naming and compatibility](docs/NAMING.TXT).
 
 * `LWTANDY.H` exposes the existing USER repaint helpers.
 * `LWAUDIO.H` forwards the app-local MCI/raw-player interfaces.
@@ -25,9 +27,9 @@ than reproducing sampled timbres. Listening, physical audio and calibrated
 CPU performance are outside the recorded result.
 
 See [format architecture](libtandywin/AUDIO/FORMATS30.MD),
-[RAWCLK burst API](libtandywin/AUDIO/BURST-API.MD), docs/BUILD.TXT and
-docs/ADOPT.TXT. Project source is MIT; the RAWFILE format/table attribution
-retains LICENSE-TNDY.TXT. No OS/SDK/toolchain/fonts/ROMs, external TSOUND driver,
+[RAWCLK burst API](libtandywin/AUDIO/BURST-API.MD), [build instructions](docs/BUILD.TXT)
+and [adoption notes](docs/ADOPT.TXT). Project source is MIT; the RAWFILE
+format/table attribution retains LICENSE-TNDY.TXT. No OS/SDK/toolchain/fonts/ROMs, external TSOUND driver,
 third-party songs, sample media or emulator images are bundled.
 
 Native validation is recorded author-run evidence, not public CI or an independent reviewer rerun.

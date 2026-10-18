@@ -1,4 +1,4 @@
-# Current gzip compatibility preview
+# libwintandy gzip compatibility preview
 
 The current MINIPLAY accepts dynamic Huffman headers declaring 31 or 32
 distance entries, while still rejecting reserved distance symbols 30/31 if
