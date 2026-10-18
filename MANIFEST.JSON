@@ -18,8 +18,8 @@
     },
     {
       "path": "docs/ADOPT.TXT",
-      "bytes": 1777,
-      "sha256": "88e5986b0af42a19bdf32b0e9dea2b7b062f324a089d1f81612ac2e17b858011"
+      "bytes": 1791,
+      "sha256": "a5908a101d95c30e1769edc87903625b9e10f6813ef44e50fe057709c7ac948b"
     },
     {
       "path": "docs/AUDIOAPI.TXT",
@@ -28,8 +28,13 @@
     },
     {
       "path": "docs/BUILD.TXT",
-      "bytes": 1491,
-      "sha256": "0ceb43fc4d06249b162b895dc53533cfbf119fabe8bf8867adbe7875c3ca08a6"
+      "bytes": 1596,
+      "sha256": "2113bccce5bcdf2dd4fc307c5992a6e47db80fc9927240ea020e5265032f915d"
+    },
+    {
+      "path": "docs/NAMING.TXT",
+      "bytes": 984,
+      "sha256": "2bfab4086d91bd5d30f05ab795328fbe7162dc626ad85d3c2e2b679dcefd9319"
     },
     {
       "path": "docs/PCJR.TXT",
@@ -68,8 +73,8 @@
     },
     {
       "path": "examples/FORMATS30/README.md",
-      "bytes": 1934,
-      "sha256": "cf9d726ebbb4ebf809af1da0def95787de0382a36eca9c96c2fc8d50bb3927d7"
+      "bytes": 1938,
+      "sha256": "244ab664037c1f6049ac3326b60e672576c3a79676dac6f261df0c24715d31cc"
     },
     {
       "path": "libtandywin/AUDIO/AUDIT.JSON",
@@ -138,8 +143,8 @@
     },
     {
       "path": "libtandywin/AUDIO/FACADE/README.md",
-      "bytes": 1630,
-      "sha256": "389e3d752361f075b8d75fcc99e09599534df31ed1f35389f2c3c5da0802392d"
+      "bytes": 1642,
+      "sha256": "4f4b6e4b414c41f1bcf13c15ea9483052bfac110d7115989ad0517e92a7368c5"
     },
     {
       "path": "libtandywin/AUDIO/FACADE/STATUS.TXT",
@@ -1288,8 +1293,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 2010,
-      "sha256": "7320ff3ed549cec9a197c901c5025211dcbfe8bf51c037b1ba24b62ca17c6d75"
+      "bytes": 2219,
+      "sha256": "de713201f6b33191e3e9e491e7ecf87a8699c8f4c013c9b70bd85e100efa6b15"
     }
   ]
 }

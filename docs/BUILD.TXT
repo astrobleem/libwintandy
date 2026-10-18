@@ -1,3 +1,7 @@
+libwintandy - build instructions
+
+The commands retain the historical libtandywin/ source directory.
+
 Host UI checks:
   python libtandywin/TESTS/RUN.PY --cc <host-cc>
 Host actual-source audio checks (MSYS2 UCRT64 GCC on Windows):

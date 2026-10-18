@@ -1,4 +1,4 @@
-Staged Windows3.0 adoption
+libwintandy - staged Windows3.0 adoption
 
 UI: unchanged LTWUI implementation, public LWTANDY.H, TShell include/build-only
 candidate. The24 host checks and exact expanded-source comparison pass. Native

@@ -1,4 +1,4 @@
-# Proposed audio facade
+# Proposed libwintandy audio facade
 
 `LWAUDIO.H` is a declaration-only include facade for the existing app-local
 MCI and raw-player interfaces. It forwards the original `MCIAPI.H` and

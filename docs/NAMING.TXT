@@ -1,0 +1,18 @@
+libwintandy naming and compatibility
+
+libwintandy is the Windows 3.0 library in this repository. libtandy is the
+separate DOS library. Use libwintandy when describing this Windows project.
+
+These existing identifiers are retained:
+- libtandywin/ is the historical source directory. Links, include paths and
+  build commands continue to use that directory.
+- LTWUI.C, LTWUI.H, LTWLISTPAINT and Ltw... are existing implementation/API
+  names. LWTANDY.H and LWAUDIO.H remain the public include facades.
+- Win16 module filenames, exported names and ordinals, and event formats
+  keep their existing spellings and layouts.
+- LibWinTandy-*.zip filenames, saved provenance and historical evidence keep
+  their original names and pinned hashes.
+
+The descriptive naming cleanup does not rename directories, files, symbols,
+exports or packaged artifacts. Existing callers and download links continue
+to use the same paths. Historical qualification records retain their scope.
