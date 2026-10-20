@@ -1288,13 +1288,88 @@
     },
     {
       "path": "NOTICES.TXT",
-      "bytes": 400,
-      "sha256": "073c9b89b15806bff3a40fdca62bbc2e51a1a4719f2fa96443e0ebb9d4a74377"
+      "bytes": 772,
+      "sha256": "15f32cc67612884f06372562c933ccbbd74a72f5844ecfbd117a502f43967393"
     },
     {
       "path": "README.md",
-      "bytes": 2219,
-      "sha256": "de713201f6b33191e3e9e491e7ecf87a8699c8f4c013c9b70bd85e100efa6b15"
+      "bytes": 2716,
+      "sha256": "c1969039864ffe30f56e8e746378444804dae634dbd44e5a03522dafa3749f7d"
+    },
+    {
+      "path": "sound/CORE-MIT.TXT",
+      "bytes": 1084,
+      "sha256": "1c444f27b5b0d7397fa2e9c2812f89c2daab73c1f29fcbd91f0d8fc793e4cbd4"
+    },
+    {
+      "path": "sound/DRIVER/LICENSE",
+      "bytes": 35823,
+      "sha256": "230184f60bae2feaf244f10a8bac053c8ff33a183bcc365b4d8b876d2b7f4809"
+    },
+    {
+      "path": "sound/DRIVER/PITLEASE.H",
+      "bytes": 3038,
+      "sha256": "053a4ec974cf4be6f3da860bc51e46ae3b6e24e75dd7d68885ef76599e0601b5"
+    },
+    {
+      "path": "sound/DRIVER/PITLINK.H",
+      "bytes": 638,
+      "sha256": "b6a9d41c5765b1b166caf0ff1aa7d83edfd2662a7b8f46d802bf08367b5cb452"
+    },
+    {
+      "path": "sound/LWMOD.H",
+      "bytes": 440,
+      "sha256": "9bdd906cd03fe48914cd72a92d3386861f93f25f0520d31f1e98e60979a60231"
+    },
+    {
+      "path": "sound/MDAPI.H",
+      "bytes": 1579,
+      "sha256": "a2afc9d6280bda498f4d92e3cb972add5f54a5f7dc7d270d237467d2bd6e7588"
+    },
+    {
+      "path": "sound/MIDICLK.C",
+      "bytes": 13680,
+      "sha256": "7cbfa7d1d7018d6f35db1773e159ebbb2ee2b5bf9da5aa189aec63e385373eda"
+    },
+    {
+      "path": "sound/PITLINK.H",
+      "bytes": 638,
+      "sha256": "b6a9d41c5765b1b166caf0ff1aa7d83edfd2662a7b8f46d802bf08367b5cb452"
+    },
+    {
+      "path": "sound/README.md",
+      "bytes": 1475,
+      "sha256": "0df7a9413f651623af5bb0dca8a203d4922552dd85e02db07ab319549ae12ace"
+    },
+    {
+      "path": "sound/SOURCE.json",
+      "bytes": 1644,
+      "sha256": "921779424c65eb26ee2b0fe5790449a8b725d99138e82576ce2dc94a20aa1602"
+    },
+    {
+      "path": "sound/TCBURST.H",
+      "bytes": 722,
+      "sha256": "7249a5885cfde8afe0c3c405ac129d92ee3b654a65923f49ceff8f295bb57776"
+    },
+    {
+      "path": "sound/TCNOISE.H",
+      "bytes": 511,
+      "sha256": "63597e8e3021931c5270dc954e61000e38f681f29847154451b4d149110693e3"
+    },
+    {
+      "path": "sound/TCXBASS.H",
+      "bytes": 878,
+      "sha256": "70a17e7341fe5352ebaeaab194f3afd39bd9052b8ef9e808c3b02b23c4b6f6dc"
+    },
+    {
+      "path": "sound/TIMECLK.C",
+      "bytes": 20718,
+      "sha256": "d1c710bb4b712734f88fd88162d95da4a0ac63820c3e24113c55d0d6f2c1befe"
+    },
+    {
+      "path": "sound/TIMECLK.H",
+      "bytes": 784,
+      "sha256": "478d911587645d6d2acb2965dc7b78e8b6e3b67373e8a8a4933395398ff9d193"
     }
   ]
 }
