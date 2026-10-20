@@ -4,6 +4,8 @@
 applications. The DOS library is **libtandy** and remains a separate project.
 The historical [`libtandywin/`](libtandywin/) source directory, header names
 and API names remain compatible; see [naming and compatibility](docs/NAMING.TXT).
+The `sound/DRIVER/PITLEASE.H` derivative carries its own GPLv3 notice; see
+`sound/DRIVER/LICENSE`.
 
 * `LWTANDY.H` exposes the existing USER repaint helpers.
 * `LWAUDIO.H` forwards the app-local MCI/raw-player interfaces.
@@ -25,6 +27,12 @@ UI helpers use USER/GDI. The current audio fixture does not qualify PCjr,
 Windows 3.1 or protected mode. MOD uses square-wave tone substitutes rather
 than reproducing sampled timbres. Listening, physical audio and calibrated
 CPU performance are outside the recorded result.
+
+The separate `sound/` directory contains a pinned Windows 3.0 MIDI producer
+compatibility module used by the RAVE host preparation workflow. It is kept
+separate from the historical `libtandywin/AUDIO` preview and does not replace
+it or change that component's API. See `sound/README.md` and `sound/SOURCE.json`
+for the producer scope, dependency boundary, file hashes and license notices.
 
 See [format architecture](libtandywin/AUDIO/FORMATS30.MD),
 [RAWCLK burst API](libtandywin/AUDIO/BURST-API.MD), [build instructions](docs/BUILD.TXT)
