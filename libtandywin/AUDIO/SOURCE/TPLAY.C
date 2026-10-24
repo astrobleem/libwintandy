@@ -1,4 +1,4 @@
-/* Private DOS launcher, 8086 / MSC6 small model. No installation-file writes.
+/* DOS launcher, 8086 / MSC6 small model. No installation-file writes.
    CRC32 is a bounded accidental-change identity check, not an authenticity
    mechanism against deliberately engineered CRC collisions. */
 #include <stdio.h>
@@ -8,6 +8,7 @@
 #include <dos.h>
 #include <direct.h>
 #include <process.h>
+#include "TPLAYPOL.H"
 #define PLEN 128
 #define FP(s,o) ((void far *)(((unsigned long)(s)<<16)|(unsigned)(o)))
 extern unsigned _cdecl DOSStat(unsigned);
@@ -43,6 +44,14 @@ static int identity(char *p,unsigned size,unsigned long wanted){
  c=fgetc(f);n=!ferror(f)&&c==EOF&&((crc^0xffffffffUL)==wanted);
  fclose(f);return n;
 }
+/* No bootstrap offsets or splash bytes are used by the audio path. The
+   paired SYSTEM.DRV/SOUND and runtime hook instruction checks remain exact.
+   spawnl /R and normal owned-bridge cleanup handle a launch failure. */
+static int bootstrap(char *p){FILE *f;long n;int okay;
+ f=fopen(p,"rb");if(!f)return 0;
+ okay=fseek(f,0L,SEEK_END)==0;n=okay?ftell(f):-1L;
+ okay=okay&&TPBootstrapLength(n)&&!ferror(f);fclose(f);return okay;
+}
 static char *trim(char *s){char *e;while(*s==' '||*s=='\t')s++;
  e=s+strlen(s);while(e>s&&(e[-1]==' '||e[-1]=='\t'||e[-1]=='\r'||e[-1]=='\n'))*--e=0;return s;}
 static int selections(void){
@@ -58,8 +67,10 @@ static int selections(void){
   if(!stricmp(p,"sound.drv")){if(++sound!=1||stricmp(value,"TSOUND.DRV")){fclose(f);return -1;}}
   if(!stricmp(p,"display.drv")){
    if(++display!=1){fclose(f);return -1;}
-   if(!stricmp(value,"TR51616.DRV")||!stricmp(value,"TR53216.DRV"))video=1;
-   else if(stricmp(value,"CGA.DRV")){fclose(f);return -1;}
+   video=TPDisplay(value);
+   if(video<0){fclose(f);return -1;}
+   printf("TPLAY: display=%s; video reservation=%s.\n",value,
+          video?"16KB normal-640K":"none (stock CGA)");
   }
  }
  if(ferror(f)||boots!=1||system!=1||sound!=1||display!=1){fclose(f);return -1;}
@@ -73,29 +84,37 @@ static int inWindows(void){union REGS r;
  r.x.ax=0x4680;int86(0x2f,&r,&r);return r.x.ax==0;
 }
 static int defaultIRQ(void){unsigned far *v=FP(0,0x20);
- /* Exact Tandy HX replay BIOS IRQ0 entry; other ROMs are unqualified. */
- if(v[0]!=0xfea5U||v[1]!=0xf000U){printf("IRQ0=%04x:%04x\n",v[1],v[0]);return 0;}return 1;
+ /* The broker captures/chains the actual BIOS entry; no FEAh offset is
+    used. Keep RAM TSRs and option ROMs out of the owned system-ROM path. */
+ printf("TPLAY: initial IRQ0=%04x:%04x.\n",v[1],v[0]);
+ return TPRomIRQ(v[1],v[0]);
 }
 int main(int argc,char **argv){
  char *q;int video,check=0,test=0,status,cleanup;union REGS r;unsigned parent,root;
+ unsigned marker,model;
  if(argc<2||argc>3)return refuse("Use TPLAY C:\\WINDOWS [/CHECK or /TEST], outside Windows.");
  if(argc==3){check=!stricmp(argv[2],"/CHECK");test=!stricmp(argv[2],"/TEST");if(!check&&!test)return refuse("Unknown option.");}
+ r.h.ah=0x30;int86(0x21,&r,&r);
+ if(r.h.al<3)return refuse("Requires DOS 3.0 or newer.");
  if(strlen(argv[1])>=PLEN)return refuse("Windows directory too long.");
  strcpy(win,argv[1]);if(!absolute(win))return refuse("Use an absolute DOS 8.3 Windows directory, without a trailing slash.");
  if(!_fullpath(home,argv[0],sizeof(home)))return refuse("Cannot resolve launcher directory.");
  q=strrchr(home,'\\');if(!q)return refuse("Cannot resolve launcher directory.");*q=0;
- if(!absolute(home))return refuse("Keep this private package in its own DOS 8.3 directory.");
+ if(!absolute(home))return refuse("Keep this package in its own DOS 8.3 directory.");
  if(test&&stricmp(home,"C:\\MMLAB"))return refuse("/TEST is only for the disposable C:\\MMLAB cloud fixture.");
  if(broker())return refuse("A timer bridge already exists; leave its owner in control.");
  if(inWindows())return refuse("Exit Windows completely before using TPLAY.");
- if(*(unsigned char far *)FP(0xfc00,0)!=0x21||*(unsigned char far *)FP(0xffff,0x0e)!=0xff)return refuse("Only the qualified Tandy HX BIOS is supported.");
+ marker=*(unsigned char far *)FP(0xfc00,0);
+ model=*(unsigned char far *)FP(0xffff,0x0e);
+ printf("TPLAY: FC00:0000=%02x FFFF:000E=%02x.\n",marker,model);
+ if(!TPBoard(marker,model))return refuse("Requires the supported Tandy EX/HX ROM hardware markers.");
  if(!defaultIRQ())return refuse("IRQ0 has an unrecognized owner.");
  video=selections();if(video<0)return refuse("SYSTEM.INI must select generic SYSTEM, paired TSOUND and a qualified display without duplicates.");
  if(!join(path,win,"SYSTEM.DRV")||exists(path))return refuse("Ambiguous root SYSTEM.DRV.");
  if(!join(path,win,"SYSTEM\\SYSTEM.DRV")||!identity(path,2784U,0x3ff05fecUL))return refuse("SYSTEM.DRV identity mismatch or missing file.");
  if(!join(path,win,"TSOUND.DRV")||exists(path))return refuse("Ambiguous root TSOUND.DRV.");
  if(!join(path,win,"SYSTEM\\TSOUND.DRV")||!identity(path,6168U,0xf8517207UL))return refuse("Paired TSOUND.DRV identity mismatch or missing file.");
- if(!join(wincom,win,"WIN.COM")||!identity(wincom,8398U,0xce243cefUL))return refuse("WIN.COM identity mismatch or missing file.");
+ if(!join(wincom,win,"WIN.COM")||!bootstrap(wincom))return refuse("WIN.COM missing or outside the DOS COM bootstrap size.");
  if(!join(bridge,home,"TBRIDGE.EXE")||!identity(bridge,2922U,0x79c22c55UL))return refuse("Keep the matching TBRIDGE.EXE with TPLAY.");
  if(!join(player,home,test?"RAWGUI.EXE":"MINIPLAY.EXE")||!exists(player))return refuse("Player or test client is missing.");
  if(!join(path,home,"RAWCLK.DLL")||!exists(path))return refuse("Keep RAWCLK.DLL with TPLAY.");
@@ -105,7 +124,7 @@ int main(int argc,char **argv){
  if(!getcwd(oldcwd,sizeof(oldcwd)))return refuse("Cannot preserve current DOS directory.");olddrive=_getdrive();
  if(video){status=spawnl(P_WAIT,reserve,reserve,(char *)0);
   /* MSC6 returns the complete DOS4D word: AH3 is normal TSR termination. */
-  if(status!=0&&status!=0x300)return refuse("Video reservation refused; Windows was not started.");
+  if(!TPReserveStatus(status))return refuse("Video reservation refused; Windows was not started.");
  }
  /* Never adopt an existing bridge, including one appearing after preflight. */
  if(broker())return refuse("A bridge appeared after preflight; Windows was not started.");

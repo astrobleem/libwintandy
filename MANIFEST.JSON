@@ -693,8 +693,8 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/TPLAY.C",
-      "bytes": 8103,
-      "sha256": "bb9606e0e5445aafcd613cff52e70f465856e027e714f9f475767cca58767a01"
+      "bytes": 8884,
+      "sha256": "ef6db50749ff237a9cabaabfb4132e948eb8631cc5d5485003b4688ccf79aabf"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/TPLAY.RSP",
@@ -1293,8 +1293,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 2716,
-      "sha256": "c1969039864ffe30f56e8e746378444804dae634dbd44e5a03522dafa3749f7d"
+      "bytes": 2914,
+      "sha256": "fd777305f4de055e1ec67dec7e56c84236c9b1b0480c3d80dfde4c86407be093"
     },
     {
       "path": "sound/CORE-MIT.TXT",
@@ -1370,6 +1370,21 @@
       "path": "sound/TIMECLK.H",
       "bytes": 784,
       "sha256": "478d911587645d6d2acb2965dc7b78e8b6e3b67373e8a8a4933395398ff9d193"
+    },
+    {
+      "path": "libtandywin/AUDIO/SOURCE/TPLAYPOL.H",
+      "bytes": 2125,
+      "sha256": "4384182735912b2587b1aa6e31c6c542406f3a08f88de929daa3b36b98c03a06"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/TPLAYPOL.C",
+      "bytes": 1816,
+      "sha256": "3e5b5c83965049a6bb38bd99d41b55500d82041c12575b1de29a3ae63e4df99b"
+    },
+    {
+      "path": "docs/TPLAYXT.TXT",
+      "bytes": 1402,
+      "sha256": "6e514181a2502e14becac35cf331178f8b7b03b901c9e2427089362b8cf673c1"
     }
   ]
 }
