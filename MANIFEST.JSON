@@ -1293,8 +1293,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 2716,
-      "sha256": "c1969039864ffe30f56e8e746378444804dae634dbd44e5a03522dafa3749f7d"
+      "bytes": 2914,
+      "sha256": "fd777305f4de055e1ec67dec7e56c84236c9b1b0480c3d80dfde4c86407be093"
     },
     {
       "path": "sound/CORE-MIT.TXT",
@@ -1383,8 +1383,8 @@
     },
     {
       "path": "docs/TPLAYXT.TXT",
-      "bytes": 1688,
-      "sha256": "d3630df484796ac5f383e9fd6072d07ab90ef5def6645eb45b3ba53dcb58be1f"
+      "bytes": 1402,
+      "sha256": "6e514181a2502e14becac35cf331178f8b7b03b901c9e2427089362b8cf673c1"
     }
   ]
 }

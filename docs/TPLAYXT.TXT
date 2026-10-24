@@ -1,27 +1,23 @@
-TPLAY current Windows XT launcher policy
+TPLAY WINDOWS XT LAUNCHER
 
-AUDIO/SOURCE/TPLAY.C and TPLAYPOL.H now retain shipped UX3 EX/HX ROM,
-ROM IRQ-owner and variable WIN.COM bootstrap handling, and route current
-XR1 HPXY through the same16 KB normal 640K guard as the reviewed Tandy profiles.
-CGA needs no reservation; unknown displays refuse. DOS 3+ is explicit.
+TPLAY.C and TPLAYPOL.H in libtandywin/AUDIO/SOURCE are the canonical source
+for the Windows XT launcher shipped with Tandy Winamp XT1:
+https://github.com/astrobleem/oemsound-tandy/releases/tag/tandy-winamp-xt1.20261024
 
-The matching 1512-byte RESERVE.COM is packaged with the OEMSound TWXT1 local
-candidate, not adopted from PATH. Its exact ownership check avoids duplicate
-allocation and refuses another owner's overlap. Audio/bridge identity and
-ownership protections remain. The two source files are byte-identical to
-OEMSound experimental/WINAMP30/LAUNCH at this checkpoint.
+HPXY.DRV and the reviewed XRSYNC.DRV use the exact 16 KB normal 640 KB reservation
+helper; CGA needs no reservation. The explicit historical Tandy names retain
+their same guard. Unknown displays refuse. EX/HX ROM, ROM IRQ ownership,
+paired SYSTEM/TSOUND and bridge parent/cleanup checks remain intact.
 
-OEMSound's LAUNCH/POLICY.MD, TESTS.JSON and EVIDENCE record the rebuild and
-45 host policy checks, 28 native preflight cases, HPXY/CGA playback during
-window repaint/movement, stop, sound release, normal exit/bridge cleanup,
-reservation reuse and failed-start cases. Native tests use installed DOSBox-X
-and disposable Windows 3.0 real-mode profiles; no physical test was added.
-Historical runtime archives in this repository are unchanged.
+The ready-to-run Winamp package includes RESERVE.COM and the exact tested
+TSOUND.DRV with corresponding source and notices. Its guide explains selecting
+TSOUND.DRV explicitly in the existing Windows 3.0 real-mode profile, then
+running TPLAY directly from plain DOS. No separate display launcher is chained.
 
-Integration follow-up: XRSYNC.DRV from reviewed PR155 commit
- e84a17d1562a3f938b5268b8a92fc5e47b176deb is now explicitly classified for the
-same guard. Its 60,800-byte candidate matches the reviewed HPXY build and its
-OEM packet's RESERVE helper is identical. Current 49 host checks and 31 native
-preflight cases pass; the actual XRSYNC module passed playback during graphics
-activity, stop, sound release and normal Windows/owned-bridge cleanup. Earlier
-unchanged-path receipts retain their previous launcher identities.
+OEMSound's LAUNCH/TESTS.JSON and EVIDENCE contain 49 host policy checks,
+31 native preflight cases, actual XRSYNC playback during graphics activity,
+stop, sound release, normal exit/bridge cleanup and the direct sound-install
+check. Earlier HPXY/CGA, reservation reuse and failed-start receipts retain
+their recorded runtime identities. CI checks exact-head source/packet pins;
+native execution uses the installed emulator and disposable Windows profiles.
+Historical runtime archives in this repository remain unchanged.

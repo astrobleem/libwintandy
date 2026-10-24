@@ -9,6 +9,8 @@ The `sound/DRIVER/PITLEASE.H` derivative carries its own GPLv3 notice; see
 
 * `LWTANDY.H` exposes the existing USER repaint helpers.
 * `LWAUDIO.H` forwards the app-local MCI/raw-player interfaces.
+* [TPLAY](docs/TPLAYXT.TXT) supplies the guarded Windows XT HPXY/XRSYNC launcher
+  used by [Tandy Winamp XT1](https://github.com/astrobleem/oemsound-tandy/releases/tag/tandy-winamp-xt1.20261024).
 * MINIPLAY's separate [format playback preview](examples/FORMATS30/README.md)
   adds foreground VGM/VGZ and bounded MOD PSG arrangements through a negotiated
   ordered-burst RAWCLK interface. The old TCFRAME ABI and timer owner remain.

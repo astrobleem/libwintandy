@@ -1,0 +1,37 @@
+name: TPLAY exact-head source policy
+on:
+  pull_request:
+  push:
+    branches: [main, fix/tplay-current-display]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  tplay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.SOURCE_SHA }}
+          persist-credentials: false
+      - name: Confirm exact reviewed head
+        run: test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+      - name: Compile and run C89 policy checks
+        run: |
+          gcc -x c -std=c89 -Wall -Wextra -Werror -I libtandywin/AUDIO/SOURCE libtandywin/AUDIO/TESTS/TPLAYPOL.C -o /tmp/tplay-policy
+          /tmp/tplay-policy
+      - name: Verify canonical source pins
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          rows={r['path']:r for r in json.loads(Path('MANIFEST.JSON').read_bytes())['files']}
+          for name in ('libtandywin/AUDIO/SOURCE/TPLAY.C','libtandywin/AUDIO/SOURCE/TPLAYPOL.H','libtandywin/AUDIO/TESTS/TPLAYPOL.C','docs/TPLAYXT.TXT'):
+              data=Path(name).read_bytes()
+              assert rows[name]['bytes']==len(data), name
+              assert rows[name]['sha256']==hashlib.sha256(data).hexdigest(), name
+          print('PASS canonical TPLAY source pins')
+          PY
