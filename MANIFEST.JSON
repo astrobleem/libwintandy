@@ -1373,18 +1373,18 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/TPLAYPOL.H",
-      "bytes": 2111,
-      "sha256": "a8c2952b40121820b4ec4270f3f051d1bb7ecf99d2ff30858dbc151204e1125e"
+      "bytes": 2125,
+      "sha256": "4384182735912b2587b1aa6e31c6c542406f3a08f88de929daa3b36b98c03a06"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/TPLAYPOL.C",
-      "bytes": 1683,
-      "sha256": "6cfaf7fe8b8362268db6c4d6c0a3527ec466d14daf10ff6bdb6a5da782b746db"
+      "bytes": 1816,
+      "sha256": "3e5b5c83965049a6bb38bd99d41b55500d82041c12575b1de29a3ae63e4df99b"
     },
     {
       "path": "docs/TPLAYXT.TXT",
-      "bytes": 1157,
-      "sha256": "a324f4faa5c534682f9837ebb25915c6cd05bd942bceeebe99b40018e6d3ee0f"
+      "bytes": 1688,
+      "sha256": "d3630df484796ac5f383e9fd6072d07ab90ef5def6645eb45b3ba53dcb58be1f"
     }
   ]
 }
