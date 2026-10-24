@@ -1,0 +1,19 @@
+TPLAY current Windows XT launcher policy
+
+AUDIO/SOURCE/TPLAY.C and TPLAYPOL.H now retain shipped UX3 EX/HX ROM,
+ROM IRQ-owner and variable WIN.COM bootstrap handling, and route current
+XR1 HPXY through the same16 KB normal 640K guard as the reviewed Tandy profiles.
+CGA needs no reservation; unknown displays refuse. DOS 3+ is explicit.
+
+The matching 1512-byte RESERVE.COM is packaged with the OEMSound TWXT1 local
+candidate, not adopted from PATH. Its exact ownership check avoids duplicate
+allocation and refuses another owner's overlap. Audio/bridge identity and
+ownership protections remain. The two source files are byte-identical to
+OEMSound experimental/WINAMP30/LAUNCH at this checkpoint.
+
+OEMSound's LAUNCH/POLICY.MD, TESTS.JSON and EVIDENCE record the rebuild and
+45 host policy checks, 28 native preflight cases, HPXY/CGA playback during
+window repaint/movement, stop, sound release, normal exit/bridge cleanup,
+reservation reuse and failed-start cases. Native tests use installed DOSBox-X
+and disposable Windows 3.0 real-mode profiles; no physical test was added.
+Historical runtime archives in this repository are unchanged.
