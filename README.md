@@ -36,8 +36,9 @@ CPU performance are outside the recorded result.
 
 The separate `sound/` directory contains a pinned Windows 3.0 MIDI producer
 compatibility module used by the RAVE host preparation workflow. It is kept
-separate from the historical `libtandywin/AUDIO` preview and does not replace
-it or change that component's API. See `sound/README.md` and `sound/SOURCE.json`
+separate from the current Windows player engine in
+`libtandywin/AUDIO/SOURCE/`; it is not that player's vendored synth. See
+`sound/README.md` and `sound/SOURCE.json`
 for the producer scope, dependency boundary, file hashes and license notices.
 
 See [format architecture](libtandywin/AUDIO/FORMATS30.MD),
