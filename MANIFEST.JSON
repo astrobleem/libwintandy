@@ -32,6 +32,16 @@
       "sha256": "45e56138c455df528c8f9333c6d9411024d10385493ad82af84ffa232f794bdc"
     },
     {
+      "path": "AGENTS.md",
+      "bytes": 2350,
+      "sha256": "bae2b96b9a93cf6a623db65504c25bdaf02f59c07e6934a11b9ca2ec5291ea2f"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 315,
+      "sha256": "3d4ae3933f2726108f6a0cf491a3d4a24da774004c7ff0c7b88a36bad9653aae"
+    },
+    {
       "path": "LICENSE",
       "bytes": 1084,
       "sha256": "1c444f27b5b0d7397fa2e9c2812f89c2daab73c1f29fcbd91f0d8fc793e4cbd4"
@@ -48,8 +58,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3237,
-      "sha256": "dcd9f59507e6bea7099ee56607507c55fd911e846ef6176653e1d4e7892ff33d"
+      "bytes": 3245,
+      "sha256": "e61e4ab8bfbc3feb422a6b956b416e5949fc008e1925bcd9d82fcf93e631c35e"
     },
     {
       "path": "docs/ADOPT.TXT",
@@ -63,8 +73,8 @@
     },
     {
       "path": "docs/BUILD.TXT",
-      "bytes": 1974,
-      "sha256": "44a6af470f2a340b97672f629583804587f6d933e53b3de3af742f425008e469"
+      "bytes": 4112,
+      "sha256": "58cf78de75b375f9771bb0c8eda919ba865436477747bb00eee1cf0d3ff7daf9"
     },
     {
       "path": "docs/NAMING.TXT",
