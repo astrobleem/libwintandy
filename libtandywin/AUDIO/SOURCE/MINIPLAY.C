@@ -43,6 +43,7 @@ static PLLModel playlist;
 static char activeName[144],stateText[144]="Ready";
 static RECT displayRect;
 static WORD device,playing,automatic,phase,checks,failures,successes,aborts;
+static WORD opening,openCancelled,closeAfterOpen;static DWORD openTick;
 static DWORD phaseAt;static HFILE log=HFILE_ERROR;
 static char directory[144],filename[144],text[180];
 static MCOPEN op;static MCGEN gp;static MCSTATUS st;
@@ -82,6 +83,29 @@ static const char *baseName(const char *name)
 static void caption(char *s)
 {
  if(lstrcmp(stateText,s)){lstrcpy(stateText,s);LtwSetText(label,s);}
+}
+/* Decode/preflight run in the foreground. Keep painting and cancellation
+   responsive while deferring destructive commands until the open unwinds. */
+static WORD formatProgress(WORD phase,DWORD done,DWORD total)
+{
+ MSG msg;DWORD now;WORD count=0,percent;char status[40];
+ if(openCancelled)return 0;now=GetTickCount();
+ if(now-openTick<110UL)return 1;openTick=now;
+ if(phase==FMT_INFLATE){
+  percent=total?(WORD)(done>=total?100:(done*100UL)/total):0;
+  wsprintf(status,"Opening %u%%",percent);caption(status);
+ }else caption("Checking file");
+ UpdateWindow(label);
+ while(count++<16&&PeekMessage(&msg,0,0,0,PM_REMOVE)){
+  if(msg.message==WM_QUIT){openCancelled=closeAfterOpen=1;
+   PostQuitMessage(msg.wParam);break;}
+  if(msg.message==WM_KEYDOWN&&msg.wParam==VK_ESCAPE){openCancelled=1;continue;}
+  if(msg.message==WM_KEYDOWN&&msg.wParam==VK_TAB&&
+      (msg.hwnd==mainWindow||IsChild(mainWindow,msg.hwnd)))
+   SetFocus(GetNextDlgTabItem(mainWindow,GetFocus(),GetKeyState(VK_SHIFT)<0));
+  else {TranslateMessage(&msg);DispatchMessage(&msg);}
+ }
+ return !openCancelled;
 }
 static void trackName(void)
 {
@@ -234,7 +258,7 @@ static void removeSelected(void)
 static WORD closeFile(void)
 {
  DWORD r;playing=0;
- if(formatKind){if(FmtClose()){caption("Retry");return 1;}formatKind=formatPaused=0;SetWindowText(GetDlgItem(mainWindow,PAUSE),"Pause");}
+ if(formatKind){if(FmtClose()){caption(FmtReason());return 1;}formatKind=formatPaused=0;SetWindowText(GetDlgItem(mainWindow,PAUSE),"Pause");}
  if(rawKind){if(RawClose()){caption("Retry");return 1;}rawKind=0;}
  if(device){
   command(device,MC_STOP,0L,0L);
@@ -256,7 +280,18 @@ static void play(void)
  caption("Opening");UpdateWindow(mainWindow);UpdateWindow(label);UpdateWindow(trackBox);
  i=lstrlen(filename);rawKind=formatKind=0;
  if(i>=4){if(!lstrcmpi(filename+i-4,".VGM")||!lstrcmpi(filename+i-4,".VGZ"))formatKind=3;else if(!lstrcmpi(filename+i-4,".MOD"))formatKind=4;}
- if(formatKind){r=FmtOpen(filename,formatKind);if(r){if(FmtClose()){caption("Retry");return;}formatKind=0;caption(FmtReason());return;}playing=1;formatPaused=0;lastService=GetTickCount();SetTimer(mainWindow,1,55,0);caption(FmtReason());return;}
+ if(formatKind){
+  opening=1;openCancelled=closeAfterOpen=0;openTick=GetTickCount()-110UL;
+  SetWindowText(GetDlgItem(mainWindow,STOP),"Cancel");
+  r=FmtOpen(filename,formatKind);opening=0;
+  SetWindowText(GetDlgItem(mainWindow,STOP),"Stop");
+  if(r){if(FmtClose()){caption(FmtReason());return;}
+   formatKind=0;caption(FmtReason());
+   if(closeAfterOpen)PostMessage(mainWindow,WM_CLOSE,0,0L);return;}
+  if(closeAfterOpen){if(!closeFile())PostMessage(mainWindow,WM_CLOSE,0,0L);return;}
+  playing=1;formatPaused=0;lastService=GetTickCount();SetTimer(mainWindow,1,55,0);
+  caption(FmtReason());return;
+ }
  if(i>=4){if(!lstrcmpi(filename+i-4,".TND"))rawKind=1;else if(!lstrcmpi(filename+i-4,".SND"))rawKind=2;}
  if(rawKind){r=RawOpen(filename,rawKind);if(r){if(RawClose()){caption("Retry");return;}rawKind=0;wsprintf(text,"Raw E%lu",r);caption(text);return;}
   playing=1;lastService=GetTickCount();SetTimer(mainWindow,1,55,0);caption("Queued");return;}
@@ -307,6 +342,13 @@ LONG FAR PASCAL ControlProc(HWND w,WORD m,WORD a,LONG b)
 LONG FAR PASCAL WndProc(HWND w,WORD message,WORD a,LONG b)
 {
  DWORD r;
+ if(opening){
+  if(message==WM_COMMAND){if(a==STOP)openCancelled=1;return 0L;}
+  if(message==WM_CLOSE||(message==WM_ENDSESSION&&a)){
+   openCancelled=closeAfterOpen=1;return 0L;}
+  if(message==WM_QUERYENDSESSION){openCancelled=1;return 0L;}
+  if(message==WM_TIMER)return 0L;
+ }
  if(message==WM_USER+50)return FmtDebug(a);
  if(message==WM_USER+49)return RawDebug(a==0?1:a);
  if(message==WM_USER+47)return a?device:playing;
@@ -398,7 +440,7 @@ int PASCAL WinMain(HINSTANCE inst,HINSTANCE prev,LPSTR cmd,int show)
  if(automatic)log=_lcreat("C:\\MINIPLAY.LOG",0);
  check("entered_WinMain",1);
  wsprintf(text,"CMD %s\r\n",cmd);logText();
- n=GetModuleFileName(inst,directory,sizeof(directory));if(!n || n>=sizeof(directory)-13)return 1;for(i=0;i<n;++i)if(directory[i]=='\\' || directory[i]=='/')last=i+1;directory[last]=0;RawInit(directory);FmtInit(directory);
+ n=GetModuleFileName(inst,directory,sizeof(directory));if(!n || n>=sizeof(directory)-13)return 1;for(i=0;i<n;++i)if(directory[i]=='\\' || directory[i]=='/')last=i+1;directory[last]=0;RawInit(directory);FmtInit(directory);FmtSetProgress(formatProgress);
  lstrcpy(dll,directory);lstrcat(dll,"MCITNDY.DLL");wsprintf(text,"DLL %s\r\n",(LPSTR)dll);logText();module=LoadLibrary(dll);
  wsprintf(text,"LOAD_RESULT %u\r\n",module);logText();
  if(module<32){MessageBox(0,"Keep MCITNDY.DLL with this player.","Tandy Winamp",MB_OK);return 1;}

@@ -10,7 +10,7 @@
 #define MAXH 16
 static FILE *files[MAXH];static int openHandles,tempMade,tempLive;
 static char tmpdir[300],tempNames[64][320];static int tempCount;
-static DWORD writeLimit,written,allocs;static int noTemp,failLoad,busy;
+static DWORD writeLimit,written,allocs;static int noTemp,failLoad,busy,failDelete;
 static unsigned queued,hwEnded,closes,starts;static unsigned long fnv,bursts;
 static int checks,failures;
 #define C(x) do{checks++;if(!(x)){printf("FAIL line %d: %s\n",__LINE__,#x);failures++;}}while(0)
@@ -27,7 +27,7 @@ HFILE _lclose(HFILE h){if(h<1||h>=MAXH||!files[h])return HFILE_ERROR;fclose(file
 int GetTempFileName(BYTE d,const char *pre,WORD u,char *out){FILE *f;(void)d;(void)u;if(noTemp)return 0;
  sprintf(out,"%s/%s%04x.TMP",tmpdir,pre,++tempMade);f=fopen(out,"wb");if(!f)return 0;fclose(f);
  strcpy(tempNames[tempCount++],out);tempLive++;return 1;}
-HFILE OpenFile(const char *p,OFSTRUCT *o,WORD f){(void)o;if(f&OF_DELETE){if(!remove(p))tempLive--;return 1;}return HFILE_ERROR;}
+HFILE OpenFile(const char *p,OFSTRUCT *o,WORD f){(void)o;if(f&OF_DELETE){if(failDelete||remove(p))return HFILE_ERROR;tempLive--;return 1;}return HFILE_ERROR;}
 HGLOBAL GlobalAlloc(WORD f,DWORD n){void *p=malloc(n);(void)f;if(p)allocs++;return (HGLOBAL)p;}
 void *GlobalLock(HGLOBAL h){return (void *)h;}int GlobalUnlock(HGLOBAL h){(void)h;return 0;}
 HGLOBAL GlobalFree(HGLOBAL h){free((void *)h);allocs--;return 0;}
@@ -75,13 +75,33 @@ static int clean(const char *what){int i,ok=1;
  if(allocs){printf("  %s: %lu allocations live\n",what,(unsigned long)allocs);ok=0;}
  for(i=0;i<tempCount;i++){FILE *f=fopen(tempNames[i],"rb");if(f){fclose(f);printf("  %s: %s remains\n",what,tempNames[i]);ok=0;}}
  return ok;}
-static void reset(void){queued=hwEnded=0;bursts=0;fnv=2166136261UL;noTemp=failLoad=busy=0;writeLimit=written=0;}
+static void reset(void){queued=hwEnded=0;bursts=0;fnv=2166136261UL;noTemp=failLoad=busy=failDelete=0;writeLimit=written=0;}
 /* Returns FmtOpen's code, or 100 if it opened but did not play to EOF. */
 static int play(const char *p,unsigned stopAfter){WORD r;unsigned n=0;reset();r=FmtOpen((LPSTR)p,FX_VGM);
  if(r){C(!FmtClose());return r;}
  for(;;){r=FmtPump();queued=0;if(r!=1)break;if(stopAfter&&++n>=stopAfter){C(!FmtClose());return 0;}if(n>2000000U)return 100;}
  C(!FmtClose());return r==0?0:100;}
 
+/* Cancellation precedes RAW ownership, and callbacks cannot destroy the
+   decoder's active file/ring. Exercise the actual FmtOpen/FmtClose path. */
+static WORD cancelPhase,callbackClose,callbackCalls,progressOwned;
+static DWORD cancelAt;
+static WORD progressTest(WORD phase,DWORD done,DWORD total)
+{
+ (void)total;++callbackCalls;if(owner||module)progressOwned=1;
+ if(phase==cancelPhase&&done>=cancelAt){
+  if(callbackClose){C(FmtClose()==1);return 1;}return 0;
+ }return 1;
+}
+static void cancelTest(const char *path,WORD phase,WORD reentrant)
+{
+ int r;unsigned before=starts;reset();callbackCalls=progressOwned=0;
+ cancelPhase=phase;cancelAt=8192;callbackClose=reentrant;
+ FmtSetProgress(progressTest);r=FmtOpen((LPSTR)path,FX_VGM);
+ C(r==FMT_CANCELLED);C(!strcmp(FmtReason(),"Cancelled"));
+ C(callbackCalls>0&&!progressOwned);C(starts==before);
+ C(!FmtClose());C(clean("cancel"));FmtSetProgress(0);
+}
 int main(int argc,char **argv){int i,bad=0;char path[400];
  if(argc<5||strcmp(argv[3],"--good")){fprintf(stderr,"usage\n");return 2;}
  strcpy(tmpdir,argv[1]);FmtInit((LPSTR)"C:\\");reference(argv[2]);
@@ -105,6 +125,14 @@ int main(int argc,char **argv){int i,bad=0;char path[400];
   INJECT("sound busy",busy=1,r==7);
   INJECT("disk full",writeLimit=100,r!=0);
   INJECT("no temp dir",noTemp=1,r!=0);
+  cancelTest(path,FMT_INFLATE,0);
+  cancelTest(path,FMT_CHECK,0);
+  cancelTest(path,FMT_INFLATE,1);
+  cancelTest(argv[2],FMT_CHECK,0);
+  /* Deletion failure retains the exact name for a later safe close retry. */
+  reset();r=FmtOpen((LPSTR)path,FX_VGM);C(!r);failDelete=1;
+  C(FmtClose()==1);C(tname[0]!=0&&tempLive==1&&!openHandles&&!allocs);
+  C(!owner&&module);failDelete=0;C(!FmtClose());C(clean("delete retry"));
   break;
  }
  printf("%s checks=%d failures=%d\n",failures?"FAIL":"PASS",checks,failures);return failures!=0;}

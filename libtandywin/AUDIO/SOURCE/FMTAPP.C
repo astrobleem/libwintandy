@@ -22,12 +22,22 @@ static DWORD inputSize,sourceSize,cacheAt=0xffffffffUL;
 static WORD cacheCount;static BYTE cache[512];static FXCORE core;static FXBURST next;
 static TCBURST wire;static TCBINFO caps;
 static WORD lastAdmission,minQueued;
+static WORD opening,cancelled,progressKind;
+static DWORD sinkDone,sinkTotal;static FMTPROGRESS progress;
+void FmtSetProgress(FMTPROGRESS p){progress=p;}
+static WORD notify(WORD phase,DWORD done,DWORD total)
+{
+ if(cancelled)return 0;
+ if(progress&&!progress(phase,done,total)){cancelled=1;return 0;}
+ return !cancelled;
+}
 static DWORD refusedAt,refusedClock,refusedSource;static WORD refusedQueue,refusedGroups;
 static void setReason(const char *s){WORD i=0;while(i<sizeof(reason)-1&&s[i]){reason[i]=s[i];i++;}reason[i]=0;}
 static int fileRead(void *u,unsigned long at,unsigned char *out,unsigned short n)
 {
  WORD i,take;DWORD base;(void)u;if(at>inputSize||n>inputSize-at)return 0;
  while(n){base=at&~511UL;if(cacheAt!=base){
+  if(opening&&progressKind==FMT_CHECK&&!notify(FMT_CHECK,base,inputSize))return 0;
   if(_llseek(file,(LONG)base,0)!=(LONG)base)return 0;
   take=inputSize-base>512UL?512:(WORD)(inputSize-base);
   cacheCount=_lread(file,cache,take);if(cacheCount!=take)return 0;cacheAt=base;
@@ -43,7 +53,11 @@ static int readSource(void *u,unsigned long at,unsigned char *out,unsigned short
    DOS temp file that FmtClose deletes. The player then reads it exactly like
    a plain VGM (random access through the 512-byte cache, so the replay after
    preflight and the loop jump cost no re-inflation). */
-static int spool(void *u,const GZ8 GZ_FAR *p,GZ16 n){(void)u;return _lwrite(tfile,p,n)==n;}
+static int spool(void *u,const GZ8 GZ_FAR *p,GZ16 n)
+{
+ (void)u;if(!notify(FMT_INFLATE,sinkDone+n,sinkTotal))return 0;
+ sinkDone+=n;return _lwrite(tfile,p,n)==n;
+}
 void FmtInit(LPSTR directory){lstrcpy(dll,directory);lstrcat(dll,"RAWCLK.DLL");}
 static WORD load(void){
  module=LoadLibrary(dll);if(module<32){module=0;return 1;}
@@ -57,11 +71,15 @@ static WORD load(void){
  return 0;
 }
 WORD FmtClose(void){WORD i;
+ /* A foreground callback may request cancellation, but cannot free buffers
+    while the decoder is still on its caller stack. */
+ if(opening){cancelled=1;return 1;}
  if(owner&&owner!=GetCurrentTask())return 1;
  if(owner){if(closeClock())return 1;owner=0;}
  if(file!=HFILE_ERROR){_lclose(file);file=HFILE_ERROR;}
  if(tfile!=HFILE_ERROR){_lclose(tfile);tfile=HFILE_ERROR;}
- if(tname[0]){OpenFile(tname,&tof,OF_DELETE);tname[0]=0;}
+ if(tname[0]){if(OpenFile(tname,&tof,OF_DELETE)==HFILE_ERROR){
+  setReason("Cannot remove temporary file");return 1;}tname[0]=0;}
  if(module){if(debugClock)for(i=0;i<29;i++)saved[i]=debugClock(i);FreeLibrary(module);module=0;}
  paused=ended=pending=0;return 0;
 }
@@ -73,33 +91,64 @@ static WORD fill(WORD budget){int r;WORD q,i;
   q=putClock(&wire);lastAdmission=q;if(q==2)return 0;if(q){refusedAt=wire.at;refusedClock=readClock();refusedQueue=debugClock(0);refusedSource=core.sourceOffset;refusedGroups=(WORD)core.groups;lstrcpy(reason,q==4?"Playback buffer ran late":"Queue refused input");return 3;}pending=0;
  }return 0;
 }
-WORD FmtOpen(LPSTR path,WORD kind){LONG size;WORD r;DWORD plainSize;HGLOBAL ring;GZ8 GZ_FAR *window;static BYTE magic[2];
- if(FmtClose())return 1;lstrcpy(reason,"Input rejected");
- file=_lopen(path,OF_READ|OF_SHARE_DENY_WRITE);if(file==HFILE_ERROR){lstrcpy(reason,"Cannot open file");return 4;}
- size=_llseek(file,0L,2);cacheAt=0xffffffffUL;inputSize=(DWORD)size;sourceSize=inputSize;
- if(size<18||size>FMT_MAX_PLAIN){lstrcpy(reason,"File outside bounded profile");FmtClose();return 2;}
- if(!fileRead(0,0,magic,2)){FmtClose();return 4;}
+static WORD rejected(WORD code)
+{
+ if(cancelled){setReason("Cancelled");code=FMT_CANCELLED;}
+ opening=progressKind=0;
+ if(FmtClose())return 1;return code;
+}
+WORD FmtOpen(LPSTR path,WORD kind)
+{
+ LONG size;WORD r;DWORD plainSize;HGLOBAL ring;GZ8 GZ_FAR *window;
+ static BYTE magic[2],tail[4];
+ if(opening)return 1;if(FmtClose())return 1;
+ opening=1;cancelled=progressKind=0;lstrcpy(reason,"Input rejected");
+ file=_lopen(path,OF_READ|OF_SHARE_DENY_WRITE);
+ if(file==HFILE_ERROR){setReason("Cannot open file");return rejected(4);}
+ size=_llseek(file,0L,2);cacheAt=0xffffffffUL;
+ inputSize=(DWORD)size;sourceSize=inputSize;
+ if(size<18||size>FMT_MAX_PLAIN){setReason("File outside bounded profile");return rejected(2);}
+ if(!fileRead(0,0,magic,2))return rejected(4);
  if(magic[0]==31&&magic[1]==139){
-  if(kind!=FX_VGM){lstrcpy(reason,"Compressed input is VGZ only");FmtClose();return 2;}
-  if(!GetTempFileName(0,"VGZ",0,tname)){tname[0]=0;lstrcpy(reason,"No TEMP location for VGZ");FmtClose();return 6;}
-  tfile=_lcreat(tname,0);if(tfile==HFILE_ERROR){lstrcpy(reason,"Cannot create VGZ temp file");FmtClose();return 6;}
-  ring=GlobalAlloc(GMEM_MOVEABLE,(DWORD)GZ_WINDOW);if(!ring||(window=GlobalLock(ring))==0){if(ring)GlobalFree(ring);FmtClose();return 5;}
-  r=gz_decode_stream(fileRead,0,inputSize,window,spool,0,(DWORD)FMT_MAX_PLAIN,&plainSize);
-  GlobalUnlock(ring);GlobalFree(ring);
-  if(r){lstrcpy(reason,r==5?"VGZ temp file write failed (disk full?)":r==2?"VGZ larger than bounded profile":r==4?"VGZ CRC or size check failed":"VGZ integrity or bounded decode refusal");FmtClose();return r==5?6:2;}
+  if(kind!=FX_VGM){setReason("Compressed input is VGZ only");return rejected(2);}
+  if(!fileRead(0,inputSize-4,tail,4))return rejected(4);
+  sinkDone=0;sinkTotal=(DWORD)tail[0]|((DWORD)tail[1]<<8)|
+      ((DWORD)tail[2]<<16)|((DWORD)tail[3]<<24);
+  if(!GetTempFileName(0,"VGZ",0,tname)){
+   tname[0]=0;setReason("Cannot create temporary file");return rejected(6);}
+  tfile=_lcreat(tname,0);
+  if(tfile==HFILE_ERROR){setReason("Cannot create VGZ temp file");return rejected(6);}
+  ring=GlobalAlloc(GMEM_MOVEABLE,(DWORD)GZ_WINDOW);
+  if(!ring||(window=GlobalLock(ring))==0){
+   if(ring)GlobalFree(ring);setReason("Not enough memory to open VGZ");return rejected(5);}
+  progressKind=FMT_INFLATE;
+  r=gz_decode_stream(fileRead,0,inputSize,window,spool,0,
+      (DWORD)FMT_MAX_PLAIN,&plainSize);
+  GlobalUnlock(ring);GlobalFree(ring);progressKind=0;
+  if(r){setReason(r==5?"VGZ temporary file write failed":
+      r==2?"VGZ larger than bounded profile":r==4?"VGZ CRC or size check failed":
+      "VGZ integrity or bounded decode refusal");return rejected(r==5?6:2);}
   _lclose(file);file=tfile;tfile=HFILE_ERROR;cacheAt=0xffffffffUL;
-  size=_llseek(file,0L,2);if(size<18||(DWORD)size!=plainSize){lstrcpy(reason,"VGZ temp file inconsistent");FmtClose();return 6;}
+  size=_llseek(file,0L,2);
+  if(size<18||(DWORD)size!=plainSize){setReason("VGZ temp file inconsistent");return rejected(6);}
   inputSize=sourceSize=(DWORD)size;
  }
- /* Complete source scan and replay initialization precede SOUND ownership. */
- if(FXPreflight(&core,readSource,0,sourceSize,kind)||FXOpen(&core,readSource,0,sourceSize,kind)){
-  setReason(FXReason(&core));FmtClose();return 2;
- }
- if(load()){lstrcpy(reason,"Format clock capability unavailable");FmtClose();return 8;}
- r=openClock();if(r){lstrcpy(reason,"Sound is busy or unavailable");FmtClose();return 7;}owner=GetCurrentTask();
- if(!owner){closeClock();FmtClose();return 7;}
- ended=pending=paused=lastAdmission=0;refusedAt=refusedClock=refusedSource=0;refusedQueue=refusedGroups=0;minQueued=TCB_CAPACITY;if(fill(TCB_CAPACITY)||startClock()){FmtClose();return 3;}
- lstrcpy(reason,kind==FX_MOD?"MOD PSG":"VGM PSG");return 0;
+ /* All progress callbacks precede sound ownership. No pumping or I/O in IRQ. */
+ progressKind=FMT_CHECK;
+ if(!notify(FMT_CHECK,0,sourceSize))return rejected(FMT_CANCELLED);
+ r=FXPreflight(&core,readSource,0,sourceSize,kind);
+ progressKind=0;
+ if(r){setReason(FXReason(&core));return rejected(2);}
+ if(!notify(FMT_CHECK,sourceSize,sourceSize))return rejected(FMT_CANCELLED);
+ if(FXOpen(&core,readSource,0,sourceSize,kind)){
+  setReason(FXReason(&core));return rejected(2);}
+ if(load()){setReason("Format clock capability unavailable");return rejected(8);}
+ r=openClock();if(r){setReason("Sound is busy or unavailable");return rejected(7);}
+ owner=GetCurrentTask();if(!owner){closeClock();return rejected(7);}
+ ended=pending=paused=lastAdmission=0;refusedAt=refusedClock=refusedSource=0;
+ refusedQueue=refusedGroups=0;minQueued=TCB_CAPACITY;
+ if(fill(TCB_CAPACITY)||startClock())return rejected(3);
+ opening=0;setReason(kind==FX_MOD?"MOD PSG":"VGM PSG");return 0;
 }
 WORD FmtPump(void){WORD n;if(!owner||owner!=GetCurrentTask())return 2;
  if(debugClock(6)){lstrcpy(reason,"Playback timing lost");return 3;}if(!paused&&debugClock(1)&&!debugClock(20))resumeClock();
