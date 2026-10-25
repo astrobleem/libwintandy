@@ -103,7 +103,7 @@ int main(int argc,char **argv){int i,bad=0;char path[400];
 #define INJECT(label,setup,expect) do{reset();setup;r=FmtOpen((LPSTR)path,FX_VGM);printf("%s: code=%d \"%s\"\n",label,r,FmtReason());C(expect);C(!FmtClose());C(clean(label));}while(0)
   INJECT("no RAWCLK",failLoad=1,r==8);
   INJECT("sound busy",busy=1,r==7);
-  INJECT("disk full",writeLimit=5000,r!=0);
+  INJECT("disk full",writeLimit=100,r!=0);
   INJECT("no temp dir",noTemp=1,r!=0);
   break;
  }

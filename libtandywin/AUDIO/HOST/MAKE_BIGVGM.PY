@@ -65,6 +65,22 @@ def main():
     for level in (0, 1, 9):
         (out / ("BIG%d.VGZ" % level)).write_bytes(
             gzip.compress(big, compresslevel=level, mtime=0))
+    bad = out / "bad"
+    bad.mkdir(exist_ok=True)
+    good = gzip.compress(big, compresslevel=9, mtime=0)
+    cases = {}
+    cases["TRUNC.VGZ"] = good[:-1]
+    cases["CUTMID.VGZ"] = good[:len(good) // 2]
+    cases["CRC.VGZ"] = good[:-8] + bytes((good[-8] ^ 1,)) + good[-7:]
+    cases["ISIZE.VGZ"] = good[:-4] + bytes((good[-4] ^ 1,)) + good[-3:]
+    cases["TRAIL.VGZ"] = good + bytes(1)
+    cases["FLIP.VGZ"] = good[:len(good) // 2] + bytes(
+        (good[len(good) // 2] ^ 0x55,)) + good[len(good) // 2 + 1:]
+    unsup = bytearray(big)
+    struct.pack_into("<I", unsup, 0x2C, 7670454)   # YM2612 clock: other chip
+    cases["CHIP.VGZ"] = gzip.compress(bytes(unsup), compresslevel=9, mtime=0)
+    for name, data in cases.items():
+        (bad / name).write_bytes(data)
     print("BIG.VGM %d bytes, loop data offset %d" % (len(big), 0x40 + loop_off))
 
 

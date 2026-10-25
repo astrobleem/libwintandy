@@ -7,7 +7,7 @@
 #define PASCAL
 #define _loadds
 #define WINVER 0x0300
-typedef uint16_t WORD;typedef uint32_t DWORD;typedef int32_t LONG;typedef uint8_t BYTE;
+typedef uint16_t WORD;typedef unsigned long DWORD;typedef long LONG;typedef uint8_t BYTE; /* Win16 long is 32 bits; so is Windows-host long */
 typedef int HFILE;typedef uintptr_t HMODULE;typedef uintptr_t HTASK;typedef uintptr_t HGLOBAL;
 typedef char *LPSTR;typedef void *LPVOID;
 typedef struct {char name[260];} OFSTRUCT;
