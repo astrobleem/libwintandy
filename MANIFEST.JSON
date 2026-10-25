@@ -93,8 +93,8 @@
     },
     {
       "path": "examples/FORMATS30/MANIFEST.JSON",
-      "bytes": 36592,
-      "sha256": "1b71de51b1f7a960a3aaec17a12e34d3d020508aba7b0b6549af124750c94e11"
+      "bytes": 37370,
+      "sha256": "8c46379fa6c5d5beb9c5037f7c19530111bee9a264021569a5d2a91b03934ae8"
     },
     {
       "path": "examples/FORMATS30/MINIPLAY.PNG",
@@ -369,7 +369,7 @@
     {
       "path": "libtandywin/AUDIO/PROVENANCE.JSON",
       "bytes": 17588,
-      "sha256": "5a0d1bcc3daab8e115e0aed34a10610c87b6556fe609f8ddd875502cc9fbe9e2"
+      "sha256": "143fec275ce3bd7eed6811582653cb692947b0c3732fa350ba63f692954f90b5"
     },
     {
       "path": "libtandywin/AUDIO/QUALIFY.MD",
