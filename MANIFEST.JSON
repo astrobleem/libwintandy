@@ -302,6 +302,11 @@
       "sha256": "c1bf6af1b1eab57fdbe69a772eecfb8cc00339dcbfa40492fe7adae165a5f1f6"
     },
     {
+      "path": "libtandywin/AUDIO/MIDI-HANDOFF.MD",
+      "bytes": 5526,
+      "sha256": "4cbe312107732dadd0d4b1126232489706617d25e500de39e08aef7c5fed9e11"
+    },
+    {
       "path": "libtandywin/AUDIO/MOD-READER.MD",
       "bytes": 6548,
       "sha256": "a299adef1fa3784962a8a7608f95f89e6254a8743724b9000030b855437aa183"
