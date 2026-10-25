@@ -5,6 +5,11 @@
 #include <windows.h>
 #include "MDAPI.H"
 #include "MIDISYN.H"
+#include "MIDIMSG.H"
+/* Notes below 45 do not exist on the PSG. Keep the original key in MIDI
+   state and sound it one or more octaves up on a PSG tone (MSYN mode 2).
+   This is a fallback, not speaker output; MSValidMessage(.,1) admits them. */
+#define LOW_NOTE_FOLD 2
 #include "TIMECLK.H"
 typedef WORD(FAR PASCAL *ZERO)(void);typedef WORD(FAR PASCAL *PUT)(TCFRAME FAR *);typedef WORD(FAR PASCAL *DEBUG)(WORD);typedef DWORD(FAR PASCAL *CLOCK)(void);
 typedef struct {DWORD at,msg;} EVENT;
@@ -19,7 +24,7 @@ static WORD load(void){WORD n,i,last=0;HMODULE self=GetModuleHandle("MIDICLK");n
  ropen=(ZERO)GetProcAddress(raw,(LPSTR)13L);rput=(PUT)GetProcAddress(raw,(LPSTR)2L);rstart=(ZERO)GetProcAddress(raw,(LPSTR)3L);rend=(ZERO)GetProcAddress(raw,(LPSTR)4L);rclose=(ZERO)GetProcAddress(raw,(LPSTR)5L);rd=(DEBUG)GetProcAddress(raw,(LPSTR)6L);rresume=(ZERO)GetProcAddress(raw,(LPSTR)11L);rc=(CLOCK)GetProcAddress(raw,(LPSTR)12L);rpause=(ZERO)GetProcAddress(raw,(LPSTR)14L);runpause=(ZERO)GetProcAddress(raw,(LPSTR)15L);rflush=(ZERO)GetProcAddress(raw,(LPSTR)16L);rrearm=(ZERO)GetProcAddress(raw,(LPSTR)17L);
  rmask=(ZERO)GetProcAddress(raw,(LPSTR)18L);rlive=(PUT)GetProcAddress(raw,(LPSTR)19L);
  return !(rmask&&ropen&&rput&&rstart&&rend&&rclose&&rd&&rresume&&rc&&rpause&&runpause&&rflush&&rrearm);}
-static void init(DWORD at){livePending=0;MSReset(&synth);synth.flags=voiceFlags;ehead=ecount=ah=acount=pending=eof=sealed=lastSent=haveTime=committed=seeded=0;haveFrame=0;origin=when=watermark=lastAt=at;lastClock=fraction=0;clockMS=lastOutput=at;info.state=MD_OPEN;info.flags=(voiceFlags<<8)|policy;info.error=0;info.queued=0;info.position=at;info.accepted=info.delivered=info.coalesced=0;info.generation++;if(!info.generation)info.generation=1;}
+static void init(DWORD at){livePending=0;MSReset(&synth);synth.flags=voiceFlags;MSSpeakerMode(&synth,LOW_NOTE_FOLD);ehead=ecount=ah=acount=pending=eof=sealed=lastSent=haveTime=committed=seeded=0;haveFrame=0;origin=when=watermark=lastAt=at;lastClock=fraction=0;clockMS=lastOutput=at;info.state=MD_OPEN;info.flags=(voiceFlags<<8)|policy;info.error=0;info.queued=0;info.position=at;info.accepted=info.delivered=info.coalesced=0;info.generation++;if(!info.generation)info.generation=1;}
 static void update(void){DWORD d,n,r,now;WORD delta;
  if(info.state!=MD_RUNNING)return;now=rc();d=now-lastClock;lastClock=now;
  while(d){n=d>1000000UL?1000000UL:d;r=n*3000UL+fraction;clockMS+=r/3579545UL;info.position=clockMS;fraction=r%3579545UL;d-=n;}
@@ -42,11 +47,10 @@ static WORD fill(WORD budget){WORD r;while(budget--){if(acount==1024)return 0;if
  r=rput(&f);if(r==2)return 0;if(r)return 1;haveFrame=1;an[(ah+acount)&1023]=frameN;acount++;pending=0;when=nextAt;if(sealed)return rend()?1:0;}return 0;}
 WORD MDAPI MDOpen(WORD FAR *out){HMODULE p;if(!out)return MD_BAD;if(owner)return MD_BUSY;if(load()){if(raw)FreeLibrary(raw);raw=0;p=pin;pin=0;if(p)FreeLibrary(p);return MD_IO;}
  if(ropen()){FreeLibrary(raw);raw=0;p=pin;pin=0;if(p)FreeLibrary(p);return MD_BUSY;}owner=GetCurrentTask();handle=serial++;if(!serial)serial=1;info.size=sizeof(info);info.version=MD_VERSION;info.capacity=1024;info.minSpacingMs=8;info.psgTones=3;info.noiseVoices=1;info.flags=0;started=policy=0;voiceFlags=1;init(0);*out=handle;return 0;}
-WORD MDAPI MDPush(WORD h,DWORD gen,DWORD at,DWORD msg){WORD s,a,b,ch;
+WORD MDAPI MDPush(WORD h,DWORD gen,DWORD at,DWORD msg){
  if(!valid(h))return MD_BUSY;if(gen!=info.generation)return MD_STALE;if(policy!=2)update();if(policy!=2&&info.state==MD_RUNNING&&(LONG)(at-clockMS)<8L)return MD_LATE;if(eof||info.error||((LONG)(at-origin)<0)||at-origin>2147483647UL)return MD_BAD;
  if(committed&&((LONG)(at-watermark)<0||(at==watermark&&(LONG)(when-at)>0)))return MD_BAD;if(haveTime&&(LONG)(at-lastAt)<0)return MD_BAD;if(policy==0&&haveTime&&at!=lastAt&&at-lastAt<8UL)return MD_SPACING;if(ecount==1024)return MD_FULL;
- s=(WORD)msg&240;ch=(WORD)msg&15;a=((WORD)msg>>8)&255;b=(WORD)(msg>>16)&255;
- if(msg&0xff000000UL||a>127||b>127||!(s==0x80||s==0xc0||(s==0xb0&&(a==120||a==123))||(s==0x90&&(!b||(ch==9?(a>=35&&a<=81):(a>=45&&a<=96))))))return MD_BAD;
+ if(!MSValidMessage(msg,1))return MD_BAD;
  events[(ehead+ecount)&1023].at=at;events[(ehead+ecount)&1023].msg=msg;ecount++;lastAt=at;haveTime=1;info.accepted++;return 0;}
 WORD MDAPI MDCommit(WORD h,DWORD gen,DWORD through,WORD flags){if(!valid(h))return MD_BUSY;if(gen!=info.generation)return MD_STALE;if(eof||flags>1||(LONG)(through-watermark)<0||(LONG)(through-origin)<0||through-origin>2147483647UL)return MD_BAD;
  
@@ -77,7 +81,7 @@ WORD MDAPI MDTiming(WORD h,WORD mode){if(!valid(h))return MD_BUSY;if(info.state!
 DWORD MDAPI MDVersion(void){return 0x00080100UL;}
 
 WORD MDAPI MDClock(WORD h,DWORD FAR *out){if(!valid(h))return MD_BUSY;if(!out)return MD_BAD;update();*out=clockMS;return 0;}
-WORD MDAPI MDVoiceMode(WORD h,WORD flags){if(!valid(h))return MD_BUSY;if(info.state!=MD_OPEN||haveTime||committed||flags==2||(flags&~3))return MD_BAD;voiceFlags=synth.flags=flags;info.flags=(flags<<8)|policy;return 0;}
+WORD MDAPI MDVoiceMode(WORD h,WORD flags){if(!valid(h))return MD_BUSY;if(info.state!=MD_OPEN||haveTime||committed||flags==2||(flags&~3))return MD_BAD;voiceFlags=synth.flags=flags;MSInvalidate(&synth);info.flags=(flags<<8)|policy;return 0;}
 
 WORD MDAPI MDDebug(WORD h,WORD q){if(!valid(h))return 0xffff;if(q==0)return rmask();if(q==1)return 1;if(q==2)return rd(12);if(q==3)return rd(6);return 0xffff;}
 
