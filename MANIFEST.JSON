@@ -33,8 +33,8 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 2350,
-      "sha256": "bae2b96b9a93cf6a623db65504c25bdaf02f59c07e6934a11b9ca2ec5291ea2f"
+      "bytes": 2702,
+      "sha256": "561bb1fac238868083391d9024cd84da086e530868b3900c7bd2cd9524386b93"
     },
     {
       "path": "CLAUDE.md",
@@ -72,9 +72,14 @@
       "sha256": "9435e005ee8484ae14c47e5eb90e93b76923f7f7b7ad54fc422d582a2dd161c6"
     },
     {
+      "path": "docs/BANKS.TXT",
+      "bytes": 3998,
+      "sha256": "79f40da14b5f8e5fb3521333241b4636b2d93d84e257bf95a7e4b408c89080b4"
+    },
+    {
       "path": "docs/BUILD.TXT",
-      "bytes": 4112,
-      "sha256": "58cf78de75b375f9771bb0c8eda919ba865436477747bb00eee1cf0d3ff7daf9"
+      "bytes": 4469,
+      "sha256": "ab371b7f8969aaf2357ba5f7e20d4a6e24df2d5499aa50f7eb95d9dc784ae756"
     },
     {
       "path": "docs/NAMING.TXT",
@@ -1380,6 +1385,11 @@
       "path": "libtandywin/AUDIO/TESTS/MAKE_MIDI_FIXTURES.PY",
       "bytes": 7448,
       "sha256": "13cf7160cfae68aedb28a1dda56cc85e293d5631e7e2003371ceb03d94dd0219"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/NATIVE/BANKS.JSN",
+      "bytes": 7549,
+      "sha256": "d049fd488e1561b1a357e06820cf035375295a0b81dd62d18b61203502a96c7e"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/NATIVE/FMTEOF/FMTGUI.LOG",
