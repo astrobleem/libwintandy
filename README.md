@@ -12,6 +12,9 @@ This library contains its consumer interfaces.
 * `LWAUDIO.H` forwards the app-local MCI/raw-player interfaces.
 * [TPLAY](docs/TPLAYXT.TXT) supplies the guarded Windows XT HPXY/XRSYNC launcher
   used by [Tandy Winamp](https://github.com/astrobleem/oemsound-tandy).
+* [Current MIDI services and native results](libtandywin/AUDIO/TESTS/NATIVE/MIDI5.MD)
+  cover controllers, streamed SMF and paired speaker/PSG playback. Consumer
+  packages use the stable [Windows XT downloads](https://github.com/astrobleem/oemdisplay-tandy/releases/tag/windows-xt).
 * MINIPLAY's separate [format playback preview](examples/FORMATS30/README.md)
   adds foreground VGM/VGZ and bounded MOD PSG arrangements through a negotiated
   ordered-burst RAWCLK interface. The old TCFRAME ABI and timer owner remain.

@@ -1,5 +1,8 @@
 # MIDI controller and file-compat handoff (for the native rebuild)
 
+This is the historical source handoff. See [current native MIDI results](TESTS/NATIVE/MIDI5.MD)
+for the compiled engine, source pins and measured results.
+
 Two stacked source changes. Neither ships binaries: dot owns the MSC6/8088
 rebuild and the unified player packet.
 

@@ -43,8 +43,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 2950,
-      "sha256": "65411ad3cc336951eede1135509928a7d4999baaec4f6dfc06cd1dcf7797315e"
+      "bytes": 3237,
+      "sha256": "25f0fe6199c61f4cfd36511b4f5e2aea0e06132739256b4eb024a6109c7d6261"
     },
     {
       "path": "docs/ADOPT.TXT",
@@ -363,8 +363,8 @@
     },
     {
       "path": "libtandywin/AUDIO/MIDI-HANDOFF.MD",
-      "bytes": 5526,
-      "sha256": "4cbe312107732dadd0d4b1126232489706617d25e500de39e08aef7c5fed9e11"
+      "bytes": 5685,
+      "sha256": "5ee295fa21e0a69707fc3e921b40014eb0476e7cb76ac37c849abcc7941be4f4"
     },
     {
       "path": "libtandywin/AUDIO/MOD-READER.MD",
@@ -1330,6 +1330,16 @@
       "path": "libtandywin/AUDIO/TESTS/NATIVE/FMTREG/RESULT.JSON",
       "bytes": 5627,
       "sha256": "154d157728bb70ad827988657470c921866024619dead13874c218405c4eee2f"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/NATIVE/MIDI5.JSN",
+      "bytes": 33814,
+      "sha256": "d28d3536995e7c01938eb4331315051284939219759d73352d24e113e34e82fe"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/NATIVE/MIDI5.MD",
+      "bytes": 3949,
+      "sha256": "ca26e7ed99f42aba4e365cab38e86a8746939d0af6212ee4929d5f16f7175afc"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/NATIVE/MINIPLAY.PNG",
