@@ -5,6 +5,7 @@
 #include "../SOURCE/MIDICLK.C"
 
 static WORD task=1,held,running,activeClock,backendStatus,ended;
+static WORD createdTimer,starts,rearms;
 static WORD capsMode=1,hardwareFree=1,npairs,nframes,retries,liveCalls;
 static TCXPAIR pairs[1024],livePair;
 static TCFRAME frames[1024];
@@ -21,11 +22,16 @@ HMODULE LoadLibrary(const char *n){(void)n;return 34;}
 WORD FreeLibrary(HMODULE m){(void)m;return 0;}
 static WORD rawOpen(void){
  if(held)return 1;held=1;running=activeClock=npairs=nframes=retries=liveCalls=0;
- ticks=0;ended=0;backendStatus=hardwareFree?TCX_AVAILABLE:TCX_BUSY;return 0;}
+ ticks=0;ended=createdTimer=starts=rearms=0;backendStatus=hardwareFree?TCX_AVAILABLE:TCX_BUSY;return 0;}
 static WORD rawPut(TCFRAME *p){if(nframes==1024)return 2;frames[nframes++]=*p;return 0;}
-static WORD rawStart(void){running=activeClock=1;return 0;}
+static WORD rawStart(void){
+ starts++;if(!held||createdTimer||running||(!npairs&&!nframes))return 1;
+ createdTimer=running=activeClock=1;return 0;}
+static WORD rawRearm(void){
+ rearms++;if(!held||!createdTimer||running||(!npairs&&!nframes))return 1;
+ running=activeClock=1;return 0;}
 static WORD rawEnd(void){if(!npairs)ended=1;return 0;}
-static WORD rawClose(void){held=running=activeClock=0;return 0;}
+static WORD rawClose(void){held=running=activeClock=createdTimer=0;return 0;}
 static WORD rawDebug(WORD n){return n==1?running:n==20?activeClock:n==7?ended:0;}
 static DWORD rawClock(void){return ticks;}
 static WORD rawPause(void){activeClock=0;return 0;}
@@ -49,7 +55,8 @@ static WORD pairPut(TCXPAIR *p){if(npairs==1024)return 2;pairs[npairs++]=*p;retu
 static WORD pairLive(TCXPAIR *p){livePair=*p;liveCalls++;npairs=0;return 0;}
 void *GetProcAddress(HMODULE module,LPSTR name){
  (void)module;switch((uintptr_t)name){
- case 13:return rawOpen;case 2:return rawPut;case 3:case 17:return rawStart;
+ case 13:return rawOpen;case 2:return rawPut;case 3:return rawStart;
+ case 17:return rawRearm;
  case 4:return rawEnd;case 5:return rawClose;case 6:return rawDebug;
  case 11:case 15:return rawResume;case 12:return rawClock;case 14:return rawPause;
  case 16:return rawFlush;case 18:return rawMask;case 19:return rawLive;
@@ -138,8 +145,19 @@ int main(void){const TCXPAIR *p;MSYN original,shadow;WORD i;
     "immediate live EOF completes");
  ck(!livePair.pitDivisor&&livePair.frame.volume==65535&&
     livePair.fallbackVolume==65535&&ended,"immediate live EOF mutes both");
+ ck(started&&createdTimer,"live EOF retains an existing timer record");
  backendStatus=TCX_BUSY;i=retries;
  ck(MDPump(h)==0&&info.state==MD_DONE&&retries==i,"completed EOF never reacquires PIT");closeMode();
+ /* A fresh immediate live EOF never creates a timer. Reset must later
+    start one, rather than attempt to rearm a timer that does not exist. */
+ openMode(1);ck(MDBeginLive(h,0)==0,"fresh live update");
+ ck(MDStatus(h,&state,sizeof(state))==0,"fresh live generation");
+ push(0,OFF(14));start(0);
+ ck(!createdTimer&&!started&&!starts&&!rearms,"fresh live EOF has no clock");
+ ck(MDReset(h,0)==0&&MDStatus(h,&state,sizeof(state))==0,"reset fresh live EOF");
+ push(100,ON(33));push(200,OFF(33));start(300);
+ ck(createdTimer&&activeClock&&starts==1&&!rearms,"ordinary play creates its first timer");
+ closeMode();
  /* Pure synth state clears unsupported pitch and bend fallback on release. */
  MSReset(&original);MSReset(&shadow);MSSpeakerMode(&original,1);MSSpeakerMode(&shadow,2);
  original.flags=shadow.flags=0;

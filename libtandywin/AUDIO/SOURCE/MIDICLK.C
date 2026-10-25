@@ -97,9 +97,11 @@ WORD MDAPI MDStart(WORD h){WORD r;if(!valid(h))return MD_BUSY;if(info.state!=MD_
   if(paired&&sealed){if(rend())return MD_IO;}
   else if(fill(1023)){info.error=MD_IO;info.state=MD_FAILED;return MD_IO;}
   if(paired){
-   if(!rd(7)){r=!started?rstart():(!rd(1)?rrearm():0);if(r)return MD_BUSY;}
-  }else if(!started){r=rstart();if(r)return MD_BUSY;}
-  livePending=0;started=1;info.state=MD_RUNNING;return 0;
+   if(!rd(7)){r=!started?rstart():(!rd(1)?rrearm():0);if(r)return MD_BUSY;started=1;}
+  }else if(!started){r=rstart();if(r)return MD_BUSY;started=1;}
+  /* Silent fresh live EOF did not start a clock. An existing clock remains
+     recorded across reset so its acknowledged timer can be rearmed. */
+  livePending=0;info.state=MD_RUNNING;return 0;
  }
  if(fill(1024)||!acount)return MD_IO;r=started?rrearm():rstart();if(r)return MD_BUSY;started=1;info.state=MD_RUNNING;return 0;}
 WORD MDAPI MDPump(WORD h){WORD status;if(!valid(h))return MD_BUSY;update();if(info.state==MD_PAUSED||info.state==MD_OPEN)return 0;
