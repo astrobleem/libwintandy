@@ -40,9 +40,13 @@ TESTS/NATIVE/BANKS.JSN records exact binary hashes and evidence scopes.
 The85 completed file-player checks cover unchanged player/MIDI/MCI bytes;
 the28 new live checks cover the corrected RAWCLK, including mixed banks,
 real clock advancement, reset/reopen and original IRQ/bridge cleanup.
-The installer implementation/destinations/sizes are unchanged; its native
-Repair proof is retained, not claimed as another execution of the final ZIP.
-All23 current installed bytes were verified and launched. Host verification
+The original installer proof is retained. A subsequent17-check smoke ran
+native Repair from the exact FINALBANK2 ZIP, then normal GO, short STREAM.MID
+playback with both banks and physical PSG/frame counters, Stop/device close,
+window close/unload and normal DOS/IRQ/bridge cleanup. All23 installed files
+match that ZIP. The ZIP stayed byte-identical at SHA256
+fed4fdec0bb5652a6da4c987b6b8e7a4f860f92f4a8e34aad30ac26b49fb3486.
+The85 file-player suite and28 live cases were not repeated. Host verification
 checks512 packet identities, sources, overlay and corruption refusal.
 No emulator or physical-hardware claim is inferred from a host mock.
 

@@ -73,8 +73,8 @@
     },
     {
       "path": "docs/BANKS.TXT",
-      "bytes": 3998,
-      "sha256": "79f40da14b5f8e5fb3521333241b4636b2d93d84e257bf95a7e4b408c89080b4"
+      "bytes": 4280,
+      "sha256": "c2c6ee4f4cd45d653ee73885c9c555d3aa583e845609f82ae78545ddfe88f789"
     },
     {
       "path": "docs/BUILD.TXT",
@@ -1388,8 +1388,8 @@
     },
     {
       "path": "libtandywin/AUDIO/TESTS/NATIVE/BANKS.JSN",
-      "bytes": 7549,
-      "sha256": "d049fd488e1561b1a357e06820cf035375295a0b81dd62d18b61203502a96c7e"
+      "bytes": 15516,
+      "sha256": "c712b359c4339b96e00a41a97e6b4d64c709a4e556f932f159c1c35f66c8099a"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/NATIVE/FMTEOF/FMTGUI.LOG",
