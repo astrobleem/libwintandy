@@ -392,6 +392,11 @@
       "sha256": "e4962c1551e8d3b9f428099d483a6353fc7440e61829b94ceba4d37af2ef0afd"
     },
     {
+      "path": "libtandywin/AUDIO/SOURCE/CDLG.H",
+      "bytes": 1470,
+      "sha256": "b6f14e4c34658aae771269cadca13e6b8135e6cd6628bba59d5d7bf50a2e8374"
+    },
+    {
       "path": "libtandywin/AUDIO/SOURCE/CLOCK.ASM",
       "bytes": 1956,
       "sha256": "89c5d1d9ecadea50bb50ec53ca67c11e7b084bc721e3cc02b825a82e7db40c77"
@@ -557,6 +562,16 @@
       "sha256": "5b7d46083bf4b761bdd1bebbf238436e16a97f26ce85fccabc897e5c83ade4c6"
     },
     {
+      "path": "libtandywin/AUDIO/SOURCE/LTWUI.C",
+      "bytes": 967,
+      "sha256": "e1cbf3afb23403a7dbc51a9e0065cb896c9b3454f479ce1a93a3206771cb16b7"
+    },
+    {
+      "path": "libtandywin/AUDIO/SOURCE/LTWUI.H",
+      "bytes": 329,
+      "sha256": "c73c30061f82ab28cfee30da1b42e4991014599feabfa3f026e06b350e9dd0e8"
+    },
+    {
       "path": "libtandywin/AUDIO/SOURCE/LWAUDIO.H",
       "bytes": 178,
       "sha256": "ab8c170161d422703a3351e2e01bfbd20ff5d6fd1be364fc527571a96db833ab"
@@ -638,8 +653,8 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MINIPLAY.C",
-      "bytes": 22061,
-      "sha256": "e616fd21c48707a025eaf7303c006dbdbea22d9b295af2ed92b3fdbb499e92dd"
+      "bytes": 26887,
+      "sha256": "394fc3bd7b374d45568b1efadc2b186633f5c826ce9269b27c6c9b61d4509332"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MINIPLAY.DEF",
@@ -648,8 +663,8 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MINIPLAY.RSP",
-      "bytes": 180,
-      "sha256": "d2b1e081bb9b0dedcfe2cea747f70b094c460a0d01d3bc4f34e6a0eac6205d85"
+      "bytes": 203,
+      "sha256": "c6ad1e4070d6bc26abdbd96fa356286205e0f037deaaaae1abb13c20ab56eec1"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MODPLAY.C",
@@ -675,6 +690,16 @@
       "path": "libtandywin/AUDIO/SOURCE/PITNOTES.H",
       "bytes": 670,
       "sha256": "2ec6e70221ad49ffb71baec4b1c6798241d22a850f1289cf8d6108b7a6740840"
+    },
+    {
+      "path": "libtandywin/AUDIO/SOURCE/PLLIST.C",
+      "bytes": 4866,
+      "sha256": "a87f929959f59dc60c463a8f1c807a07709e29194f619aea3f1f84cf8e270671"
+    },
+    {
+      "path": "libtandywin/AUDIO/SOURCE/PLLIST.H",
+      "bytes": 1318,
+      "sha256": "ae781d80119bd2c1954f438ed79d9db56c061707877bfe9404e74939a5b22c8b"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/PSG.ASM",
