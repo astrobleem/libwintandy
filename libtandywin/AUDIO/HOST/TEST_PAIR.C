@@ -110,7 +110,14 @@ int main(void)
  C(TCUnpause()==0);tick(1);
  C(pairUsingFold&&pairLast.flags==TCXP_FORCE_FOLD&&lastFrame.p[0]==550);
  t=timer;claims=(WORD)leaseClaims;releases=pitReleases;
- preparePair(&p,0,160,560);traceCount=0;C(TCXPairLive(&p)==0);
+ preparePair(&p,0,160,560);traceCount=0;
+ /* Real broker states: reject stopping/detached, accept armed/running.
+    The old always-idle host stub concealed refusal of every active update. */
+ brokerStateOverride=3;C(TCXPairLive(&p)==1&&traceCount==0&&timer==t);
+ brokerStateOverride=0;C(TCXPairLive(&p)==1&&traceCount==0&&timer==t);
+ brokerStateOverride=2;hi=0;C(TCXPairLive(&p)==1&&traceCount==0&&timer==t);hi=1;
+ brokerStateOverride=1;C(TCXPairLive(&p)==0&&timer==t&&owner==1);
+ brokerStateOverride=-1;traceCount=0;C(TCXPairLive(&p)==0);
  C(count==0&&sent==1&&!pairUsingFold&&lastFrame.p[0]==160);
  C(timer==t&&owner==1&&leaseClaims==claims&&pitReleases==releases);
  C(noiseCount()==1&&pairLast.flags==0&&pitDivisor==2712);

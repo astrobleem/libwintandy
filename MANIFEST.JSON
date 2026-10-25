@@ -273,8 +273,8 @@
     },
     {
       "path": "libtandywin/AUDIO/HOST/TEST_BURST.C",
-      "bytes": 8712,
-      "sha256": "20443f30517f066ed83e8d7e1d74594e161d2fa61f4d44b9d3aad6bca613b2af"
+      "bytes": 8889,
+      "sha256": "7cd5743eedfb8f46ba30943e26a42c4da25db81c95c93b6a62086fb90c9a3d29"
     },
     {
       "path": "libtandywin/AUDIO/HOST/TEST_FMTAPP.C",
@@ -298,8 +298,8 @@
     },
     {
       "path": "libtandywin/AUDIO/HOST/TEST_PAIR.C",
-      "bytes": 6932,
-      "sha256": "f0b07aedd56cfa2e5a862e0f7b0962cc1505087cc582c30173d874908c46de6a"
+      "bytes": 7417,
+      "sha256": "bb6863e0afc50e47c24aa529d58e03e8b78093a53de4302028ed25de14a34e8b"
     },
     {
       "path": "libtandywin/AUDIO/INPUTS/BAD.MOD",
@@ -858,8 +858,8 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/TIMECLK.C",
-      "bytes": 24054,
-      "sha256": "dd67cd34b0f59353a419da9e25a7c81048b71f87e6ff5e6a67c4d0eb1762c1a9"
+      "bytes": 24349,
+      "sha256": "f3bdd89bb83aa9ed612b3daa6d054cd667996d4ceebac2f1a9d3bc188f8ca369"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/TIMECLK.DEF",
