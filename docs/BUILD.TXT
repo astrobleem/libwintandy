@@ -68,5 +68,11 @@ experimental/WINLIB30/SOURCE/BLDMIDI.BAT using MSC6 /G0 /Gw /Gs /AS /W3 /Od,
 MASM and LINK4. MIDICLK.RSP links MIDISYN.OBJ and INSTR.OBJ; MCITNDY.RSP
 links MCIPSG.OBJ and SMF.OBJ. There is no BLDMIDI.PY in current main.
 The older AUDIO/BUILD/PLAYER30.PY does not acquire the shared lease and
-is not a substitute for an approved native build session. Do not launch
-emulators for the documentation/bank handoff. Read AGENTS.md for scope.
+is not a substitute for an approved native build session. Use only guarded
+native runs with the shared lease and owned cleanup. Read AGENTS.md and
+docs/BANKS.TXT for the current bank interfaces and verification scope.
+
+Selectable banks and preserved Default/live/file paths:
+  python libtandywin/AUDIO/TESTS/RUNBANK.PY --out <new-output>
+Per-note audition regression with unchanged existing WAVs:
+  python libtandywin/AUDIO/TESTS/AUDITION/RUNNOTES.PY --audio <existing-takes> --out <new-output>

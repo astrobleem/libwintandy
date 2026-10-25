@@ -1,0 +1,69 @@
+WINDOWS PSG BANK INTEGRATION
+
+The player offers Default and Chamber from the MIDI bank button. It saves
+its choice in app-local WINAMP.INI, [FauxBlaster] Bank=0 or1. Compact mode
+uses the short Default/Chamber caption. Setup and normal GO stay unchanged.
+The shared SOUND.DRV remains the same9752-byte provider.
+
+MDInstrumentBank(handle,bank), ordinal19, validates task ownership and0/1.
+MDSeedBank(handle,generation,time,message,voiceBank), ordinal20, restores a
+held voice with its latched bank, then restores the explicit selection.
+MciBank(device,bank), ordinal905, is the file-player setter. CC0/32 and
+MDVoiceMode retain their existing meanings; they are not bank controls.
+
+MDOpen starts Default. Generation/reset paths reapply the selection to both
+synth and folded. The app-local live renderer does so on open/reset/close;
+its held voices seed their own bank during reconstruction. New melodic
+notes latch the current bank; existing and pedal-held voices keep theirs.
+Percussion, original MIDI note keys, controllers and speaker routing retain
+their existing behavior. The canonical bank input is libtandy c5fbc45.
+
+The native mixed-bank test exposed a paired-live guard bug: HiStatus is the
+broker state, not a Boolean error.1 is armed and2 running. The old guard
+rejected all nonzero states, so every second update on a running paired
+clock failed. Its host mock incorrectly returned0 while running. The fixed
+guard accepts owned1/2 with a callback, requires idle0 without a callback
+when inactive, and retains paused/stopping/detached/foreign refusals. It
+checks and replaces state in one IRQ-masked transaction. There is no new
+timer, owner, driver or unsafe restart/chaining path.
+
+Native MSC6 /G0 /Gw /Gs /AS /W3 /Od; Windows3.0 real mode,8086_prefetch,
+normal640KB; no XMS/EMS/UMB or FPU. Recorded segment minima in bytes:
+  RAWCLK: CODE13867 DGROUP27168 (CODE+67; data unchanged)
+  MIDICLK: CODE14844 DGROUP12148 (CODE+492/data+130)
+  MCITNDY: CODE11192 DGROUP3404 (CODE+244/data+6)
+  MINIPLAY: CODE48202 DGROUP16016 (CODE+688/data+416)
+Native TVOICE is10bytes and MSYN332; bank fields use existing padding.
+The player retains2048-byte heap and8192-byte stack allocations.
+
+TESTS/NATIVE/BANKS.JSN records exact binary hashes and evidence scopes.
+The85 completed file-player checks cover unchanged player/MIDI/MCI bytes;
+the28 new live checks cover the corrected RAWCLK, including mixed banks,
+real clock advancement, reset/reopen and original IRQ/bridge cleanup.
+The original installer proof is retained. A subsequent17-check smoke ran
+native Repair from the exact FINALBANK2 ZIP, then normal GO, short STREAM.MID
+playback with both banks and physical PSG/frame counters, Stop/device close,
+window close/unload and normal DOS/IRQ/bridge cleanup. All23 installed files
+match that ZIP. The ZIP stayed byte-identical at SHA256
+fed4fdec0bb5652a6da4c987b6b8e7a4f860f92f4a8e34aad30ac26b49fb3486.
+The85 file-player suite and28 live cases were not repeated. Host verification
+checks512 packet identities, sources, overlay and corruption refusal.
+No emulator or physical-hardware claim is inferred from a host mock.
+
+Default trace70D11B5D across6634events/9798renders is unchanged;111 bank
+checks pass. The actual audition mixer checks each of154 expected notes
+for quantized PCM contribution. A deliberately muted note is detected even
+with nonzero whole-scene output. All8 original takes remain byte-identical;
+there is no normalization, gain/envelope edit or regeneration of auditions.
+
+Host developer checks, with fresh outputs:
+  python libtandywin/AUDIO/TESTS/RUNBANK.PY --out <new-directory>
+  python libtandywin/AUDIO/HOST/RUNRAW.PY --out <new-directory>
+  python libtandywin/AUDIO/TESTS/AUDITION/RUNNOTES.PY --audio <existing-takes> --out <new-directory>
+Windows GCC uses only the shared gcc-ucrt64.py launcher. These commands are
+not consumer setup. Native execution requires the shared emulator lease,
+process inventory, private inputs, bounded runs and owned cleanup.
+
+The local primary Winamp packet is qualified. Bank publication requires
+separate approval. Compose future PIT kits from their owner's current app
+inputs; do not overwrite Beats/Fiddle range fixes with an older app packet.

@@ -75,7 +75,9 @@ void Yield(void){api();}
 WORD CreateSystemTimer(WORD n,FARPROC p){api();(void)n;(void)p;return failTimer?0:7;}void KillSystemTimer(WORD n){api();(void)n;}
 void TimerEntry(void){}void NullEntry(void){}
 WORD HiInstall(WORD n){(void)n;if(failInstall)return 1;hi=1;return 0;}WORD HiStop(void){hi=0;return 0;}
-DWORD HiRead(void){return now;}WORD HiStatus(void){return 0;}WORD HiMetric(WORD n){return n==8?1:n==9?hi:0;}
+/* The real bridge reports2 while running, not0. Negative override means normal. */
+static int brokerStateOverride=-1;
+DWORD HiRead(void){return now;}WORD HiStatus(void){return brokerStateOverride>=0?(WORD)brokerStateOverride:(hi?2:0);}WORD HiMetric(WORD n){return n==8?1:n==9?hi:0;}
 WORD HiRestart(void){hi=1;return 0;}WORD HiDetach(void){return failDetach?1:0;}WORD HiPeriod(void){return 9546;}
 void HiPrepare(WORD n){(void)n;}void HiProgram(WORD n){(void)n;}void HiAudio(WORD n){(void)n;}
 WORD SaveIRQ(void){WORD prior=irqDisabled;irqDisabled=1;return prior;}
