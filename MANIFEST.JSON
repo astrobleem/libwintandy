@@ -13,8 +13,8 @@
     },
     {
       "path": ".github/workflows/rawlease.yml",
-      "bytes": 1583,
-      "sha256": "74ae7fcef53fb31cdb6691917ddf9802c544378e62c1cf4af93ffc1de73a4dd0"
+      "bytes": 1866,
+      "sha256": "aef7c9e7f5bf3ea4e46eaec7a2e7b3336850235ae5456cc578391a2a6b45fc63"
     },
     {
       "path": ".github/workflows/tplay.yml",
@@ -578,8 +578,8 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MCITNDY.C",
-      "bytes": 5997,
-      "sha256": "2cdeda16600380ccd0bfe1f054b13a84a36a153d70d1501025f22b81762c8dfc"
+      "bytes": 6276,
+      "sha256": "4ce17b8b186db51e22c4ad6c9e1f222b4bd2d13ace5c501339570b1e280b6015"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MCITNDY.DEF",
@@ -743,13 +743,13 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/SMF.C",
-      "bytes": 13875,
-      "sha256": "2bc192f7d8f0c1a1ac5706497f19f2c3aff83b7a62a8c703f18cb052a29db096"
+      "bytes": 14311,
+      "sha256": "862b239d8485485134980685db9f2b32c832c021cfe80ea5c616f394f62db220"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/SMF.H",
-      "bytes": 2882,
-      "sha256": "1faf8042273a73138362ce17e9cd5b2d234501763bd7748c56876d7a223a8d05"
+      "bytes": 3524,
+      "sha256": "8eccc5645955a2057105148920e4e66afce70da522fd94e52b5f3725ba5b2341"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/SOUNDID.H",
@@ -1347,6 +1347,11 @@
       "sha256": "0da67d9c24b9fc27df9237799452940d3f2210c808b7a48948ca6cae37873030"
     },
     {
+      "path": "libtandywin/AUDIO/TESTS/RUNADMIT.PY",
+      "bytes": 2176,
+      "sha256": "be6e5d00872ad39516f4046d489333ef809aa350516a7c603ba04fd864f70604"
+    },
+    {
       "path": "libtandywin/AUDIO/TESTS/RUNPAIR.PY",
       "bytes": 2433,
       "sha256": "34d0505a91f48e25a1bdc04761f4dc8ad6932cfb5f135d980852065d2b51a6d5"
@@ -1370,6 +1375,16 @@
       "path": "libtandywin/AUDIO/TESTS/live_host.c",
       "bytes": 1699,
       "sha256": "4287d608838a8ebd2505d43f3a5845ba5da4171bff63844df08e90b1ad46e49a"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/mci_admission_host.c",
+      "bytes": 5368,
+      "sha256": "b7a0357aa0ef00d65a3ffe056564f68e65544cb919ec6c729a83d838ee89ed40"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/mcihost/windows.h",
+      "bytes": 1339,
+      "sha256": "9d4706b1ae28d3fd5f6428892fe243cc32c55e389c455756e4d6542397b8e200"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/mdctl_host.c",
