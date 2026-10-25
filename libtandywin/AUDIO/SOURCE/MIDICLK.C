@@ -87,7 +87,7 @@ WORD MDAPI MDPush(WORD h,DWORD gen,DWORD at,DWORD msg){
  if(!MSValidMessage(msg,1))return MD_BAD;
  events[(ehead+ecount)&1023].at=at;events[(ehead+ecount)&1023].msg=msg;ecount++;lastAt=at;haveTime=1;info.accepted++;return 0;}
 WORD MDAPI MDCommit(WORD h,DWORD gen,DWORD through,WORD flags){if(!valid(h))return MD_BUSY;if(gen!=info.generation)return MD_STALE;if(eof||flags>1||(LONG)(through-watermark)<0||(LONG)(through-origin)<0||through-origin>2147483647UL)return MD_BAD;
- 
+
  if((flags&MD_EOF)&&haveTime&&(LONG)(through-lastAt)<0)return MD_BAD;watermark=through;committed=1;if(flags&MD_EOF)eof=1;return 0;}
 WORD MDAPI MDStart(WORD h){WORD r;if(!valid(h))return MD_BUSY;if(info.state!=MD_OPEN)return MD_BAD;
  if(livePending){
@@ -103,10 +103,11 @@ WORD MDAPI MDStart(WORD h){WORD r;if(!valid(h))return MD_BUSY;if(info.state!=MD_
  }
  if(fill(1024)||!acount)return MD_IO;r=started?rrearm():rstart();if(r)return MD_BUSY;started=1;info.state=MD_RUNNING;return 0;}
 WORD MDAPI MDPump(WORD h){WORD status;if(!valid(h))return MD_BUSY;update();if(info.state==MD_PAUSED||info.state==MD_OPEN)return 0;
- if(paired){status=rstatus();
+ if(rd(6)){info.error=MD_IO;info.state=MD_FAILED;return MD_IO;}if(rd(7)){info.state=MD_DONE;info.position=watermark;return 0;}
+ if(paired&&info.state==MD_RUNNING){status=rstatus();
   if((status==TCX_BUSY||status==TCX_UNAVAILABLE)&&rsetbass(1)){
    info.error=MD_IO;info.state=MD_FAILED;return MD_IO;}}
- if(rd(6)){info.error=MD_IO;info.state=MD_FAILED;return MD_IO;}if(rd(7)){info.state=MD_DONE;info.position=watermark;return 0;}
+
  if(rd(1)&&!rd(20)&&rresume()){info.error=MD_IO;info.state=MD_FAILED;return MD_IO;}if(fill(256)){info.error=MD_IO;info.state=MD_FAILED;return MD_IO;}return 0;}
 WORD MDAPI MDPause(WORD h){if(!valid(h)||info.state!=MD_RUNNING)return MD_BAD;update();if(rpause())return MD_BUSY;info.state=MD_PAUSED;return 0;}
 WORD MDAPI MDResume(WORD h){if(!valid(h)||info.state!=MD_PAUSED)return MD_BAD;if(runpause())return MD_BUSY;info.state=MD_RUNNING;return 0;}

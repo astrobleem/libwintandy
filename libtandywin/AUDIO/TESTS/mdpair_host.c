@@ -137,7 +137,9 @@ int main(void){const TCXPAIR *p;MSYN original,shadow;WORD i;
  push(0,OFF(14));ck(MDCommit(h,state.generation,0,MD_EOF)==0&&MDStart(h)==0,
     "immediate live EOF completes");
  ck(!livePair.pitDivisor&&livePair.frame.volume==65535&&
-    livePair.fallbackVolume==65535&&ended,"immediate live EOF mutes both");closeMode();
+    livePair.fallbackVolume==65535&&ended,"immediate live EOF mutes both");
+ backendStatus=TCX_BUSY;i=retries;
+ ck(MDPump(h)==0&&info.state==MD_DONE&&retries==i,"completed EOF never reacquires PIT");closeMode();
  /* Pure synth state clears unsupported pitch and bend fallback on release. */
  MSReset(&original);MSReset(&shadow);MSSpeakerMode(&original,1);MSSpeakerMode(&shadow,2);
  original.flags=shadow.flags=0;
