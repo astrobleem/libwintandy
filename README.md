@@ -11,7 +11,7 @@ This library contains its consumer interfaces.
 * `LWTANDY.H` exposes the existing USER repaint helpers.
 * `LWAUDIO.H` forwards the app-local MCI/raw-player interfaces.
 * [TPLAY](docs/TPLAYXT.TXT) supplies the guarded Windows XT HPXY/XRSYNC launcher
-  used by [Tandy Winamp XT1](https://github.com/astrobleem/oemsound-tandy/releases/tag/tandy-winamp-xt1.20261024).
+  used by [Tandy Winamp](https://github.com/astrobleem/oemsound-tandy).
 * MINIPLAY's separate [format playback preview](examples/FORMATS30/README.md)
   adds foreground VGM/VGZ and bounded MOD PSG arrangements through a negotiated
   ordered-burst RAWCLK interface. The old TCFRAME ABI and timer owner remain.
@@ -40,7 +40,7 @@ for the producer scope, dependency boundary, file hashes and license notices.
 See [format architecture](libtandywin/AUDIO/FORMATS30.MD),
 [RAWCLK burst API](libtandywin/AUDIO/BURST-API.MD), [build instructions](docs/BUILD.TXT)
 and [adoption notes](docs/ADOPT.TXT). Project source is MIT; the RAWFILE
-format/table attribution retains LICENSE-TNDY.TXT. No OS/SDK/toolchain/fonts/ROMs, external TSOUND driver,
+format/table attribution retains LICENSE-TNDY.TXT. No OS/SDK/toolchain/fonts/ROMs, external sound driver,
 third-party songs, sample media or emulator images are bundled.
 
 Native validation is recorded author-run evidence, not public CI or an independent reviewer rerun.

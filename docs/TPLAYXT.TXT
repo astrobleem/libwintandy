@@ -1,23 +1,24 @@
 TPLAY WINDOWS XT LAUNCHER
 
-TPLAY.C and TPLAYPOL.H in libtandywin/AUDIO/SOURCE are the canonical source
-for the Windows XT launcher shipped with Tandy Winamp XT1:
-https://github.com/astrobleem/oemsound-tandy/releases/tag/tandy-winamp-xt1.20261024
+TPLAY.C, TPLAYPOL.H and generated SOUNDID.H in libtandywin/AUDIO/SOURCE
+match the maintained launcher in OEMSound src/win30/LAUNCH. The current
+consumer installation is OEMSound's native TWSETUP.EXE. Run it in plain DOS,
+then C:\WINAMP\GO. Setup installs the player, canonical SOUND.DRV and all
+required DLLs and launch helpers, and updates Windows automatically.
 
-HPXY.DRV and the reviewed XRSYNC.DRV use the exact 16 KB normal 640 KB reservation
-helper; CGA needs no reservation. The explicit historical Tandy names retain
-their same guard. Unknown displays refuse. EX/HX ROM, ROM IRQ ownership,
-paired SYSTEM/TSOUND and bridge parent/cleanup checks remain intact.
+HPXY.DRV and XRSYNC.DRV use the included exact 16 KB normal-640KB reservation
+helper. CGA needs no reservation. Other qualified Tandy profiles are explicit
+in TPLAYPOL.H; unknown names refuse. ROM markers, real-mode SYSTEM identity,
+IRQ ownership, canonical SOUND identity and bridge ownership checks remain.
+Generated SOUNDID.H binds consumers to the canonical native SOUND artifact.
 
-The ready-to-run Winamp package includes RESERVE.COM and the exact tested
-TSOUND.DRV with corresponding source and notices. Its guide explains selecting
-TSOUND.DRV explicitly in the existing Windows 3.0 real-mode profile, then
-running TPLAY directly from plain DOS. No separate display launcher is chained.
+TPLAY starts Windows directly with absolute paths, reserves or reuses video
+memory without duplicate chaining, and removes its owned bridge after normal
+Windows return. The same installed SOUND module serves legacy queues,
+Windows alerts, raw PSG owners and PIT tools. Apps resolve its extensions
+from the active SOUND module rather than loading another driver.
 
-OEMSound's LAUNCH/TESTS.JSON and EVIDENCE contain 49 host policy checks,
-31 native preflight cases, actual XRSYNC playback during graphics activity,
-stop, sound release, normal exit/bridge cleanup and the direct sound-install
-check. Earlier HPXY/CGA, reservation reuse and failed-start receipts retain
-their recorded runtime identities. CI checks exact-head source/packet pins;
-native execution uses the installed emulator and disposable Windows profiles.
-Historical runtime archives in this repository remain unchanged.
+OEMSound tools/WINAMP contains package generation/verification and exact
+source/build/runtime receipts. Native testing is separate from public host
+CI. Historical runtime archives and test records retain their original
+binary identities and scope.
