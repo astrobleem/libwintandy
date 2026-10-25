@@ -1,0 +1,23 @@
+name: Large VGM and VGZ foreground playback
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  vgm:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ env.SOURCE_SHA }}
+          persist-credentials: false
+      - name: Confirm exact source
+        run: test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+      - name: Exercise large-file equivalence, cancellation and cleanup
+        run: python3 -B libtandywin/AUDIO/HOST/RUN_VGMBIG.PY --out "$RUNNER_TEMP/vgm"
