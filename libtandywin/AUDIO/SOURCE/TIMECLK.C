@@ -2,6 +2,7 @@
 #include <windows.h>
 #define TC_DRIVER
 #include "TIMECLK.H"
+#include "PSGOWN.H"
 #include "TCBURST.H"
 extern WORD FAR PASCAL CreateSystemTimer(WORD,FARPROC);
 extern void FAR PASCAL KillSystemTimer(WORD);
@@ -91,7 +92,9 @@ WORD TCAPI TCOpen(void){WORD flags;
 #ifndef TC_HOST
  if((GetWinFlags()&WF_PMODE)||*(BYTE FAR *)0xfc000000UL!=0x21)return 2;
 #endif
- if(OpenSound()<0)return 1;owner=GetCurrentTask();if(!owner){CloseSound();return 1;}StopSound();
+ if(OpenSound()<0)return 1;
+ owner=GetCurrentTask();if(!owner){CloseSound();return 1;}StopSound();
+ if(rawClaim()){CloseSound();owner=0;return 1;}
  flags=SaveIRQ();head=tail=count=end=active=finished=error=0;calls=sent=maxBatch=maxLate=maxGap=overflows=writes=underruns=0;published=lastDue=0;lastValid=restorePending=wideClock=userPaused=burstMode=burstPublished=noiseWrites=0;mute();RestoreIRQ(flags);return 0;
 }
 WORD TCAPI TCPush(TCFRAME FAR *f){WORD flags,t;
@@ -117,7 +120,7 @@ WORD TCAPI TCEnd(void){WORD flags;if(!owns()||burstMode)return 1;flags=SaveIRQ()
 WORD TCAPI TCClose(void){WORD t,flags,n;if(owner&&!owns())return 1;if(probeTimer)return 1;
  flags=SaveIRQ();active=0;restorePending=0;t=timer;if(owner)mute();RestoreIRQ(flags);
  if(t){if(HiStop())return 1;for(n=0;HiStatus()&&n<4000;n++)Yield();if(HiStatus()||HiDetach())return 1;KillSystemTimer(t);timer=0;}
- if(owner){StopSound();CloseSound();owner=0;}
+ if(owner){if(rawRelease())return 1;StopSound();CloseSound();owner=0;}
  head=tail=count=end=0;unpinCode();return 0;
 }
 WORD TCAPI TCResume(void){WORD flags,result;

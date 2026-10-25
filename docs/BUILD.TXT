@@ -1,29 +1,39 @@
 libwintandy - build instructions
 
-The commands retain the historical libtandywin/ source directory.
-
 Host UI checks:
-  python libtandywin/TESTS/RUN.PY --cc <host-cc>
-Host actual-source audio checks (MSYS2 UCRT64 GCC on Windows):
-  python libtandywin/AUDIO/HOST/RUN.PY
-Host layout/typed facade checks:
+  python libtandywin/TESTS/RUN.PY
+Host production format, MOD and RAWCLK checks:
+  python libtandywin/AUDIO/HOST/RUNHOST.PY --out <new-output>
+Host shared PSG/PIT ownership checks:
+  python libtandywin/AUDIO/HOST/RUNRAW.PY --out <new-output>
+Host layout and typed facade checks:
   python libtandywin/AUDIO/TESTS/FACADE/RUN.PY
-The runners prefix their matching compiler directory to process-local PATH;
-never download individual compiler DLLs or change global PATH for these tests.
-This machine lacks libubsan. Recorded source tests are unsanitized, and raw
-hardware is mocked. Native execution/IRQ/Win16 ABI are separate gates.
+Additional foreground scheduler checks:
+  python libtandywin/AUDIO/HOST/RUN.PY --out <output>
 
-Win16 UI: use caller-supplied licensed MSC6 and Windows3.0 headers/libraries.
+On Windows these runners compile through:
+  C:\Users\chad\Documents\Codex\toolchains\gcc-ucrt64.py
+The launcher preflights the compiler and required DLLs before starting GCC.
+Windows --cc may name only that launcher. Linux --cc selects a host compiler.
+The tests exercise actual source with USER or hardware mocks; native Windows
+execution uses the separate guarded builders below.
+
+Win16 UI: use caller-supplied MSC6 and Windows3.0 headers/libraries.
   CL /nologo /c /G0 /Gw /AS /W3 /Od /I<owned-include> LTWUI.C
 Link LTWUI.OBJ once with the caller, using the same memory model. Include
-WINDOWS.H before LWTANDY.H. TShell keeps the same object and only adds the new
-header to its existing build copy list.
+WINDOWS.H before LWTANDY.H.
 
-Fresh audio build (requires an explicit emulator lease and external tools):
-  python libtandywin/AUDIO/BUILD/PLAYER30.PY --dosbox <DOSBox-X> 
-    --toolchain <owned-MSC6-DDK-root> --out <new-private-output>
-This builds MINIPLAY, RAWQA, provider DLLs and TBRIDGE, marks Win16 modules for
-Windows3.0, records exact source/runtime hashes, and certifies compile/link
-only. It has not been run at this source checkpoint. The full private R4
-erratum build also rebuilds QCHIME/QXP/QEXIT/QPSG/QMOUTH before those binaries
-may ship. No compiler, SDK/import library or emulator is provided.
+Current native sound and RAWCLK builds use the OEMSound checkout:
+  python src/win30/DRIVER/BUILD.PY --dosbox <DOSBox-X>
+    --toolchain <owned-MSC6-DDK-root> --lease <shared-emulator-lock>
+    --out <new-private-output>
+  python experimental/WINLIB30/SOURCE/BLDRAW.PY --dosbox <DOSBox-X>
+    --toolchain <owned-MSC6-DDK-root> --lease <shared-emulator-lock>
+    --out <new-private-output>
+
+The one sound provider builds as SOUND.DRV. The RAWCLK builder uses the same
+current TIMECLK consumer source as libtandywin/AUDIO/SOURCE. Both builders
+preflight external tools, acquire the shared emulator lease, inspect running
+processes and run only a bounded owned child. Their receipts pin source and
+runtime bytes. OEMSound tools/WINAMP generates the complete native DOS Setup
+package. Retained earlier builders and receipts remain historical records.

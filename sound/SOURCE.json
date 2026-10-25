@@ -1,8 +1,8 @@
 {
   "module": "Windows 3.0 MIDI producer compatibility source for RAVE host preparation",
-  "source_snapshot": "preserved/approved-playback-opt9/SOURCE/libwintandy",
-  "basis": "Approved optimized-9 frozen producer and independent output oracle",
-  "compatibility_scope": "Foreground Win16 scheduler; links the separately published libtandy MIDI synth/parser headers; existing RAWCLK provider interfaces; no DOS/Windows/synth calls from the raw timer interrupt",
+  "source_snapshot": "Approved optimized-9 producer with unified SOUND ownership integration",
+  "basis": "Approved frozen musical/output behavior; raw PSG ownership now acquired from canonical SOUND.DRV",
+  "compatibility_scope": "Foreground Win16 scheduler; separately published synth/parser headers; shared TANDYPSGLEASE plus TANDYPITLEASE owner; no DOS/Windows/synth calls from raw timer interrupt",
   "instrument_banks_included": false,
   "files": {
     "MIDICLK.C": "7cbfa7d1d7018d6f35db1773e159ebbb2ee2b5bf9da5aa189aec63e385373eda",
@@ -13,10 +13,16 @@
     "TCNOISE.H": "63597e8e3021931c5270dc954e61000e38f681f29847154451b4d149110693e3",
     "TIMECLK.H": "478d911587645d6d2acb2965dc7b78e8b6e3b67373e8a8a4933395398ff9d193",
     "PITLINK.H": "b6a9d41c5765b1b166caf0ff1aa7d83edfd2662a7b8f46d802bf08367b5cb452",
-    "TIMECLK.C": "d1c710bb4b712734f88fd88162d95da4a0ac63820c3e24113c55d0d6f2c1befe",
-    "DRIVER/PITLEASE.H": "053a4ec974cf4be6f3da860bc51e46ae3b6e24e75dd7d68885ef76599e0601b5",
-    "DRIVER/PITLINK.H": "b6a9d41c5765b1b166caf0ff1aa7d83edfd2662a7b8f46d802bf08367b5cb452",
+    "TIMECLK.C": "f8ce32ebef5e1d51a6ccfe44b2650b47fd4d16e2b6904f29510a32fbe1d279fe",
     "CORE-MIT.TXT": "1c444f27b5b0d7397fa2e9c2812f89c2daab73c1f29fcbd91f0d8fc793e4cbd4",
-    "DRIVER/LICENSE": "230184f60bae2feaf244f10a8bac053c8ff33a183bcc365b4d8b876d2b7f4809"
+    "PSGOWN.H": "aaae2ff214e7737be79e7284a382648155cd4dee20ee168652b10b08b8cd31d5"
+  },
+  "canonical_provider": {
+    "repository": "https://github.com/astrobleem/oemsound-tandy",
+    "source": "src/win30/DRIVER",
+    "build": "src/win30/DRIVER/BUILD.PY",
+    "artifact": "SOUND.DRV",
+    "native_setup": "SETUP.EXE (src/win30/SETUP)",
+    "consumer_contract": "Resolve TANDYPSGLEASE and TANDYPITLEASE from the installed SOUND module"
   }
 }

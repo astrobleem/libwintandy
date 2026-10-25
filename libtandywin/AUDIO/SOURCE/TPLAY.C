@@ -9,6 +9,7 @@
 #include <direct.h>
 #include <process.h>
 #include "TPLAYPOL.H"
+#include "SOUNDID.H"
 #define PLEN 128
 #define FP(s,o) ((void far *)(((unsigned long)(s)<<16)|(unsigned)(o)))
 extern unsigned _cdecl DOSStat(unsigned);
@@ -64,7 +65,7 @@ static int selections(void){
    boot=!stricmp(trim(p+1),"boot");if(boot&&++boots!=1){fclose(f);return -1;}continue;}
   if(!boot)continue;q=strchr(p,'=');if(!q){fclose(f);return -1;}*q=0;value=trim(q+1);p=trim(p);
   if(!stricmp(p,"system.drv")){if(++system!=1||stricmp(value,"SYSTEM.DRV")){fclose(f);return -1;}}
-  if(!stricmp(p,"sound.drv")){if(++sound!=1||stricmp(value,"TSOUND.DRV")){fclose(f);return -1;}}
+  if(!stricmp(p,"sound.drv")){if(++sound!=1||stricmp(value,"SOUND.DRV")){fclose(f);return -1;}}
   if(!stricmp(p,"display.drv")){
    if(++display!=1){fclose(f);return -1;}
    video=TPDisplay(value);
@@ -109,11 +110,11 @@ int main(int argc,char **argv){
  printf("TPLAY: FC00:0000=%02x FFFF:000E=%02x.\n",marker,model);
  if(!TPBoard(marker,model))return refuse("Requires the supported Tandy EX/HX ROM hardware markers.");
  if(!defaultIRQ())return refuse("IRQ0 has an unrecognized owner.");
- video=selections();if(video<0)return refuse("SYSTEM.INI must select generic SYSTEM, paired TSOUND and a qualified display without duplicates.");
+ video=selections();if(video<0)return refuse("SYSTEM.INI must select generic SYSTEM, canonical SOUND and a qualified display without duplicates.");
  if(!join(path,win,"SYSTEM.DRV")||exists(path))return refuse("Ambiguous root SYSTEM.DRV.");
  if(!join(path,win,"SYSTEM\\SYSTEM.DRV")||!identity(path,2784U,0x3ff05fecUL))return refuse("SYSTEM.DRV identity mismatch or missing file.");
- if(!join(path,win,"TSOUND.DRV")||exists(path))return refuse("Ambiguous root TSOUND.DRV.");
- if(!join(path,win,"SYSTEM\\TSOUND.DRV")||!identity(path,6168U,0xf8517207UL))return refuse("Paired TSOUND.DRV identity mismatch or missing file.");
+ if(!join(path,win,"SOUND.DRV")||exists(path))return refuse("Ambiguous root SOUND.DRV.");
+ if(!join(path,win,"SYSTEM\\SOUND.DRV")||!identity(path,SOUND_BYTES,SOUND_CRC))return refuse("Paired SOUND.DRV identity mismatch or missing file.");
  if(!join(wincom,win,"WIN.COM")||!bootstrap(wincom))return refuse("WIN.COM missing or outside the DOS COM bootstrap size.");
  if(!join(bridge,home,"TBRIDGE.EXE")||!identity(bridge,2922U,0x79c22c55UL))return refuse("Keep the matching TBRIDGE.EXE with TPLAY.");
  if(!join(player,home,test?"RAWGUI.EXE":"MINIPLAY.EXE")||!exists(player))return refuse("Player or test client is missing.");
