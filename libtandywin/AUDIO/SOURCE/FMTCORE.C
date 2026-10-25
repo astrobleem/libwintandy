@@ -26,7 +26,7 @@ int FXNext(FXCORE *s,FXBURST *b)
  int r;unsigned short c,v,i,p,mask,chosen;unsigned long n,frac;
  MOD_TickFrame f;
  if(s->error)return -1;if(s->done)return terminal(s,b);
- if(s->groups>=FX_LIMIT)return fail(s,7);
+ if(s->groups>=(s->kind==FX_VGM?FX_VGM_GROUPS:FX_LIMIT))return fail(s,7);
  if(s->kind==FX_VGM){for(;;){
   r=vgm_burst_step(&s->vgm);if(r<0){s->sourceOffset=s->vgm.error_offset;return fail(s,1);}
   if(r==VGM_BURST_DONE){
@@ -77,7 +77,7 @@ const char *FXReason(FXCORE *s){switch(s->error){
  case 2:return "Needs Tandy 3579545Hz SN76496, feedback6/width15";
  case 3:return s->modError.reason;case 4:return "Unsupported format";
  case 5:return "No playable events";case 6:return "Unsupported timing: needs >=8ms groups and <30min";
- case 7:return "Too many groups (limit65535)";case 8:return "Empty VGM loop";
+ case 7:return "Too many groups";case 8:return "Empty VGM loop";
  case 9:return "More than three audible MOD lanes";case 10:return "MOD tone outside PSG range";
  }return "Format rejected";
 }

@@ -5,6 +5,10 @@
 #include "FMTCORE.H"
 #include "GUNZIP.H"
 #include "FMTAPP.H"
+/* Policy bound on one plain stream (VGM bytes, later also inflated VGZ):
+   it limits the preflight scan and, for VGZ, temp-disk use. Offsets are DWORD
+   and _llseek takes a signed LONG, so nothing in the path is 16-bit. */
+#define FMT_MAX_PLAIN 16777216L
 typedef WORD (FAR PASCAL *CALL0)(void);
 typedef WORD (FAR PASCAL *CALL1)(WORD);
 typedef DWORD (FAR PASCAL *CALLD)(void);
@@ -68,14 +72,14 @@ WORD FmtOpen(LPSTR path,WORD kind){LONG size;WORD r,plainSize;static BYTE magic[
  if(FmtClose())return 1;lstrcpy(reason,"Input rejected");
  file=_lopen(path,OF_READ|OF_SHARE_DENY_WRITE);if(file==HFILE_ERROR){lstrcpy(reason,"Cannot open file");return 4;}
  size=_llseek(file,0L,2);cacheAt=0xffffffffUL;inputSize=(DWORD)size;sourceSize=inputSize;
- if(size<18||size>4194304L){lstrcpy(reason,"File outside bounded profile");FmtClose();return 2;}
+ if(size<18||size>FMT_MAX_PLAIN){lstrcpy(reason,"File outside bounded profile");FmtClose();return 2;}
  if(!fileRead(0,0,magic,2)){FmtClose();return 4;}
  if(magic[0]==31&&magic[1]==139){
   if(kind!=FX_VGM||inputSize>60000UL){lstrcpy(reason,"Compressed input too large");FmtClose();return 2;}
   unpacked=GlobalAlloc(GMEM_MOVEABLE,60000UL);if(!unpacked||(memory=GlobalLock(unpacked))==0){FmtClose();return 5;}
   r=gz_decode(fileRead,0,inputSize,memory,60000,&plainSize);
   if(r){lstrcpy(reason,"VGZ integrity or bounded decode refusal");FmtClose();return 2;}sourceSize=plainSize;
- }else if(kind==FX_VGM&&inputSize>60000UL){lstrcpy(reason,"VGM exceeds 60000 bytes");FmtClose();return 2;}
+ }
  /* Complete source scan and replay initialization precede SOUND ownership. */
  if(FXPreflight(&core,readSource,0,sourceSize,kind)||FXOpen(&core,readSource,0,sourceSize,kind)){
   setReason(FXReason(&core));FmtClose();return 2;
@@ -94,5 +98,5 @@ WORD FmtPause(void){WORD r;if(!owner||owner!=GetCurrentTask())return 1;
  r=paused?unpauseClock():pauseClock();if(!r)paused=!paused;return r;
 }
 DWORD FmtPosition(void){DWORD n=owner?readClock():0;return (n/3579545UL)*3000UL+((n%3579545UL)*3UL)/3580UL;}
-WORD FmtDebug(WORD i){if(i==35)return (WORD)refusedAt;if(i==36)return (WORD)(refusedAt>>16);if(i==37)return (WORD)refusedClock;if(i==38)return (WORD)(refusedClock>>16);if(i==39)return refusedQueue;if(i==40)return (WORD)refusedSource;if(i==41)return refusedGroups;if(i==33)return lastAdmission;if(i==34)return minQueued;if(i==30)return module&&debugClock?debugClock(27):saved[27];if(i==31)return module&&debugClock?debugClock(28):saved[28];if(i==32)return owner?(WORD)readClock():0;if(i==27)return paused;if(i==28)return core.error;if(i==29)return (WORD)core.groups;return i<27?(module&&debugClock?debugClock(i):saved[i]):0;}
+WORD FmtDebug(WORD i){if(i==42)return (WORD)(core.groups>>16);if(i==43)return (WORD)(core.sourceOffset>>16);if(i==44)return (WORD)(refusedSource>>16);if(i==35)return (WORD)refusedAt;if(i==36)return (WORD)(refusedAt>>16);if(i==37)return (WORD)refusedClock;if(i==38)return (WORD)(refusedClock>>16);if(i==39)return refusedQueue;if(i==40)return (WORD)refusedSource;if(i==41)return refusedGroups;if(i==33)return lastAdmission;if(i==34)return minQueued;if(i==30)return module&&debugClock?debugClock(27):saved[27];if(i==31)return module&&debugClock?debugClock(28):saved[28];if(i==32)return owner?(WORD)readClock():0;if(i==27)return paused;if(i==28)return core.error;if(i==29)return (WORD)core.groups;return i<27?(module&&debugClock?debugClock(i):saved[i]):0;}
 char *FmtReason(void){return reason;}
