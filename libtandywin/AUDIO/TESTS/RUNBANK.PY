@@ -11,7 +11,7 @@ for name,test,synth in [('BANKMD','BANKMD.C',True),('BANKSC','BANKSC.C',False),(
     if name in ('COREBANK','BTRACE'):command=[x.replace('-std=gnu99','-std=c89') for x in command]+['-pedantic-errors','-DWITH_BANK']
     command += [str(A/'TESTS'/test)]
     if synth:command += [str(A/'SOURCE/MIDISYN.C'),str(A/'SOURCE/INSTR.C')]
-    if name=='BANKFILE':command += [str(A/'SOURCE/MCIPSG.C'),str(A/'SOURCE/SMF.C')]
+    if name=='BANKFILE':command += ['-DSMF_HOST',str(A/'SOURCE/MCIPSG.C'),str(A/'SOURCE/SMF.C')]
     command+=['-o',str(exe)]
     for cmd in (command,[str(exe)]+([str(A/'TESTS/FIXTURES/STREAM.MID')] if name=='BANKFILE' else [])):
         r=subprocess.run(cmd,capture_output=True,text=True)

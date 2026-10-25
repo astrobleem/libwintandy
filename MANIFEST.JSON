@@ -1503,8 +1503,8 @@
     },
     {
       "path": "libtandywin/AUDIO/TESTS/RAWLEASE.JSON",
-      "bytes": 4980,
-      "sha256": "e7e734ec8cc2e42f643164939c5858097da86d0e4791dda791870e55fd0ec811"
+      "bytes": 4950,
+      "sha256": "3127534d3254ed2a7f2f34d8ac1a0e5572c38456c7ad54b3d09f98f450b0eacf"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/RUNADMIT.PY",
@@ -1513,8 +1513,8 @@
     },
     {
       "path": "libtandywin/AUDIO/TESTS/RUNBANK.PY",
-      "bytes": 2332,
-      "sha256": "2175145505dd8ca6a04f5608a00cc1c88db5ba3c2eaf93bb3e8ca9817ca9c54a"
+      "bytes": 2345,
+      "sha256": "8b5baa44e7ed916948f64afad72de92aacd16e87ff9353e8ae334fb490b83b0f"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/RUNPAIR.PY",
