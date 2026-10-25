@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
+#include "mdhost/windows.h"
 #include "MIDISYN.H"
 static unsigned checks;static int failures;static void ck(int ok,const char *what){checks++;if(!ok){fprintf(stderr,"FAIL %s\n",what);failures++;}}
 static DWORD msg(unsigned s,unsigned n,unsigned v){return s|((DWORD)n<<8)|((DWORD)v<<16);}

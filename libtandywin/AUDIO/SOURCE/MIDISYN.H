@@ -5,7 +5,7 @@
 typedef struct {LTP_U16 note[3],channel[3],age[3],program[16],counter,noiseNote,noise,flags;TVOICE voice[4];LTP_U16 p[3],volume[4];LTP_U32 ms;LTP_U16 key[3],speakerMode,speakerNote,speakerChannel,
  speakerDivisor,speakerAttacks,bassFolded,pitchBend[16],bendFactor[16],modulation[16];
  LTP_U8 channelVolume[16],expression[16],pan[16],sustain[16],gain[16];
- LTP_U8 released[4],speakerReleased,baseVolume[4],renderDirty,renderValid;LTP_U16 speakerBase,renderFlags;LTP_U32 renderQuantum;} MSYN;
+ LTP_U8 released[4],speakerReleased,baseVolume[4],renderDirty,renderValid;LTP_U16 speakerBase,speakerFallback,renderFlags;LTP_U32 renderQuantum;} MSYN;
 void MSReset(MSYN *);
 /* 0 legacy; 1 prepared speaker; 2 octave-fold low MIDI into PSG. */
 void MSSpeakerMode(MSYN *,LTP_U16);

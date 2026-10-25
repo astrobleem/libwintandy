@@ -18,7 +18,7 @@ void MSReset(MSYN *s){unsigned i;LTP_U8 *p=(LTP_U8 *)s;for(i=0;i<sizeof(*s);i++)
  for(i=0;i<4;i++)s->baseVolume[i]=(LTP_U8)(s->volume[i]=15);
  for(i=0;i<16;i++){s->channelVolume[i]=s->expression[i]=127;s->pan[i]=64;s->pitchBend[i]=8192;s->bendFactor[i]=4096;}s->flags=3;s->renderDirty=1;s->renderValid=0;}
 void MSInvalidate(MSYN *s){s->renderDirty=1;}
-void MSSpeakerMode(MSYN *s,LTP_U16 mode){MSInvalidate(s);s->speakerMode=mode;s->speakerNote=s->speakerDivisor=s->speakerBase=0;s->speakerReleased=0;}
+void MSSpeakerMode(MSYN *s,LTP_U16 mode){MSInvalidate(s);s->speakerMode=mode;s->speakerNote=s->speakerDivisor=s->speakerBase=s->speakerFallback=0;s->speakerReleased=0;}
 /* Cache the extra 2dB attenuation only when a controller changes. PSG gain is
    quantized; PIT2 has fixed amplitude and supports only the zero/nonzero gate. */
 static void gain(MSYN *s,LTP_U16 ch){
@@ -28,7 +28,7 @@ static void gain(MSYN *s,LTP_U16 ch){
 }
 static void off(MSYN *s,LTP_U16 i){s->volume[i]=s->baseVolume[i]=15;s->released[i]=0;
  if(i<3)s->note[i]=0;else s->noiseNote=0;}
-static void speakerOff(MSYN *s){s->speakerNote=s->speakerDivisor=s->speakerBase=0;s->speakerReleased=0;}
+static void speakerOff(MSYN *s){s->speakerNote=s->speakerDivisor=s->speakerBase=s->speakerFallback=0;s->speakerReleased=0;}
 static LTP_U16 bendFactor(LTP_U16 bend){
  static const LTP_U16 factor[17]={4598,4532,4467,4403,4340,4277,4216,4156,
   4096,4037,3979,3922,3866,3811,3756,3702,3649};
@@ -50,10 +50,20 @@ static void lift(MSYN *s,LTP_U16 ch){LTP_U16 i;
  for(i=0;i<4;i++)if(s->released[i]&&(i<3?s->channel[i]:9)==ch)off(s,i);
  if(s->speakerReleased&&s->speakerChannel==ch)speakerOff(s);
 }
-static void speakerNote(MSYN *s,LTP_U16 note,LTP_U16 channel){LTP_U16 pitch=note;
- while(pitch<14U)pitch+=12U;
- s->speakerNote=note+1;s->speakerChannel=channel;s->speakerBase=pitNotes[pitch];
- s->speakerReleased=0;s->speakerDivisor=s->gain[channel]==15?0:s->speakerBase;
+/* A prepared PIT voice must retain its original pitch. If the original
+   divisor cannot be represented, the paired PSG renderer supplies fallback. */
+static void speakerPitch(MSYN *s){LTP_U32 divisor;
+ s->speakerDivisor=s->speakerFallback=0;
+ if(!s->speakerNote||s->gain[s->speakerChannel]==15)return;
+ if(!s->speakerBase){s->speakerFallback=1;return;}
+ divisor=((LTP_U32)s->speakerBase*s->bendFactor[s->speakerChannel]+2048UL)>>12;
+ if(!divisor||divisor>65535UL){s->speakerFallback=1;return;}
+ s->speakerDivisor=(LTP_U16)divisor;
+}
+static void speakerNote(MSYN *s,LTP_U16 note,LTP_U16 channel){
+ s->speakerNote=note+1;s->speakerChannel=channel;
+ s->speakerBase=note<14U?0:pitNotes[note];
+ s->speakerReleased=0;speakerPitch(s);
  if(s->speakerAttacks!=65535U)s->speakerAttacks++;
 }
 /* InstRead receives near pointers: keep these in DS, not the caller's SS. */
@@ -69,8 +79,7 @@ void MSRender(MSYN *s,LTP_U32 ms){unsigned i,ch;static LTP_U16 p,v;LTP_U16 flags
   if(i<3)s->p[i]=p;
   v=s->baseVolume[i]+s->gain[ch];s->volume[i]=v>15?15:v;
  }
- if(s->speakerNote)s->speakerDivisor=s->gain[s->speakerChannel]==15?0:
-     bendPeriod(s->speakerBase,s->bendFactor[s->speakerChannel],65535);
+ speakerPitch(s);
  s->renderQuantum=q;s->renderFlags=flags;s->renderDirty=0;s->renderValid=1;
 }
 
