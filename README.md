@@ -15,6 +15,9 @@ This library contains its consumer interfaces.
 * [Current MIDI services and native results](libtandywin/AUDIO/TESTS/NATIVE/MIDI8.MD)
   cover controllers, streamed SMF and paired speaker/PSG playback. Consumer
   packages use the stable [Windows XT downloads](https://github.com/astrobleem/oemdisplay-tandy/releases/tag/windows-xt).
+* [Default/Chamber banks](docs/BANKS.TXT) provide explicit selection,
+  persistent player choice and per-voice live reseeding through the existing
+  SOUND/RAWCLK ownership path.
 * MINIPLAY's separate [format playback preview](examples/FORMATS30/README.md)
   adds foreground VGM/VGZ and bounded MOD PSG arrangements through a negotiated
   ordered-burst RAWCLK interface. The old TCFRAME ABI and timer owner remain.
