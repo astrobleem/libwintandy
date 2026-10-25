@@ -208,8 +208,8 @@
     },
     {
       "path": "libtandywin/AUDIO/FORMATS30.MD",
-      "bytes": 8138,
-      "sha256": "836e288fbbfa2284c0af2dd3c207ea910d84db8eebcea107f9cb7f4c28bc8065"
+      "bytes": 5065,
+      "sha256": "887eaf4c8d6d9e03857d8272bff386c645b41e705cb6361d5509cb1e54845caf"
     },
     {
       "path": "libtandywin/AUDIO/GZIP-HDIST.MD",
@@ -1513,8 +1513,8 @@
     },
     {
       "path": "libtandywin/AUDIO/VGM-LARGE-HANDOFF.MD",
-      "bytes": 6303,
-      "sha256": "c2ccfb40a6478377a98fb1b699136e2741a1a66483d8121eeaa8ee61938389aa"
+      "bytes": 6710,
+      "sha256": "8eb992fd00f6d72b94a66267a4d04e05c5152bc9a2f69082f1edc30c454589b2"
     },
     {
       "path": "libtandywin/LICENSE",

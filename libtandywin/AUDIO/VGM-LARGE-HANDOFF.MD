@@ -1,5 +1,12 @@
 # Large VGM/VGZ handoff (for the native rebuild)
 
+This is the historical PR8 source handoff. The integrated player, foreground
+progress/Cancel, automatic temporary-file handling and measured native build
+are described in [FORMATS30.MD](FORMATS30.MD). Its packet TESTS.JSN records
+the current qualification; the host-only results below retain their original
+scope. The original TEMP-directory wording below does not impose a user
+configuration step.
+
 Separate from the MIDI work (PRs #6/#7, untouched). Branch
 `vgm/large-files-20261025`, from `main` at `2b90b70`. Two separable commits:
 
