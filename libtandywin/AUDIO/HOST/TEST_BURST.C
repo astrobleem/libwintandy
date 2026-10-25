@@ -6,26 +6,29 @@
 #include <stdio.h>
 static int failures,checks,inIRQ,unsafe;static WORD traceBytes[4096],traceCount,hi,task=1,sound;
 static DWORD now;
+static WORD irqDisabled;
 static int leaseExport=1,leaseModule=1,leaseBusy,leaseReleaseFail;
 static int leaseHeld,leaseClaims,leaseReleases,stopCalls;
-static int failTimer,failInstall;
+static int failTimer,failInstall,failDetach;
 static void api(void);
 #ifdef SPEAKER_CLOCK
 static WORD pitToken,pitDivisor,pitSuspended,pitReleases;
+static int pitBusy,pitMissing,pitFailNext;
 static int fakeFast(WORD token,WORD divisor,WORD command){
  if(!token||token!=pitToken)return -1;
  if(command==TP_SUSPEND){pitDivisor=0;pitSuspended=1;return 0;}
- if(command==TP_REENTER){pitSuspended=0;return 0;}
+ if(command==TP_REENTER){if(pitBusy)return -3;pitSuspended=0;return 0;}
  if(command==TP_MUTE){pitDivisor=0;return 0;}
  if(command!=TP_SET||divisor<TP_MIN_DIVISOR)return -13;
  if(pitSuspended)return -3;
+ if(pitBusy||pitFailNext){pitFailNext=0;pitDivisor=0;pitSuspended=1;return -3;}
  pitDivisor=divisor;return 0;
 }
 static int fakePitGet(WORD version,TPINFO FAR *out,WORD bytes,
  WORD operation){api();
  if(version!=TP_VERSION||bytes!=sizeof(TPINFO)||!out)return -16;
  if(operation!=TP_QUERY&&(!sound||!leaseHeld))return -1;
- if(operation==TP_CLAIM){if(pitToken)return -3;
+ if(operation==TP_CLAIM){if(pitToken||pitBusy)return -3;
   pitToken=7;pitSuspended=0;}
  else if(operation==TP_RELEASE){
   if(!out->token||out->token!=pitToken)return -1;
@@ -61,7 +64,7 @@ FARPROC GetProcAddress(HMODULE h,LPSTR p){api();(void)h;
   return leaseExport?(FARPROC)fakeLease:0;
 #ifdef SPEAKER_CLOCK
  if((uintptr_t)p>65535U&&!strcmp(p,"TANDYPITLEASE"))
-  return (FARPROC)fakePitGet;
+  return pitMissing?0:(FARPROC)fakePitGet;
 #endif
  return NullEntry;
 }
@@ -73,11 +76,14 @@ WORD CreateSystemTimer(WORD n,FARPROC p){api();(void)n;(void)p;return failTimer?
 void TimerEntry(void){}void NullEntry(void){}
 WORD HiInstall(WORD n){(void)n;if(failInstall)return 1;hi=1;return 0;}WORD HiStop(void){hi=0;return 0;}
 DWORD HiRead(void){return now;}WORD HiStatus(void){return 0;}WORD HiMetric(WORD n){return n==8?1:n==9?hi:0;}
-WORD HiRestart(void){hi=1;return 0;}WORD HiDetach(void){return 0;}WORD HiPeriod(void){return 9546;}
+WORD HiRestart(void){hi=1;return 0;}WORD HiDetach(void){return failDetach?1:0;}WORD HiPeriod(void){return 9546;}
 void HiPrepare(WORD n){(void)n;}void HiProgram(WORD n){(void)n;}void HiAudio(WORD n){(void)n;}
-WORD SaveIRQ(void){return 0;}void RestoreIRQ(WORD n){(void)n;}void PsgByte(WORD n){if(traceCount<4096)traceBytes[traceCount++]=n;}
+WORD SaveIRQ(void){WORD prior=irqDisabled;irqDisabled=1;return prior;}
+void RestoreIRQ(WORD n){irqDisabled=n;}
+void PsgByte(WORD n){if(traceCount<4096)traceBytes[traceCount++]=n;}
 DWORD ReadStamp(void){return now;}
-static void tick(DWORD t){now=t;inIRQ=1;Tick();inIRQ=0;}
+static void tick(DWORD t){WORD prior=irqDisabled;now=t;inIRQ=1;
+ irqDisabled=1;Tick();irqDisabled=prior;inIRQ=0;}
 int main(void){TCBINFO cap;TCBURST b,copy;TCFRAME f;WORD i,n;
  C(sizeof(TCFRAME)==16);C(sizeof(TCBURST)==24||sizeof(TCBURST)==22); /* host DWORD alignment differs */
  C(TCBGetCaps(TCB_VERSION,&cap,sizeof(cap))==0);C(cap.minCycles==9546UL&&cap.maxWrites==16);C(owner==0&&sound==0);
