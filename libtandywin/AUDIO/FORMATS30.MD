@@ -1,120 +1,92 @@
-# MINIPLAY format integration candidate
+# Tandy Winamp VGM, VGZ and MOD playback
 
-This isolated branch adds a foreground VGM/VGZ and bounded MOD producer to
-MINIPLAY. The accepted core preview is a separate artifact. Its recorded fixture qualification passes; review the supported profile and
-costs before adopting this opt-in preview.
+MINIPLAY is the native Windows 3.0 real-mode Tandy Winamp player. The packaged
+DOS Setup installs its runtime dependencies and the shared SOUND driver.
+Start the installed player with `C:\WINAMP\GO`, then use Add or the filename
+edit to select a file. The playlist holds 32 entries.
 
-MINIPLAY dispatches `.VGM` and `.VGZ` to the same decoder, sniffing gzip by
-content; `.MOD` selects the PSG arrangement. Play opens a write-denied file,
-scans the entire supported stream, initializes replay, negotiates RAWCLK,
-then acquires sound. Stop, switching inputs, restart, EOF and Close release
-the same owner through acknowledged TCClose. Pause freezes the source clock
-and mutes; Resume restores the effective registers and resumes that clock.
-The Pause button applies to the new formats. Existing MIDI/TND/AGI paths stay
-on their prior providers.
+## Opening and playback
 
-## Supported source profiles
+Plain VGM streams from disk through a 512-byte cache. VGZ expands through a
+32 KiB FAR history ring into an automatically named temporary file, then
+uses the same reader and playback path as plain VGM. The ring is freed
+before sound is acquired. The user need not set TEMP or run a decompressor.
 
-VGM accepts the first-party parser's SN command/wait subset, version
-1.00-1.71 syntax, with a strict target profile of 3,579,545 Hz, feedback 6,
-15-bit SN76496 and zero flags. Unsupported chips, variants, stereo writes,
-data blocks, PCM commands, malformed headers and unsupported commands are
-refused before sound acquisition. VGM/VGZ are limited to 60,000 uncompressed
-bytes. The output is the Tandy chip's native register behavior, including
-tone-2-coupled noise and its zero-period behavior; this is not chip emulation.
+Opening reports expansion progress, then Checking file while validating the
+stream. Both phases process foreground messages. Cancel stops an open, and
+Close cancels and waits for its decoder to unwind before releasing memory
+and closing the window. A failed temporary-file deletion retains its name
+for cleanup retry. Stop, EOF, another open and normal exit remove the file.
+No decoding, file I/O, allocation or Windows API call runs inside the IRQ.
 
-All writes at a source timestamp form one group, retaining byte order and
-every explicit noise-control write. Maximum group size is 16 writes. Distinct
-groups require at least 9,546 PIT cycles (the ceiling of 8 ms). Faster groups
-are rejected with their source offset. No merging, pitch conversion or
-automatic substitution into an older note/frame format occurs. Waits retain
-the exact 3,579,545/132,300 PIT-cycle ratio per 44.1 kHz sample. A looped VGM
-plays its initial traversal plus one bounded loop repeat, preserving fractional
-time across that boundary. Zero-duration/invalid loops are refused.
+Play validates the complete supported stream before acquiring sound.
+Pause freezes the source clock and mutes; Resume restores the effective PSG
+registers and resumes that clock. Stop, EOF and Close release the existing
+RAWCLK owner. MIDI, TND and SND retain their current providers; this change
+adds no timer owner or sound driver.
 
-VGZ is decoded in foreground into a caller-owned FAR buffer of at most
-60,000 bytes. The first-party C decoder supports stored, fixed-Huffman and
-dynamic-Huffman DEFLATE blocks, verifies CRC32 and ISIZE, rejects concatenated
-members/trailing bytes, and caps optional name/comment lengths. Header CRC16
-is outside this bounded profile and is refused. Python is only used to build
-synthetic test inputs; it is not needed by the Windows player.
+## VGM profile
 
-MOD accepts `M.K.` and `4CHN` sources, the parser's documented bounded effects,
-finetune-zero used instruments, and a song ending within 65,535 tracker ticks.
-Referenced patterns and the complete playback path are checked first.
-Internal loops that exceed the bound, unsupported effects and more than three
-simultaneously audible logical lanes are refused. Any of the four source
-lanes may obtain a free tone; a lane retains that tone until it becomes
-inaudible. There is no voice stealing or implicit fourth-lane noise mapping.
+The supported SN stream uses the Tandy chip's register behavior: 3,579,545 Hz,
+feedback 6, 15-bit SN76496 and zero flags, within VGM 1.00â€“1.71 syntax.
+The reader checks headers, source lengths and each command before playback.
+Unsupported chips, stereo writes, data blocks, PCM and unsupported commands
+are refused before sound acquisition. There is no SN variant adapter.
 
-This is a square-wave PSG arrangement, not sampled MOD playback. Sample bytes
-are skipped and original sample timbres are not reproduced. The explicit
-finetune-zero PAL convention treats one waveform cycle as 32 sample clocks:
-`PSG divisor = round(MOD period * 7159090 / 7093789)`. Out-of-range active
-divisors are refused. Tracker volume maps to attenuation. Tick timing uses
-17897725/(6*BPM) PIT cycles with Q16 fractional carry; cumulative truncation
-is less than one PIT cycle over the 65,535-tick bound, including tempo changes.
-Playback stops at F00 or order end; Play restarts from the beginning.
+Plain or expanded VGM may occupy up to 16 MiB. The bound limits preflight
+work and temporary disk space; file offsets remain 32-bit. Total playback
+must fit the existing signed RAWCLK timestamp horizon of 2^31âˆ’1 PIT cycles,
+about 30 minutes including the loop repeat. A looped song plays its initial
+traversal and one repeat, preserving fractional timing at the boundary.
 
-## Ownership, buffering and recovery
+Writes at one timestamp stay in source order, including repeated noise
+control writes, with at most 16 writes per group. Distinct groups require
+at least 9,546 PIT cycles, the ceiling of 8 ms. Wait conversion retains the
+exact 3,579,545/132,300 PIT-cycle ratio per 44.1 kHz sample. No timestamp,
+pitch or register-stream substitution is performed.
 
-RAWCLK still owns the SOUND lease, broker attachment and timer. There is no
-second timer owner, parser, file I/O, allocation or Windows API call in IRQ.
-The IRQ consumes at most one prepared group and emits at most 16 source bytes.
-The foreground producer primes and refills a 512-group ring, stopping on FULL.
-That reserve is about 8.53 seconds at 60 Hz or 4.096 seconds at minimum spacing.
-It cannot cover arbitrary foreground stalls. Late admission and multiple
-overdue groups are explicit failures; timestamps are never shifted to recover.
+VGZ supports stored, fixed-Huffman and dynamic-Huffman DEFLATE blocks.
+CRC32 and ISIZE are checked. Concatenated members, trailing bytes, gzip
+header CRC16 and overlong optional headers are outside the supported
+profile. Corrupt data, unavailable memory and failed writes produce a
+specific refusal and unwind the open.
 
-The first native attempt exposed a short-gap adaptive scheduling fallback to
-65,535 cycles. Burst mode now uses the qualified minimum for a short predicted
-gap and for an empty/last-group lookahead. Legacy frame mode retains its old
-behavior. A second attempt exposed insufficient foreground reserve; the
-128-group prototype was replaced by the negotiated 512-group ring.
+## MOD profile
 
-Effective raw registers and the latched register are cached. Normal tone or
-attenuation writes never invent a noise-control write. Explicit repeated
-noise writes are preserved. Pause/resume or DOS restoration rewrites complete
-hardware state and intentionally restarts noise; LFSR phase continuity across
-those boundaries is not promised. Stop/EOF mute by attenuation and release
-ownership. The guarded TPLAY/TBRIDGE binaries and external TSOUND prerequisite
-are unchanged.
+MOD supports `M.K.` and `4CHN`, finetune-zero instruments and the parser's
+bounded effects, ending within 65,535 tracker ticks. Any source lane may
+obtain a free tone; it keeps that tone until inaudible. More than three
+simultaneously audible lanes are refused. This is a PSG square-wave
+arrangement, with no sample-timbre reproduction or voice stealing.
 
-## Evidence and cost
+The PAL convention uses one waveform cycle per 32 sample clocks:
+`PSG divisor = round(MOD period * 7159090 / 7093789)`. Volume maps to
+attenuation. Tick timing uses `17897725/(6*BPM)` PIT cycles with Q16 carry.
+Playback ends at F00 or order end; Play starts again from the beginning.
 
-`TESTS/GZIP06/CURRENT-HOST/RESULT.JSON` records actual candidate C tests: 160 producer/decoder
-checks and 3,271 RAWCLK checks, including ring wrap beyond 1,024 groups, FULL
-retry, late refusal, terminal groups, noise bytes and legacy TCFRAME. The IRQ
-test observed zero Windows API calls. Tests use original synthetic data.
+## Buffering and native build
 
-Saved MSC6 `/G0 /Gw /Gs /AS /W3 /Od` compile/link results are in
-`TESTS/BUILD/BUILD04`. RAWCLK is 10,814 bytes (+2,048); MINIPLAY is 47,997
-bytes (+25,888). RAWCLK map code grows from 7,296 to 9,136 bytes; initialized
-plus uninitialized DGROUP grows from 16,706 to 28,002 bytes (+11,296).
-The app stack increases from 4,096 to 8,192 bytes. Only VGZ allocates the
-additional 60,000-byte output buffer; plain VGM/MOD use a 512-byte file cache.
-These are measured file/map costs, not calibrated CPU percentages.
-The app's initialized/uninitialized data grows from 4,512 to 10,496 bytes
-(+5,984); the stack is accounted separately. The interactive native case
-returned to the same 261,344-byte free-space reading after playback. The
-EOF/refusal case likewise returned to its 261,216-byte starting reading;
-different harnesses are not compared as a total resident-memory benchmark.
+The foreground producer fills the existing 512-group RAWCLK ring. Its
+reserve is about 8.53 seconds at 60 Hz or 4.096 seconds at minimum spacing.
+Late admission and overdue groups are explicit playback failures; timing
+is not shifted to conceal them. Pause/resume restores effective registers
+and deliberately restarts noise; uninterrupted explicit source noise writes
+remain intact.
 
-The original BUILD04 runtime passed171 native checks. The current header-only
-revision passes 88 focused native checks; see GZIP-HDIST.MD and QUALIFY.MD. Read
-QUALIFY.MD and each TESTS/NATIVE RESULT.JSON for the exact scope and identities.
-Failed attempts and watchdog-incomplete cases remain labelled in TESTS/HISTORY.
-No physical-hardware or listening/fidelity claim follows from host tests.
+The MSC6 build uses `/G0 /Gw /Gs /AS /W3 /Od`. The integrated MINIPLAY is
+54,877 bytes, with 47,514 bytes of code and 15,600 bytes of initialized plus
+uninitialized DGROUP. Heap and stack remain 2,048 and 8,192 bytes. Compared
+with the published MIDI player this adds 2,848 file bytes, 2,496 code bytes
+and 592 DGROUP bytes. Only MINIPLAY changes among executable runtime files;
+SOUND, RAWCLK, the MIDI DLLs, launcher, installer and current clients retain
+their published bytes.
 
-## Specification and license boundaries
+Current native and host results belong in the packet's `TESTS.JSN`. The
+older BUILD04/GZIP06 maps and fixture reports remain historical records of
+their own binaries and do not describe the current player. The source
+handoff in VGM-LARGE-HANDOFF.MD records the original PR8 implementation.
 
-The original C integration and synthetic fixtures use this component's MIT
-license. Existing notices remain applicable. No R-Type converter, commercial
-music, sampled media, OS/compiler/fonts/ROMs or disk image is part of this work.
-The external TSOUND component retains its separate published license.
-
-Format references: [VGM 1.71 specification](https://github.com/vgmrips/vgmplay-legacy/blob/master/VGMPlay/vgmspec171.txt),
-[DEFLATE RFC1951](https://www.rfc-editor.org/rfc/rfc1951),
-[gzip RFC1952](https://www.rfc-editor.org/rfc/rfc1952).
-
-Current gzip revision build/native details are in TESTS/GZIP06; BUILD04 maps below describe the unchanged baseline sizes. GZIP06 adds no production file/data/stack bytes.
+Existing component notices remain applicable. Synthetic host fixtures need
+Python only during developer testing; the DOS/Windows consumer path does
+not use it. No physical-hardware timing or listening result follows from
+host or emulator assertions.
