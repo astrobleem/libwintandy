@@ -4,6 +4,8 @@
 #include "../SOURCE/MCITNDY.C"
 static unsigned char data[65535];
 static unsigned bytes,pos,reads,seeks,checks,failures,callbacks,rejectAt;
+static WORD bankChoice;
+WORD SCBank(WORD b){if(b>1)return 1;bankChoice=b;return 0;}
 WORD SCStart(void){return 0;} WORD SCPump(void){return 0;}
 WORD SCStop(void){return 0;} WORD SCPause(void){return 0;}
 WORD SCResume(void){return 0;} DWORD SCPosition(void){return 0;}
@@ -29,6 +31,11 @@ static int admit(const SMF_EVENT *e){
 }
 static void beginRead(void){reads=seeks=0;hfile=_lopen("memory",0);}
 int main(int argc,char **argv){unsigned baselineReads,baselineSeeks,n,songEvents;SMF_ULONG songDuration;SMF_EVENT event;int r,k;FILE *song;
+ device=7;owner=1;check("bank valid current owner",MciBank(7,1)==0&&bankChoice==1);
+ check("bank invalid choice unchanged",MciBank(7,2)==MC_PARAM&&bankChoice==1);
+ owner=2;check("bank foreign task refused",MciBank(7,0)==MC_BADID&&bankChoice==1);owner=1;
+ check("bank foreign device refused",MciBank(8,0)==MC_BADID&&bankChoice==1);
+ check("bank default selection",MciBank(7,0)==0&&bankChoice==0);device=owner=0;
  make(200,0,0);beginRead();check("ordinary full validation",smf_open_stream(readAt,bytes)==1);
  baselineReads=reads;baselineSeeks=seeks;check("ordinary count",smf_event_count()==200);
  beginRead();callbacks=rejectAt=0;

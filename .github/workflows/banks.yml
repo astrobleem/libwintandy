@@ -1,0 +1,23 @@
+name: Selectable PSG banks
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  banks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ env.SOURCE_SHA }}
+          persist-credentials: false
+      - name: Confirm exact source
+        run: test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+      - name: Check Default trace, banks and actual file/live API paths
+        run: python3 -B libtandywin/AUDIO/TESTS/RUNBANK.PY --out "$RUNNER_TEMP/banks"
+      - name: Check MCI bank ownership and preserved file admission
+        run: python3 -B libtandywin/AUDIO/TESTS/RUNADMIT.PY --out "$RUNNER_TEMP/admission"
