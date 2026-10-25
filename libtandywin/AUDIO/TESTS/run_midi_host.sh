@@ -10,3 +10,5 @@ cc -x c -std=c99 -DSYNTH_HOST -I SOURCE \
 cc -x c -std=gnu99 -DSYNTH_HOST -I TESTS/mdhost -I SOURCE \
  TESTS/mdctl_host.c SOURCE/MIDISYN.C SOURCE/INSTR.C -o /tmp/tandy-mdctl-host
 /tmp/tandy-mdctl-host
+cc -x c -std=gnu99 -DSMF_FAR= -I SOURCE TESTS/smf_stream_host.c SOURCE/SMF.C -o /tmp/tandy-smf-stream
+/tmp/tandy-smf-stream TESTS/FIXTURES/*.MID

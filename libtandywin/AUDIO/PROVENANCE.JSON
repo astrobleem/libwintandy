@@ -249,8 +249,8 @@
     },
     {
       "path": "SOURCE/MCITNDY.C",
-      "bytes": 6143,
-      "sha256": "7db60e3081584bd958e488ad9eba68405a2b5e10a0d84aca23ef9f2542112ace"
+      "bytes": 5997,
+      "sha256": "2cdeda16600380ccd0bfe1f054b13a84a36a153d70d1501025f22b81762c8dfc"
     },
     {
       "path": "SOURCE/MCITNDY.DEF",
@@ -274,8 +274,8 @@
     },
     {
       "path": "SOURCE/MIDICLK.C",
-      "bytes": 10028,
-      "sha256": "c155223aa66d8536c438d3de803659a81fb40cc8e8f67f829a2b46cf1e55791e"
+      "bytes": 10297,
+      "sha256": "86d5309c4845f180389b55f88ccd449a26ca4388a2ac756589a4894b3ed2bf0a"
     },
     {
       "path": "SOURCE/MIDICLK.DEF",
@@ -294,8 +294,8 @@
     },
     {
       "path": "SOURCE/MIDISKIP.H",
-      "bytes": 740,
-      "sha256": "9060e882c6dc1a47c576ccb41e19302a87892dc704d2ec9ed7e816d7d573661e"
+      "bytes": 808,
+      "sha256": "6821fbeca7480dbefe43187acad236a12e9e8472b4a2a4f0a2a61ae56f88265f"
     },
     {
       "path": "SOURCE/MIDISYN.C",
@@ -404,13 +404,13 @@
     },
     {
       "path": "SOURCE/SMF.C",
-      "bytes": 12314,
-      "sha256": "27a1bd9b879f999132c1e77c78f09f554c47e853111c9075d09cada0939f0540"
+      "bytes": 13875,
+      "sha256": "2bc192f7d8f0c1a1ac5706497f19f2c3aff83b7a62a8c703f18cb052a29db096"
     },
     {
       "path": "SOURCE/SMF.H",
-      "bytes": 2255,
-      "sha256": "1283c8ec525e594ee57499e0bea9db71be4336ce8a8833a76c28efa9176fbca4"
+      "bytes": 2882,
+      "sha256": "1faf8042273a73138362ce17e9cd5b2d234501763bd7748c56876d7a223a8d05"
     },
     {
       "path": "SOURCE/TBRIDGE.ASM",
