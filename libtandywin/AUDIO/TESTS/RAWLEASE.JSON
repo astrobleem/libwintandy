@@ -1,0 +1,61 @@
+{
+  "scope": "Actual RAWCLK source, stub Win16/hardware; native IRQ timing separate",
+  "source_sha256": {
+    "libtandywin\\AUDIO\\HOST\\TEST_BURST.C": "5ccc61a820efa159bb530709230cf5b703485bedc95042afb6343d2b9a8a779c",
+    "libtandywin\\AUDIO\\SOURCE\\TIMECLK.C": "177defa774a03215935bcb44b11e6399b7dc5fe7a4918b7d411a7fb54df5443f",
+    "libtandywin\\AUDIO\\SOURCE\\PSGOWN.H": "aaae2ff214e7737be79e7284a382648155cd4dee20ee168652b10b08b8cd31d5",
+    "sound\\TIMECLK.C": "f8ce32ebef5e1d51a6ccfe44b2650b47fd4d16e2b6904f29510a32fbe1d279fe",
+    "sound\\PSGOWN.H": "aaae2ff214e7737be79e7284a382648155cd4dee20ee168652b10b08b8cd31d5"
+  },
+  "results": [
+    {
+      "name": "winamp",
+      "command": [
+        "C:\\Users\\chad\\Miniconda3\\python.exe",
+        "C:\\Users\\chad\\Documents\\Codex\\toolchains\\gcc-ucrt64.py",
+        "--",
+        "-x",
+        "c",
+        "-std=c89",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_BURST.C",
+        "-o",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified\\raw-host-4\\winamp.exe"
+      ],
+      "compile": 0,
+      "passed": true,
+      "exit": 0,
+      "output": "actual RAWCLK burst: 3298 checks, 0 failures, unsafe IRQ calls=0",
+      "executable_sha256": "a5ba94b1d310925111b9ebfffbb0f1027f22c241f547e57e6854a4b8afbdec22"
+    },
+    {
+      "name": "speaker",
+      "command": [
+        "C:\\Users\\chad\\Miniconda3\\python.exe",
+        "C:\\Users\\chad\\Documents\\Codex\\toolchains\\gcc-ucrt64.py",
+        "--",
+        "-x",
+        "c",
+        "-std=c89",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
+        "-DCLOCK_SOURCE=\"../../../sound/TIMECLK.C\"",
+        "-DSPEAKER_CLOCK",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_BURST.C",
+        "-o",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified\\raw-host-4\\speaker.exe"
+      ],
+      "compile": 0,
+      "passed": true,
+      "exit": 0,
+      "output": "actual RAWCLK burst: 3311 checks, 0 failures, unsafe IRQ calls=0",
+      "executable_sha256": "ebe8b8da65abf36c21827e6be88aa8bbed1eea0fa406bd1027c29d84c76620c1"
+    }
+  ],
+  "source_scope": "canonical Winamp RAWCLK plus speaker-capable compatibility RAWCLK"
+}

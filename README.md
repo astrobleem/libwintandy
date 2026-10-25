@@ -4,8 +4,9 @@
 applications. The DOS library is **libtandy** and remains a separate project.
 The historical [`libtandywin/`](libtandywin/) source directory, header names
 and API names remain compatible; see [naming and compatibility](docs/NAMING.TXT).
-The `sound/DRIVER/PITLEASE.H` derivative carries its own GPLv3 notice; see
-`sound/DRIVER/LICENSE`.
+The canonical shared sound driver is built in
+[OEMSound](https://github.com/astrobleem/oemsound-tandy/tree/main/src/win30/DRIVER).
+This library contains its consumer interfaces.
 
 * `LWTANDY.H` exposes the existing USER repaint helpers.
 * `LWAUDIO.H` forwards the app-local MCI/raw-player interfaces.
