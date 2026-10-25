@@ -44,7 +44,7 @@
     {
       "path": "README.md",
       "bytes": 3237,
-      "sha256": "25f0fe6199c61f4cfd36511b4f5e2aea0e06132739256b4eb024a6109c7d6261"
+      "sha256": "dcd9f59507e6bea7099ee56607507c55fd911e846ef6176653e1d4e7892ff33d"
     },
     {
       "path": "docs/ADOPT.TXT",
@@ -608,8 +608,8 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MIDICLK.DEF",
-      "bytes": 577,
-      "sha256": "8ae1e7d8cd3987047a78754b574d8a003e4caccda1459d6e5936b9e1bbc811f7"
+      "bytes": 592,
+      "sha256": "01b354dc74cb68862c496d9137e9c21dc36056621b54e8e7ee971bf2deab4659"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MIDICLK.RSP",
@@ -783,8 +783,8 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/TIMECLK.C",
-      "bytes": 23775,
-      "sha256": "d6ed9ca5c39853a832d37fc98e5b6cacf2e4c3a8c17d28467c52a57be865501f"
+      "bytes": 24054,
+      "sha256": "dd67cd34b0f59353a419da9e25a7c81048b71f87e6ff5e6a67c4d0eb1762c1a9"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/TIMECLK.DEF",
@@ -1340,6 +1340,16 @@
       "path": "libtandywin/AUDIO/TESTS/NATIVE/MIDI5.MD",
       "bytes": 4123,
       "sha256": "43bed9b695ecaa057cb7048cb2d11aad8f7c6682b598c41495a9b7b8cb16f6d3"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/NATIVE/MIDI8.JSN",
+      "bytes": 16609,
+      "sha256": "f3b16246eca382a785066a1ce155db57bc1aa86debcaadb6cd9d40bc5c96b8a3"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/NATIVE/MIDI8.MD",
+      "bytes": 2963,
+      "sha256": "526e34e534bb0490a7c14ce99d19c875c54f099b756a028cd9679c98b56440b0"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/NATIVE/MINIPLAY.PNG",
