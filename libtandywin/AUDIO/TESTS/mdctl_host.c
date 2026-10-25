@@ -14,7 +14,7 @@ void *GetProcAddress(HMODULE m,LPSTR p){switch((uintptr_t)p){case 13:return open
    out. Voice mode 0 (flat, no envelope) so only controllers move output. */
 static unsigned tests;
 static void ck(int ok,const char *name){tests++;if(!ok){fprintf(stderr,"FAIL %s test %u\n",name,tests);exit(1);}}
-static WORD h;static DWORD gen;static MDINFO inf;
+static WORD h;static DWORD gen;static MDINFO inf;static unsigned cfg;
 typedef struct {DWORD at;DWORD msg;} EV;
 #define M(s,ch,a,b) ((DWORD)((s)|(ch))|((DWORD)(a)<<8)|((DWORD)(b)<<16))
 #define ON(ch,n) M(0x90,ch,n,127)
@@ -23,15 +23,16 @@ typedef struct {DWORD at;DWORD msg;} EV;
 #define BEND(ch,v) M(0xe0,ch,(v)&127,(v)>>7)
 static void play(const EV *e,unsigned n,DWORD end){unsigned i;
  ck(MDReset(h,0)==0,"reset");MDStatus(h,&inf,sizeof(inf));gen=inf.generation;
- ck(MDVoiceMode(h,0)==0,"flat");
+ if(cfg==0)ck(MDVoiceMode(h,0)==0,"flat");
+ else{ck(MDTiming(h,1)==0&&MDVoiceMode(h,1)==0,"player config");
+  ck(MDPush(h,gen,0,M(0xc0,0,16,0))==0&&MDPush(h,gen,0,M(0xc0,1,16,0))==0,"organ");}
  for(i=0;i<n;i++)ck(MDPush(h,gen,e[i].at,e[i].msg)==0,"push");
  ck(MDCommit(h,gen,end,1)==0&&MDStart(h)==0,"start");}
 static const TCFRAME *at(DWORD ms){unsigned i,r=0;DWORD c=MSCycles(ms);
  for(i=0;i<nframes;i++)if(frames[i].at<=c)r=i;return &frames[r];}
 static unsigned vol(DWORD ms,unsigned t){return (at(ms)->volume>>(t*4))&15;}
 static void E(EV *a,unsigned i,DWORD t,DWORD m){a[i].at=t;a[i].msg=m;}
-int main(void){unsigned i,j;EV a[16];WORD x;
- ck(MDOpen(&h)==0,"open");
+static void run(void){unsigned i,j;EV a[40];WORD x;
  E(a,0,100,ON(0,60));E(a,1,200,OFF(0,60));play(a,2,300);
  ck(vol(150,0)==0&&vol(250,0)==15,"baseline on/off");
  x=at(150)->p[0];
@@ -82,6 +83,7 @@ int main(void){unsigned i,j;EV a[16];WORD x;
  /* plain steal protects lowest key */
  E(a,0,100,ON(0,45));E(a,1,110,ON(0,64));E(a,2,120,ON(0,67));E(a,3,130,ON(0,72));play(a,4,300);
  ck(vol(200,0)==0&&vol(200,1)==0&&vol(200,2)==0,"steal sounding");
+ {unsigned n=0;for(i=0;i<3;i++)if(at(200)->p[i]==1017)n++;ck(n==1,"lowest key survives steal");}
  /* percussion and program change */
  E(a,0,100,M(0x90,9,38,127));E(a,1,110,ON(0,60));play(a,2,300);
  ck(at(150)->noise!=0&&vol(150,3)!=15&&vol(150,0)==0,"percussion");
@@ -99,6 +101,14 @@ int main(void){unsigned i,j;EV a[16];WORD x;
  E(a,0,20,CC(0,7,32));E(a,1,30,BEND(0,16383));E(a,2,40,CC(0,64,127));play(a,3,100);
  E(a,0,100,ON(0,60));E(a,1,200,OFF(0,60));play(a,2,300);
  ck(vol(150,0)==0&&at(150)->p[0]==x&&vol(250,0)==15,"reset defaults");
+ if(cfg==1){ /* dense: same-ms groups, 1 ms sweeps, pedal inside one frame */
+  E(a,0,10,CC(0,7,64));E(a,1,10,CC(0,64,127));E(a,2,10,ON(0,60));E(a,3,100,OFF(0,60));play(a,4,200);
+  ck(vol(50,0)==3&&vol(150,0)==3,"same-ms CC7+pedal+note");
+  E(a,0,100,ON(0,60));for(i=0;i<16;i++)E(a,1+i,101+i,BEND(0,i*1092));E(a,17,117,BEND(0,16383));play(a,18,300);
+  x=at(250)->p[0];E(a,0,50,BEND(0,16383));E(a,1,100,ON(0,60));play(a,2,300);ck(at(250)->p[0]==x,"bend sweep final");
+  E(a,0,100,ON(0,60));E(a,1,200,CC(0,64,127));E(a,2,202,OFF(0,60));E(a,3,400,CC(0,64,0));play(a,4,500);
+  ck(vol(250,0)==0&&vol(450,0)==15,"pedal 2ms before note-off");
+ }
  /* admission */
  {MSYN s;unsigned c,v;DWORD m;
   static const unsigned ccs[]={0,1,7,10,11,32,64,91,93,120,121,123};
@@ -118,5 +128,6 @@ int main(void){unsigned i,j;EV a[16];WORD x;
    &&!MSValidMessage(ON(0,44),0)&&!MSSkipMessage(ON(0,44))&&!MSValidMessage(M(0x90,9,82,100),0),"refused list");
   MDReset(h,0);MDStatus(h,&inf,sizeof(inf));gen=inf.generation;
   ck(MDPush(h,gen,10000,M(0xa0,0,60,40))==MD_BAD&&MDPush(h,gen,10000,CC(0,6,0))==MD_BAD,"push refuses unskipped");}
- ck(MDClose(h)==0,"close");
+ ck(MDClose(h)==0,"close");}
+int main(void){for(cfg=0;cfg<2;cfg++){ck(MDOpen(&h)==0,"open");run();}
  printf("PASS controller path checks=%u\n",tests);return 0;}

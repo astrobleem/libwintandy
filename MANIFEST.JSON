@@ -79,7 +79,7 @@
     {
       "path": "libtandywin/AUDIO/AUDIT.JSON",
       "bytes": 2121,
-      "sha256": "2db103d521015fe9f81a687fd39c9620cae3812423c28800a2f6fc7b6efc9e95"
+      "sha256": "9bd0c30d28f299baa135263b7bd4556625650b11ab706fd679302e1ac1da5db2"
     },
     {
       "path": "libtandywin/AUDIO/BUILD/DEPENDENCIES/LAUNCH30.BAT",
@@ -124,7 +124,7 @@
     {
       "path": "libtandywin/AUDIO/FACADE/EQUIV.JSON",
       "bytes": 2046,
-      "sha256": "b1101e69c979c13f6617f3600b0a224e30ae342ad396a3e0682171ff1109cdce"
+      "sha256": "da06ee6c908265fd2874ef1bcbb6c1a51f40e3b25ae15856f44502a3ceca019f"
     },
     {
       "path": "libtandywin/AUDIO/FACADE/ERRATUM.JSON",
@@ -308,8 +308,8 @@
     },
     {
       "path": "libtandywin/AUDIO/PROVENANCE.JSON",
-      "bytes": 16810,
-      "sha256": "2264bba2aae4cc1b930c1fd5e0115c6e9d527ad4a6832532ad2bb6b768df98bb"
+      "bytes": 17588,
+      "sha256": "a320537515616e57c974bd35386e0c0f54589afda1c5635fa9778e3f6b6db2fb"
     },
     {
       "path": "libtandywin/AUDIO/QUALIFY.MD",
@@ -448,13 +448,13 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/INSTR.C",
-      "bytes": 2062,
-      "sha256": "3d7960b4dd8a1c66f67466748882934d38bc9d2b788ffb3e34aa67604e30b9da"
+      "bytes": 2023,
+      "sha256": "cec224198dad374731f740d845cec8c25dbeae5f5cdfd22c74f8b0211320db72"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/INSTR.H",
-      "bytes": 333,
-      "sha256": "4af9dd69ce78d2e7752d391ff0c8232a44daf8aa1f20d83b45fa02ab46d10cf7"
+      "bytes": 348,
+      "sha256": "ec0a1845a298fdd67d573dbd8cc623838d87b90d82c1727b4686c4ac175b2dd6"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/INTERGUI.C",
@@ -482,6 +482,16 @@
       "sha256": "412872225825a54c8226b5273c3286444c12973d2a716ee4a1a3c801b2629cbd"
     },
     {
+      "path": "libtandywin/AUDIO/SOURCE/LTMATH.H",
+      "bytes": 1180,
+      "sha256": "15164238a5c74b0311752872a46ebe56161feda5f77b68cfc2dfd0e24e119f02"
+    },
+    {
+      "path": "libtandywin/AUDIO/SOURCE/LTPBASE.H",
+      "bytes": 797,
+      "sha256": "5b7d46083bf4b761bdd1bebbf238436e16a97f26ce85fccabc897e5c83ade4c6"
+    },
+    {
       "path": "libtandywin/AUDIO/SOURCE/LWAUDIO.H",
       "bytes": 178,
       "sha256": "ab8c170161d422703a3351e2e01bfbd20ff5d6fd1be364fc527571a96db833ab"
@@ -493,8 +503,8 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MCIPSG.C",
-      "bytes": 3585,
-      "sha256": "a75fcedee621697c7f032ccef4b9e25cc45bca339fc5541f44656ebf18d8f461"
+      "bytes": 3664,
+      "sha256": "3c0c97b3fd5ea456e05ac1d3cc4f7afb2f6dd1d8f4dc416ee90fedeea776cce2"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MCIPSG.H",
@@ -503,8 +513,8 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MCITNDY.C",
-      "bytes": 6171,
-      "sha256": "ea82d054a859760dd197f3171c992067374790bde3967750685748b106ddd587"
+      "bytes": 6115,
+      "sha256": "0329f957d5257c3eed3e8c6f8331bb2e98b89562c8cc25daf7c04c99d42d205c"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MCITNDY.DEF",
@@ -528,8 +538,8 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MIDICLK.C",
-      "bytes": 10170,
-      "sha256": "e6814c627ac735e9380934e73da4cf65464bd2656732d27b48b98862e1b45f5e"
+      "bytes": 10028,
+      "sha256": "c155223aa66d8536c438d3de803659a81fb40cc8e8f67f829a2b46cf1e55791e"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MIDICLK.DEF",
@@ -542,14 +552,24 @@
       "sha256": "cd6827f15a8f42549a329a25ca3408b5fe267daa8d7a789859725f397d433145"
     },
     {
+      "path": "libtandywin/AUDIO/SOURCE/MIDIMSG.H",
+      "bytes": 811,
+      "sha256": "4eb8e78a83846bf625ebc0f84a0da9b3469c4c1a0fc578f185b8f8cd4147d43c"
+    },
+    {
+      "path": "libtandywin/AUDIO/SOURCE/MIDISKIP.H",
+      "bytes": 641,
+      "sha256": "e3df78080e2becbda0b0bfc19c3720d0b94fc92dfde388b019c262dc4068a304"
+    },
+    {
       "path": "libtandywin/AUDIO/SOURCE/MIDISYN.C",
-      "bytes": 2981,
-      "sha256": "fa9cd4a15b5da9c4b2c3b5b04165ad3bad8f6a97cbbdf96de019a687f1b5213b"
+      "bytes": 8251,
+      "sha256": "d8927fb136b2e36afcaeb0a948a87a479b5547c85c3e8d3fd3849c1a624e0d49"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MIDISYN.H",
-      "bytes": 548,
-      "sha256": "dae6122f431d2fe6455ccbcafdbb0695a7573115dd126dc9f84b34819b2e96b3"
+      "bytes": 1128,
+      "sha256": "b920312440e2da974f7b9ab480bc3dbe0aed33bb52f8109d7efe937a0d0a76ac"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MINIPLAY.C",
@@ -578,8 +598,13 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/PERIODS.H",
-      "bytes": 301,
-      "sha256": "4fbb8b010c03e768909093494f6549f4781f6e80c13984b0592a8305ea5a513e"
+      "bytes": 660,
+      "sha256": "5ae78d5167aae9ca223bcfb0855312f4d6669dc5f3c40ed398cab5c61f80df93"
+    },
+    {
+      "path": "libtandywin/AUDIO/SOURCE/PITNOTES.H",
+      "bytes": 670,
+      "sha256": "2ec6e70221ad49ffb71baec4b1c6798241d22a850f1289cf8d6108b7a6740840"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/PSG.ASM",
@@ -820,6 +845,36 @@
       "path": "libtandywin/AUDIO/TESTS/FACADE/windows.h",
       "bytes": 353,
       "sha256": "826e1f425dd0212cb6ba86971ea8ad4c58ab8db973b9dfe7180c2f6bcd63b431"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/FIXTURES/ALLOFF.MID",
+      "bytes": 76,
+      "sha256": "2f2298a683b65e787c90ddf087d9f7c651cccab6785590c11e4f9260c48fe3ee"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/FIXTURES/BEND.MID",
+      "bytes": 185,
+      "sha256": "b9e3c85e164dc83339c28302f9ca18e58c4982ece711034bbbadeb16494a5b6d"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/FIXTURES/EXTRAS.MID",
+      "bytes": 129,
+      "sha256": "fd605f396a6b209c5307fc856aa2da3bb0c7789cc363cb924ac0404f1375056c"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/FIXTURES/STEAL.MID",
+      "bytes": 129,
+      "sha256": "2202addf5566a4a82279e78a7606f1f830b8a8cb7c3e5514f619362ace288ed7"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/FIXTURES/SUSTAIN.MID",
+      "bytes": 84,
+      "sha256": "b082f86ba0d0647664c9eff68533a207b01b516177ea36e8feea5bb1d9f96140"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/FIXTURES/VOLEXPR.MID",
+      "bytes": 90,
+      "sha256": "f68d1f66fa730cbeede53d09e71dd8755b9eb2b0691a32b1e801d063bd8ae218"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/FORMATS-README.MD",
@@ -1117,6 +1172,11 @@
       "sha256": "afd5e595945f5c9c7a5bf39c2260ef456f1c1f81438899166e686270e6f87006"
     },
     {
+      "path": "libtandywin/AUDIO/TESTS/mdctl_host.c",
+      "bytes": 10277,
+      "sha256": "81b5613e600ced5f6ca8dbe80a48d6b3e2513593a4648b5dbf189351b8a6dcf8"
+    },
+    {
       "path": "libtandywin/AUDIO/TESTS/mdhost/driver.c",
       "bytes": 6401,
       "sha256": "99655e676e29ab68c5adfc21e66e627fb4f71795380ff0cd6c4e639437c316de"
@@ -1125,6 +1185,11 @@
       "path": "libtandywin/AUDIO/TESTS/mdhost/windows.h",
       "bytes": 523,
       "sha256": "7ba8d6bb9ffc6fff18c2b04436b0124b39b013dbb0bc3f5985f7d3416a60fea8"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/MAKE_MIDI_FIXTURES.PY",
+      "bytes": 7448,
+      "sha256": "13cf7160cfae68aedb28a1dda56cc85e293d5631e7e2003371ceb03d94dd0219"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/NATIVE/FMTEOF/FMTGUI.LOG",
@@ -1223,13 +1288,18 @@
     },
     {
       "path": "libtandywin/AUDIO/TESTS/run_midi_host.sh",
-      "bytes": 341,
-      "sha256": "ae9b39e0727d5c42f23f48688f46d752515f6f753f0645c5adaa80e0469bf677"
+      "bytes": 500,
+      "sha256": "48b82d5d250e743d4d75658351d08bb66f00dbc4c5e5938fe5276f77329b8c43"
+    },
+    {
+      "path": "libtandywin/AUDIO/TESTS/song_preflight.c",
+      "bytes": 1330,
+      "sha256": "70c4f6c45fd345673417569fbeed38c1953cdb4d902c68af43852d4d018c127d"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/synth_host.c",
-      "bytes": 2207,
-      "sha256": "47ff74fff468c136d25317409a9cc8e848cdcdf55ad3acb936b324b8bfa3961d"
+      "bytes": 2216,
+      "sha256": "70791eddbcf6bc0b63c11a1970088cabb59e159190cd997f96bb91ecc8ac13c1"
     },
     {
       "path": "libtandywin/LICENSE",
