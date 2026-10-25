@@ -42,6 +42,7 @@ cases = [
     ('formats', [host/'TEST_FMTS.C'] + [source/(name+'.C') for name in
                  ('FMTCORE', 'VGM', 'VGMGRP', 'MODPLAY', 'GUNZIP')]),
     ('burst', [host/'TEST_BURST.C']),
+    ('paired', [host/'TEST_PAIR.C']),
     ('mod', [host/'TEST_MOD.C', source/'MODPLAY.C']),
 ]
 rows = []

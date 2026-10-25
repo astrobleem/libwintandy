@@ -1,0 +1,991 @@
+{
+  "status": "PASS_SCOPED_CURRENT_ENGINE_ACTUAL_APP_CURRENT_PACKAGE_GATE_PENDING",
+  "script": {
+    "bytes": 10987,
+    "sha256": "65fd3ced03f51bb7b531b8c2d59b217271c1880c178815f5e898176d758bb7a6"
+  },
+  "source": {
+    "compiled_source": "f48e41e1d66fbcd99c6867e0abae24ae9e0c15af",
+    "current_source": "36e6be7dc5f5138c0a42d1d8995fa43fda782243",
+    "exact_current_source_files": {
+      "CLOCK.ASM": {
+        "bytes": 1956,
+        "sha256": "89c5d1d9ecadea50bb50ec53ca67c11e7b084bc721e3cc02b825a82e7db40c77"
+      },
+      "ENTRY.ASM": {
+        "bytes": 159,
+        "sha256": "fe93a74ff44bcc487f8a02f58ed31f3d0a48ebf5aecab7ddc34e95f7a5617246"
+      },
+      "INSTR.C": {
+        "bytes": 2023,
+        "sha256": "cec224198dad374731f740d845cec8c25dbeae5f5cdfd22c74f8b0211320db72"
+      },
+      "INSTR.H": {
+        "bytes": 348,
+        "sha256": "ec0a1845a298fdd67d573dbd8cc623838d87b90d82c1727b4686c4ac175b2dd6"
+      },
+      "LTMATH.H": {
+        "bytes": 1180,
+        "sha256": "15164238a5c74b0311752872a46ebe56161feda5f77b68cfc2dfd0e24e119f02"
+      },
+      "LTPBASE.H": {
+        "bytes": 797,
+        "sha256": "5b7d46083bf4b761bdd1bebbf238436e16a97f26ce85fccabc897e5c83ade4c6"
+      },
+      "MCIAPI.H": {
+        "bytes": 1508,
+        "sha256": "b9546d9d8c839800a79c7217c79227d865060b1526c92403cdcd5a314d96a8ec"
+      },
+      "MCIPSG.C": {
+        "bytes": 3664,
+        "sha256": "3c0c97b3fd5ea456e05ac1d3cc4f7afb2f6dd1d8f4dc416ee90fedeea776cce2"
+      },
+      "MCIPSG.H": {
+        "bytes": 150,
+        "sha256": "5347ed95daccd56caec678c80088e6916fc4132a787df0733dcbf443fbce6982"
+      },
+      "MCITNDY.C": {
+        "bytes": 6276,
+        "sha256": "4ce17b8b186db51e22c4ad6c9e1f222b4bd2d13ace5c501339570b1e280b6015"
+      },
+      "MCITNDY.DEF": {
+        "bytes": 325,
+        "sha256": "439ae361352e7550516b7646a38ed2b0946f525044fc02d9971c3de1c0dcf3e0"
+      },
+      "MCITNDY.RSP": {
+        "bytes": 117,
+        "sha256": "27831edc3d8d7daba9917a0a61dcb98dc63deafc75d67142bcd7bbb91d7d988d"
+      },
+      "MDAPI.H": {
+        "bytes": 1427,
+        "sha256": "3f1c2f62d585f7bd054d4ee21a2db1d8b99712d12dd629e431a8a2a0a690d364"
+      },
+      "MIDICLK.C": {
+        "bytes": 12934,
+        "sha256": "2241d5322ac59cff239b9650996151828f505370f1b7c4a31a2b549169ee5445"
+      },
+      "MIDICLK.DEF": {
+        "bytes": 577,
+        "sha256": "8ae1e7d8cd3987047a78754b574d8a003e4caccda1459d6e5936b9e1bbc811f7"
+      },
+      "MIDICLK.RSP": {
+        "bytes": 120,
+        "sha256": "cd6827f15a8f42549a329a25ca3408b5fe267daa8d7a789859725f397d433145"
+      },
+      "MIDIMSG.H": {
+        "bytes": 811,
+        "sha256": "4eb8e78a83846bf625ebc0f84a0da9b3469c4c1a0fc578f185b8f8cd4147d43c"
+      },
+      "MIDISKIP.H": {
+        "bytes": 808,
+        "sha256": "6821fbeca7480dbefe43187acad236a12e9e8472b4a2a4f0a2a61ae56f88265f"
+      },
+      "MIDISYN.C": {
+        "bytes": 8632,
+        "sha256": "460fd2b01ccb7822cbe3a539585e24e2d23d365688f4f1dec9057fc23c0b78c9"
+      },
+      "MIDISYN.H": {
+        "bytes": 1144,
+        "sha256": "9bfa78d5323143c55956764b061aa9f50a5b37c4544d569633349c59415ea556"
+      },
+      "PERIODS.H": {
+        "bytes": 660,
+        "sha256": "5ae78d5167aae9ca223bcfb0855312f4d6669dc5f3c40ed398cab5c61f80df93"
+      },
+      "PITLINK.H": {
+        "bytes": 638,
+        "sha256": "b6a9d41c5765b1b166caf0ff1aa7d83edfd2662a7b8f46d802bf08367b5cb452"
+      },
+      "PITNOTES.H": {
+        "bytes": 670,
+        "sha256": "2ec6e70221ad49ffb71baec4b1c6798241d22a850f1289cf8d6108b7a6740840"
+      },
+      "PSGOWN.H": {
+        "bytes": 863,
+        "sha256": "aaae2ff214e7737be79e7284a382648155cd4dee20ee168652b10b08b8cd31d5"
+      },
+      "SMF.C": {
+        "bytes": 14311,
+        "sha256": "862b239d8485485134980685db9f2b32c832c021cfe80ea5c616f394f62db220"
+      },
+      "SMF.H": {
+        "bytes": 3524,
+        "sha256": "8eccc5645955a2057105148920e4e66afce70da522fd94e52b5f3725ba5b2341"
+      },
+      "TCBURST.H": {
+        "bytes": 722,
+        "sha256": "7249a5885cfde8afe0c3c405ac129d92ee3b654a65923f49ceff8f295bb57776"
+      },
+      "TCXBASS.H": {
+        "bytes": 1754,
+        "sha256": "8ebcc407a7af1fc3166c92de5c3140fb9c82dfdf112573050bcd42b5cac274fe"
+      },
+      "TIMECLK.C": {
+        "bytes": 23775,
+        "sha256": "d6ed9ca5c39853a832d37fc98e5b6cacf2e4c3a8c17d28467c52a57be865501f"
+      },
+      "TIMECLK.DEF": {
+        "bytes": 729,
+        "sha256": "a9fb0ab6e1afd0547eebd1e152546c999bd6f782ac0b38bd3a860567d1284271"
+      },
+      "TIMECLK.H": {
+        "bytes": 784,
+        "sha256": "478d911587645d6d2acb2965dc7b78e8b6e3b67373e8a8a4933395398ff9d193"
+      },
+      "TIMECLK.RSP": {
+        "bytes": 108,
+        "sha256": "7cf185d31975aa07874d61bcdd2f33f183f2589194017484c82b7e01809e4fc1"
+      },
+      "WINHOOK.ASM": {
+        "bytes": 8330,
+        "sha256": "6e44cbcb0ce6eb2a29f039aaebd5dc6534ba76d5f1648780c5010b2ae94a3520"
+      }
+    },
+    "matched_input_count": 33,
+    "different": [],
+    "source_receipt": {
+      "path": "BUILD5/SOURCES.JSON",
+      "bytes": 5391,
+      "sha256": "39a9be8dfde6c4517131ce30b21607664cb38467f5a058e2dc171942fadf93cb"
+    },
+    "result": {
+      "path": "BUILD5/RESULT.JSON",
+      "bytes": 42762,
+      "sha256": "9be86e2d0fd36df9c744ed627bb573fde4b4438866243b6133f2f0b206e96d32"
+    },
+    "process": {
+      "identity": {
+        "path": "BUILD5/PROCESS.JSON",
+        "bytes": 466,
+        "sha256": "ed6be83b1bfb27e4d6fa733198acaee20867ce084c954d6f97ac8d3405774f20"
+      },
+      "pid": 8604,
+      "return": 0,
+      "owned_child_stopped": true,
+      "lease_released": true
+    },
+    "actual_NE": {
+      "RAWCLK.DLL": {
+        "CODE_minimum_bytes": 13799,
+        "DGROUP_minimum_bytes": 38432,
+        "heap_bytes": 0,
+        "stack_bytes": 0,
+        "import_modules": [
+          "SYSTEM",
+          "KERNEL",
+          "SOUND"
+        ]
+      },
+      "MIDICLK.DLL": {
+        "CODE_minimum_bytes": 14352,
+        "DGROUP_minimum_bytes": 12018,
+        "heap_bytes": 0,
+        "stack_bytes": 0,
+        "import_modules": [
+          "KERNEL"
+        ]
+      },
+      "MCITNDY.DLL": {
+        "CODE_minimum_bytes": 10948,
+        "DGROUP_minimum_bytes": 3398,
+        "heap_bytes": 0,
+        "stack_bytes": 0,
+        "import_modules": [
+          "KERNEL",
+          "USER"
+        ]
+      }
+    },
+    "scope": "33 current source bytes equal the compiled f48 input bytes. Actual NE minima; no host sizeof or physical-memory claim."
+  },
+  "DLLs": {
+    "RAWCLK.DLL": {
+      "bytes": 15464,
+      "sha256": "c5ef93b36ad068b807d7f772120d3b1f2b4663e12f77d6e537ea7d775142d099"
+    },
+    "MIDICLK.DLL": {
+      "bytes": 16576,
+      "sha256": "a07e38e060c80098d2bdf39855ea2c1fa274812c6a77701a1c9f147341fa9bf5"
+    },
+    "MCITNDY.DLL": {
+      "bytes": 13036,
+      "sha256": "133ac74490ee96b6cff49974e2c1d125706ebb043137a8806384196551942124"
+    }
+  },
+  "sound": {
+    "bytes": 9752,
+    "sha256": "ef501c64b80559ab8cc729c32bd36647a3c041bcf08ccf50cd958bb60065eccd"
+  },
+  "inherited_unchanged_RAW_MID": {
+    "RUN1": {
+      "inputs": {
+        "path": "RUN1/INPUTS.JSON",
+        "bytes": 2712,
+        "sha256": "7392373e5bdeec4f47a302751a9f3669dc88b7e229087cfba532fe573586cd2b"
+      },
+      "raw_log": {
+        "path": "RUN1/CROOT/MIDIOBS.LOG",
+        "bytes": 4540,
+        "sha256": "2f445356d980f582cf649aad0b3c274743fb3f9f77929f56e661b82c99de0f6c"
+      },
+      "process": {
+        "identity": {
+          "path": "RUN1/PROCESS.JSON",
+          "bytes": 408,
+          "sha256": "478e4b423ef7ca10b74598f576806baf8777e7b737dfc80fe9c46ce6a71e74af"
+        },
+        "pid": 27384,
+        "return": 0,
+        "owned_child_stopped": true,
+        "lease_released": true
+      },
+      "cleanup": {
+        "MPREF.LOG": {
+          "path": "RUN1/CROOT/MPREF.LOG",
+          "bytes": 222,
+          "sha256": "5d03f62d96e494c7c9ad9d5b662a8e4ac98a60cf1b8deb7492bd7073d21e3c6c"
+        },
+        "MWIN.LOG": {
+          "path": "RUN1/CROOT/MWIN.LOG",
+          "bytes": 500,
+          "sha256": "d9e2643cfba9fe2e3541acb92ed0350253604b6f74309969815eea3618758572"
+        },
+        "MCLEAN.LOG": {
+          "path": "RUN1/CROOT/MCLEAN.LOG",
+          "bytes": 222,
+          "sha256": "5d03f62d96e494c7c9ad9d5b662a8e4ac98a60cf1b8deb7492bd7073d21e3c6c"
+        },
+        "RETURN.TXT": {
+          "path": "RUN1/CROOT/RETURN.TXT",
+          "bytes": 6,
+          "sha256": "d938fa189912f8776c3deb31a6bec42f403f57b9c8e3ed936bdb076caf6bd61c"
+        }
+      },
+      "captures": [
+        {
+          "path": "RUN1/captures/kernel_000.avi",
+          "bytes": 1138356,
+          "sha256": "a76f07bcc343a1094e323a5233a539e47c0158b9face916580380e41200d8b19"
+        },
+        {
+          "path": "RUN1/captures/kernel_001.avi",
+          "bytes": 636056,
+          "sha256": "a8124344225a8b7a89e58d786a6c51e124cfc4e7ccc9569d290bdb33524101f3"
+        },
+        {
+          "path": "RUN1/captures/tplay_000.avi",
+          "bytes": 192574,
+          "sha256": "821a637512e0eb75b71b8c74b1f65cf42d3d7d6db3519e23901aa35dc45e03b7"
+        },
+        {
+          "path": "RUN1/captures/tplay_000.wav",
+          "bytes": 1794092,
+          "sha256": "1ffe11ef9c83579fbd67defa26fd49f7b378f5f06d532d455a2ffc66209dc041"
+        }
+      ],
+      "observer_build": {
+        "sources": {
+          "path": "OBS2/SOURCES.JSON",
+          "bytes": 2248,
+          "sha256": "06b84593e2b166f51c356119940627fb23ea53ed65c666b1d8b4a964736718c2"
+        },
+        "native_log": {
+          "path": "OBS2/OBSBUILD.LOG",
+          "bytes": 1010,
+          "sha256": "151d5fc8afebc032a85eed0d2298703ca84502b1b2ba2a26ccc3f884f92fbb25"
+        },
+        "header": {
+          "path": "OBS2/HEADER.JSON",
+          "bytes": 359,
+          "sha256": "1ed5ab6382ae5afbe2d67e4a49fb3f1b288591809e6e2681b12e24b565f247ab"
+        },
+        "runtime": {
+          "path": "OBS2/MIDIOBS.EXE",
+          "bytes": 17613,
+          "sha256": "93d4baf972e52209db02316f15021fcb58583499ddc77b9355d64e0ab215152a"
+        },
+        "process": {
+          "identity": {
+            "path": "OBS2/PROCESS.JSON",
+            "bytes": 408,
+            "sha256": "6dafeee2b3f105bcd2cf4bf90751ad86c95689a1a8bf06d655dd948c81c8f48f"
+          },
+          "pid": 9796,
+          "return": 0,
+          "owned_child_stopped": true,
+          "lease_released": true
+        }
+      },
+      "overall_raw_result": "FAIL_PRESERVED",
+      "selected_scope": "Unchanged RAW/MID only; old MCI not qualified or inherited",
+      "selected_case_names": [
+        "Key0ForceFold",
+        "Key0SelectedFold",
+        "Key0NoPITPitch",
+        "Key0FallbackAudible",
+        "Key13ForceFold",
+        "Key13SelectedFold",
+        "Key13NoPITPitch",
+        "Key13FallbackAudible",
+        "Key14OriginalPitch",
+        "Key14Primary",
+        "Key14Token",
+        "PITAvailable",
+        "BusyUsesFold",
+        "BusyNoToken",
+        "PrivateBusyStatus",
+        "HandoffPrimary",
+        "HandoffPitch",
+        "FreshEOFNoClock",
+        "BusyEOFNoToken",
+        "EOFNoReacquireAfterFree",
+        "EOFStillNoClock",
+        "RestartClockExists",
+        "RestartActuallyDelivered"
+      ],
+      "successful_assertions": 23,
+      "excluded_failure": "SustainResetControllers"
+    },
+    "RUN2": {
+      "inputs": {
+        "path": "RUN2/INPUTS.JSON",
+        "bytes": 2699,
+        "sha256": "bf1ebac54844e072661da051809870b22c0a084df2abae535bdfa7695473b6b6"
+      },
+      "raw_log": {
+        "path": "RUN2/CROOT/MIDIOBS.LOG",
+        "bytes": 3109,
+        "sha256": "97dbe98a95486944916c2def19756f478d83748d43237bd4f65c7de59ddb3051"
+      },
+      "process": {
+        "identity": {
+          "path": "RUN2/PROCESS.JSON",
+          "bytes": 408,
+          "sha256": "de2f356fccbfc379c47321f5d2e8c7dfff3977b26ab56e20a7d47c080d91b729"
+        },
+        "pid": 13428,
+        "return": 0,
+        "owned_child_stopped": true,
+        "lease_released": true
+      },
+      "cleanup": {
+        "MPREF.LOG": {
+          "path": "RUN2/CROOT/MPREF.LOG",
+          "bytes": 222,
+          "sha256": "5d03f62d96e494c7c9ad9d5b662a8e4ac98a60cf1b8deb7492bd7073d21e3c6c"
+        },
+        "MWIN.LOG": {
+          "path": "RUN2/CROOT/MWIN.LOG",
+          "bytes": 500,
+          "sha256": "d9e2643cfba9fe2e3541acb92ed0350253604b6f74309969815eea3618758572"
+        },
+        "MCLEAN.LOG": {
+          "path": "RUN2/CROOT/MCLEAN.LOG",
+          "bytes": 222,
+          "sha256": "5d03f62d96e494c7c9ad9d5b662a8e4ac98a60cf1b8deb7492bd7073d21e3c6c"
+        },
+        "RETURN.TXT": {
+          "path": "RUN2/CROOT/RETURN.TXT",
+          "bytes": 6,
+          "sha256": "d938fa189912f8776c3deb31a6bec42f403f57b9c8e3ed936bdb076caf6bd61c"
+        }
+      },
+      "captures": [
+        {
+          "path": "RUN2/captures/command_000.avi",
+          "bytes": 623688,
+          "sha256": "a2ee32716360abf2f2d4785d7823ca904140ab2811d050fb14c2b4fcf5c0207d"
+        },
+        {
+          "path": "RUN2/captures/kernel_000.avi",
+          "bytes": 1426324,
+          "sha256": "e805188cece21a5cc61c7a3285637e2c1254585d82c9f36727f4fd89ad4e8c99"
+        },
+        {
+          "path": "RUN2/captures/tplay_000.avi",
+          "bytes": 192570,
+          "sha256": "621110a39aaf2271d3bd6a6cd633914e6631efdea6b8271c7dbae27c214a05db"
+        },
+        {
+          "path": "RUN2/captures/tplay_000.wav",
+          "bytes": 2073068,
+          "sha256": "a9e998fe7ec89f328795f3c400da1bc0c0c122f9d784a85097e252731d473d23"
+        }
+      ],
+      "observer_build": {
+        "sources": {
+          "path": "OBS3/SOURCES.JSON",
+          "bytes": 2442,
+          "sha256": "7102d694bac50a74c265ffd72a49468425d393ef2eb4404f8313a5ba58dc0a8c"
+        },
+        "native_log": {
+          "path": "OBS3/OBSBUILD.LOG",
+          "bytes": 1010,
+          "sha256": "151d5fc8afebc032a85eed0d2298703ca84502b1b2ba2a26ccc3f884f92fbb25"
+        },
+        "header": {
+          "path": "OBS3/HEADER.JSON",
+          "bytes": 359,
+          "sha256": "addfc2ac3ade02a2628fdffc6e00ceeeaadc7c53748fd419f2b16219988a93fb"
+        },
+        "runtime": {
+          "path": "OBS3/MIDIOBS.EXE",
+          "bytes": 17693,
+          "sha256": "0fd4d810b71604fd38f981491db04a667d5a18265612d4397ab6a89b2230814b"
+        },
+        "process": {
+          "identity": {
+            "path": "OBS3/PROCESS.JSON",
+            "bytes": 408,
+            "sha256": "e5ffe37703e0a57ee921f28aedb0680428fcc497ab4891db655c9dfe2cd3f09a"
+          },
+          "pid": 1784,
+          "return": 0,
+          "owned_child_stopped": true,
+          "lease_released": true
+        }
+      },
+      "overall_raw_result": "FAIL_PRESERVED",
+      "selected_scope": "Unchanged RAW/MID only; old MCI not qualified or inherited",
+      "selected_case_names": [
+        "SustainKeptPSGPeriod",
+        "SustainKeptPSGAudible",
+        "CC7ChangedSelectedVolume",
+        "CC7PreservedPitch",
+        "CC121MutedPitch",
+        "CC121SilentPSG",
+        "BendForceFold",
+        "BendSelectedFold",
+        "BendNoPITPitch",
+        "BendResetOriginalPitch",
+        "BendResetPrimary"
+      ],
+      "successful_assertions": 11,
+      "excluded_failure": "DOSLaunch"
+    },
+    "RUN3": {
+      "inputs": {
+        "path": "RUN3/INPUTS.JSON",
+        "bytes": 2834,
+        "sha256": "65add0ba0a68ff1edad56f9eb8e6ac79efa0758407fc27d8a15c59e9e3dfa5e5"
+      },
+      "raw_log": {
+        "path": "RUN3/CROOT/MIDIOBS.LOG",
+        "bytes": 6271,
+        "sha256": "6b654ee4356c454b779d70a94dfe109aa6e6db12ee31e2eec432cec83c75a30a"
+      },
+      "process": {
+        "identity": {
+          "path": "RUN3/PROCESS.JSON",
+          "bytes": 408,
+          "sha256": "1915d82acc0ffcfec98f0194bf0a0e57e6e03db3177c7fe20d889a81bb6c1818"
+        },
+        "pid": 16232,
+        "return": 0,
+        "owned_child_stopped": true,
+        "lease_released": true
+      },
+      "cleanup": {
+        "MPREF.LOG": {
+          "path": "RUN3/CROOT/MPREF.LOG",
+          "bytes": 222,
+          "sha256": "5d03f62d96e494c7c9ad9d5b662a8e4ac98a60cf1b8deb7492bd7073d21e3c6c"
+        },
+        "MWIN.LOG": {
+          "path": "RUN3/CROOT/MWIN.LOG",
+          "bytes": 500,
+          "sha256": "d9e2643cfba9fe2e3541acb92ed0350253604b6f74309969815eea3618758572"
+        },
+        "MCLEAN.LOG": {
+          "path": "RUN3/CROOT/MCLEAN.LOG",
+          "bytes": 222,
+          "sha256": "5d03f62d96e494c7c9ad9d5b662a8e4ac98a60cf1b8deb7492bd7073d21e3c6c"
+        },
+        "RETURN.TXT": {
+          "path": "RUN3/CROOT/RETURN.TXT",
+          "bytes": 6,
+          "sha256": "d938fa189912f8776c3deb31a6bec42f403f57b9c8e3ed936bdb076caf6bd61c"
+        }
+      },
+      "captures": [
+        {
+          "path": "RUN3/captures/command_000.avi",
+          "bytes": 623304,
+          "sha256": "919b8d042f4743f56d444d21c1e11972ad98114a9cbfe06d5006cb9bee9e247f"
+        },
+        {
+          "path": "RUN3/captures/kernel_000.avi",
+          "bytes": 544332,
+          "sha256": "7ede56f9ae5176dc27c5d14d72f32f17322d8efa7647b15db89d8bf64c61b1c0"
+        },
+        {
+          "path": "RUN3/captures/kernel_001.avi",
+          "bytes": 72666,
+          "sha256": "5d31c76da3eb9caadcfc59cd0d5eabea521a75250b314b094554ae914eeedbde"
+        },
+        {
+          "path": "RUN3/captures/kernel_002.avi",
+          "bytes": 6761046,
+          "sha256": "db16bb1bf7b121336765f6b02700abc4841bb9688961c9778bb7bf029617f5e4"
+        },
+        {
+          "path": "RUN3/captures/tplay_000.avi",
+          "bytes": 192568,
+          "sha256": "79ab4b0150ad7b2008a28e48123ab62f5517bbe2f52a332be304d9eff321d4c7"
+        },
+        {
+          "path": "RUN3/captures/tplay_000.wav",
+          "bytes": 7753580,
+          "sha256": "e8f5e5821cc152db2172a6002f275562acf230c4e838feef7aeb7738e56faa13"
+        }
+      ],
+      "observer_build": {
+        "sources": {
+          "path": "OBS4/SOURCES.JSON",
+          "bytes": 2712,
+          "sha256": "8b94ad5be540d954ecf109071153ae2cf1fd3de9bfb910cbd0ffd9583a84b137"
+        },
+        "native_log": {
+          "path": "OBS4/OBSBUILD.LOG",
+          "bytes": 1010,
+          "sha256": "c7f599b03801632a65fc98469bf0b4a4f2f2a36577e041a1f5e97116b06de152"
+        },
+        "header": {
+          "path": "OBS4/HEADER.JSON",
+          "bytes": 359,
+          "sha256": "283cddcbe33b1e5cb77edd4ec44d2e62a7ce2f6861a1eca05d50c2fe1d118d49"
+        },
+        "runtime": {
+          "path": "OBS4/MIDIOBS.EXE",
+          "bytes": 17869,
+          "sha256": "44f02075ae507a897ca1f970fd8aa144154ee4b6e183e81489ad839b0d5b19d0"
+        },
+        "process": {
+          "identity": {
+            "path": "OBS4/PROCESS.JSON",
+            "bytes": 409,
+            "sha256": "2e5cd0f71f98f24ed29d879c8abf1f89de15d6f0f4015cbd17ed1161fb51d81d"
+          },
+          "pid": 15532,
+          "return": 0,
+          "owned_child_stopped": true,
+          "lease_released": true
+        }
+      },
+      "overall_raw_result": "FAIL_PRESERVED",
+      "selected_scope": "Phase6 actual direct-MIDICLK pause/DOS/resume only; phase0 binding assertions not recounted; old phase7 MCI and phase8 GUI excluded",
+      "successful_assertions": 22,
+      "selected_assertion_names": [
+        "MDOpen",
+        "FlatVoice",
+        "GroupedTiming",
+        "MDStatus",
+        "PutProgram",
+        "PutNote",
+        "PutOff",
+        "Commit",
+        "Start",
+        "Pause",
+        "NoStaleDOSMarker",
+        "DOSLaunch",
+        "DOSMarker",
+        "PausePreserved",
+        "StillPaused",
+        "Resume",
+        "DOSResumedNotSuspended",
+        "DOSResumedPitch",
+        "DOSResumedPrimary",
+        "MDResetClose",
+        "MDClose",
+        "SoundIdleAfterMD"
+      ],
+      "DOS_marker": {
+        "path": "RUN3/CROOT/MIDIDOS.LOG",
+        "bytes": 18,
+        "sha256": "9bd29f78daea5b26e172c6d3435f755796492c82b801926b874a7d331e15f1de"
+      },
+      "PIF_fallback_tested": false
+    }
+  },
+  "current_MCI_and_GUI": {
+    "RUN6": {
+      "status": "PASS",
+      "inputs": {
+        "path": "RUN6/INPUTS.JSON",
+        "bytes": 2834,
+        "sha256": "4f3b08fa2f3e21ca2e35b441384838577f5410c7471a39217315890189518c3f"
+      },
+      "raw_log": {
+        "path": "RUN6/CROOT/MIDIOBS.LOG",
+        "bytes": 5275,
+        "sha256": "169df51dc27402be2502db2fd34f87073ac7a8b9e23809050288b0c9a807b83a"
+      },
+      "process": {
+        "identity": {
+          "path": "RUN6/PROCESS.JSON",
+          "bytes": 408,
+          "sha256": "45a6c2b1c34ad3d1220bc0e7480bfe53b9a03c9717ab4f28ca53f0c63709754c"
+        },
+        "pid": 27392,
+        "return": 0,
+        "owned_child_stopped": true,
+        "lease_released": true
+      },
+      "cleanup": {
+        "MPREF.LOG": {
+          "path": "RUN6/CROOT/MPREF.LOG",
+          "bytes": 222,
+          "sha256": "5d03f62d96e494c7c9ad9d5b662a8e4ac98a60cf1b8deb7492bd7073d21e3c6c"
+        },
+        "MWIN.LOG": {
+          "path": "RUN6/CROOT/MWIN.LOG",
+          "bytes": 500,
+          "sha256": "d9e2643cfba9fe2e3541acb92ed0350253604b6f74309969815eea3618758572"
+        },
+        "MCLEAN.LOG": {
+          "path": "RUN6/CROOT/MCLEAN.LOG",
+          "bytes": 222,
+          "sha256": "5d03f62d96e494c7c9ad9d5b662a8e4ac98a60cf1b8deb7492bd7073d21e3c6c"
+        },
+        "RETURN.TXT": {
+          "path": "RUN6/CROOT/RETURN.TXT",
+          "bytes": 6,
+          "sha256": "d938fa189912f8776c3deb31a6bec42f403f57b9c8e3ed936bdb076caf6bd61c"
+        }
+      },
+      "captures": [
+        {
+          "path": "RUN6/captures/kernel_000.avi",
+          "bytes": 5343078,
+          "sha256": "516b4744af4dccb5f49becafa50c1efaf8b26ec47f5816c543c538e4fd2a1b82"
+        },
+        {
+          "path": "RUN6/captures/kernel_001.avi",
+          "bytes": 635756,
+          "sha256": "98c8e42f982bfe8a3a71f09e49ac46f44b7b221aaf43d10243331dc0338844c3"
+        },
+        {
+          "path": "RUN6/captures/tplay_000.avi",
+          "bytes": 192568,
+          "sha256": "e6be339b1bc369ce7f4a9a5de2d8563b394d473fcf26c2734c17a6dc528afed5"
+        },
+        {
+          "path": "RUN6/captures/tplay_000.wav",
+          "bytes": 5885804,
+          "sha256": "632cdb7492957b5e1a5006744a2bbb26066f9f3a4f722a6a8de51a9cc3640000"
+        }
+      ],
+      "observer_build": {
+        "sources": {
+          "path": "OBS7/SOURCES.JSON",
+          "bytes": 2518,
+          "sha256": "0b7e5b138d5a33aa762393d219b2ed510b3f361343349bef9065a6ddfea23ef4"
+        },
+        "native_log": {
+          "path": "OBS7/OBSBUILD.LOG",
+          "bytes": 1010,
+          "sha256": "c7f599b03801632a65fc98469bf0b4a4f2f2a36577e041a1f5e97116b06de152"
+        },
+        "header": {
+          "path": "OBS7/HEADER.JSON",
+          "bytes": 359,
+          "sha256": "162c02f5ad8f39ba8fbc30c31ccc0a54b8394e261fa069f8164c4dd2fdb3f384"
+        },
+        "runtime": {
+          "path": "OBS7/MIDIOBS.EXE",
+          "bytes": 17869,
+          "sha256": "d7e0876de4d3035e4093a9e3e797ea44075ed95c007954ea1458c6dbf5c195fb"
+        },
+        "process": {
+          "identity": {
+            "path": "OBS7/PROCESS.JSON",
+            "bytes": 409,
+            "sha256": "85143cc2f06c227dedd85ba8818b67a94d06cf61d3d56c8ec40a2816e2e42c25"
+          },
+          "pid": 26336,
+          "return": 0,
+          "owned_child_stopped": true,
+          "lease_released": true
+        }
+      },
+      "successful_assertions": 80,
+      "scope": "Current f48 MCI: all seven actual existing fixture files, EOF notification, controllers, stop/close, error and cleanup",
+      "fixtures": [
+        {
+          "path": "RUN6/CROOT/MMLAB/FIX/ALLOFF.MID",
+          "bytes": 76,
+          "sha256": "2f2298a683b65e787c90ddf087d9f7c651cccab6785590c11e4f9260c48fe3ee"
+        },
+        {
+          "path": "RUN6/CROOT/MMLAB/FIX/BEND.MID",
+          "bytes": 185,
+          "sha256": "b9e3c85e164dc83339c28302f9ca18e58c4982ece711034bbbadeb16494a5b6d"
+        },
+        {
+          "path": "RUN6/CROOT/MMLAB/FIX/EXTRAS.MID",
+          "bytes": 129,
+          "sha256": "fd605f396a6b209c5307fc856aa2da3bb0c7789cc363cb924ac0404f1375056c"
+        },
+        {
+          "path": "RUN6/CROOT/MMLAB/FIX/STEAL.MID",
+          "bytes": 129,
+          "sha256": "2202addf5566a4a82279e78a7606f1f830b8a8cb7c3e5514f619362ace288ed7"
+        },
+        {
+          "path": "RUN6/CROOT/MMLAB/FIX/SUSTAIN.MID",
+          "bytes": 84,
+          "sha256": "b082f86ba0d0647664c9eff68533a207b01b516177ea36e8feea5bb1d9f96140"
+        },
+        {
+          "path": "RUN6/CROOT/MMLAB/FIX/VOLEXPR.MID",
+          "bytes": 90,
+          "sha256": "f68d1f66fa730cbeede53d09e71dd8755b9eb2b0691a32b1e801d063bd8ae218"
+        },
+        {
+          "path": "RUN6/CROOT/MMLAB/FIX/LONGMETA.MID",
+          "bytes": 70065,
+          "sha256": "9c8b64f6620974d2a0ea6d9f22282c026b321aa4cc5198642b943cab26670bad"
+        }
+      ],
+      "MCI_open_ms": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "MCI_max_pump_ms": [
+        55,
+        55,
+        55,
+        55,
+        55,
+        55,
+        55
+      ]
+    },
+    "RUN5": {
+      "status": "PASS",
+      "inputs": {
+        "path": "RUN5/INPUTS.JSON",
+        "bytes": 2834,
+        "sha256": "ae30645b920bda050f2723d1aad7bf6e174d9e9cf2ffb480b95192480292528e"
+      },
+      "raw_log": {
+        "path": "RUN5/CROOT/MIDIOBS.LOG",
+        "bytes": 1424,
+        "sha256": "fc4a0656bb316f80293eee8db205e8ea527f874e7c30180d1a6d30619da0a122"
+      },
+      "process": {
+        "identity": {
+          "path": "RUN5/PROCESS.JSON",
+          "bytes": 408,
+          "sha256": "fb533c790407e3b0ca4ba6a4b00aea8dd4f951f676a9be3a7e9698469ea8cf60"
+        },
+        "pid": 27468,
+        "return": 0,
+        "owned_child_stopped": true,
+        "lease_released": true
+      },
+      "cleanup": {
+        "MPREF.LOG": {
+          "path": "RUN5/CROOT/MPREF.LOG",
+          "bytes": 222,
+          "sha256": "5d03f62d96e494c7c9ad9d5b662a8e4ac98a60cf1b8deb7492bd7073d21e3c6c"
+        },
+        "MWIN.LOG": {
+          "path": "RUN5/CROOT/MWIN.LOG",
+          "bytes": 500,
+          "sha256": "d9e2643cfba9fe2e3541acb92ed0350253604b6f74309969815eea3618758572"
+        },
+        "MCLEAN.LOG": {
+          "path": "RUN5/CROOT/MCLEAN.LOG",
+          "bytes": 222,
+          "sha256": "5d03f62d96e494c7c9ad9d5b662a8e4ac98a60cf1b8deb7492bd7073d21e3c6c"
+        },
+        "RETURN.TXT": {
+          "path": "RUN5/CROOT/RETURN.TXT",
+          "bytes": 6,
+          "sha256": "d938fa189912f8776c3deb31a6bec42f403f57b9c8e3ed936bdb076caf6bd61c"
+        }
+      },
+      "captures": [
+        {
+          "path": "RUN5/captures/kernel_000.avi",
+          "bytes": 1975886,
+          "sha256": "2b4f089d35935fcf263e36a4ca043ebb736154425e899a686acaf6ce5fa5093f"
+        },
+        {
+          "path": "RUN5/captures/kernel_001.avi",
+          "bytes": 636342,
+          "sha256": "cff1dbbcac52c855f7dcbe28c4db2348f01fa9c43a2e9dc7b5f63d1dd7131572"
+        },
+        {
+          "path": "RUN5/captures/tplay_000.avi",
+          "bytes": 192566,
+          "sha256": "8ec021a32d45f88e3740fca34b28dfcab03690ab76d9433655162fd7de9105cc"
+        },
+        {
+          "path": "RUN5/captures/tplay_000.wav",
+          "bytes": 2576108,
+          "sha256": "14de1b09433b41d19e9d905734fedf5c3251bb22e107bf07d54ea6a3c0921a35"
+        }
+      ],
+      "observer_build": {
+        "sources": {
+          "path": "OBS5/SOURCES.JSON",
+          "bytes": 2518,
+          "sha256": "b964d9717e9914f64e0df9545748de2eec2db817f5c784c9163e9c9dc93f7ed3"
+        },
+        "native_log": {
+          "path": "OBS5/OBSBUILD.LOG",
+          "bytes": 1010,
+          "sha256": "084c2848472dc7131cc18c7f127620a75608141d0b0f36a8899470ec553da5b6"
+        },
+        "header": {
+          "path": "OBS5/HEADER.JSON",
+          "bytes": 359,
+          "sha256": "1611a0ae67162b1785acbe3dee08d344c65e418a391e34d799cee9e2649fcd31"
+        },
+        "runtime": {
+          "path": "OBS5/MIDIOBS.EXE",
+          "bytes": 18541,
+          "sha256": "947c78ed6081f1adc2cf391c43549c201c3df10f6ddbd78d9ae5ad396178fff3"
+        },
+        "process": {
+          "identity": {
+            "path": "OBS5/PROCESS.JSON",
+            "bytes": 409,
+            "sha256": "5b47f433701df8050b51a5e3eba45b2eede179a4028814796606fc7c494dac04"
+          },
+          "pid": 29536,
+          "return": 0,
+          "owned_child_stopped": true,
+          "lease_released": true
+        }
+      },
+      "successful_assertions": 25,
+      "scope": "Current f48 MCI with unchanged published actual MINIPLAY/STREAM: Play, GDI move/repaint iterations, Stop, observed close and cleanup",
+      "play_measurement": {
+        "GUI_PLAY_BEFORE_TICK": 3789,
+        "GUI_PLAY_AFTER_TICK": 4503,
+        "GUI_PLAY_BLOCKING_MS": 714,
+        "GUI_FINAL_ACTUAL_FRAMES": 4
+      },
+      "frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "elapsed_ms": [
+        2527,
+        3186,
+        3790,
+        4449
+      ]
+    }
+  },
+  "supplemental_timing_not_full_PASS": {
+    "overall_raw_result": "FAIL_PRESERVED_33_CHECKS_1_BUSY_STOP_ASSERTION",
+    "counted_in_qualification_assertions": false,
+    "inputs": {
+      "path": "TIMING7/INPUTS.JSON",
+      "bytes": 2837,
+      "sha256": "783bab4624414984f614afb75157bc4db46b51b1614a09663d895d2d721c1954"
+    },
+    "raw_log": {
+      "path": "TIMING7/CROOT/MIDIOBS.LOG",
+      "bytes": 1725,
+      "sha256": "0dcc25c07391eb99aff068683e71c38b93cd547baea1fd340de9fb860465a7aa"
+    },
+    "process": {
+      "identity": {
+        "path": "TIMING7/PROCESS.JSON",
+        "bytes": 411,
+        "sha256": "df268b456700c2d306f024ba7fcf13367454be0963acd0bb16d8536d9431e1d3"
+      },
+      "pid": 18412,
+      "return": 0,
+      "owned_child_stopped": true,
+      "lease_released": true
+    },
+    "cleanup": {
+      "MPREF.LOG": {
+        "path": "TIMING7/CROOT/MPREF.LOG",
+        "bytes": 222,
+        "sha256": "5d03f62d96e494c7c9ad9d5b662a8e4ac98a60cf1b8deb7492bd7073d21e3c6c"
+      },
+      "MWIN.LOG": {
+        "path": "TIMING7/CROOT/MWIN.LOG",
+        "bytes": 500,
+        "sha256": "d9e2643cfba9fe2e3541acb92ed0350253604b6f74309969815eea3618758572"
+      },
+      "MCLEAN.LOG": {
+        "path": "TIMING7/CROOT/MCLEAN.LOG",
+        "bytes": 222,
+        "sha256": "5d03f62d96e494c7c9ad9d5b662a8e4ac98a60cf1b8deb7492bd7073d21e3c6c"
+      },
+      "RETURN.TXT": {
+        "path": "TIMING7/CROOT/RETURN.TXT",
+        "bytes": 6,
+        "sha256": "d938fa189912f8776c3deb31a6bec42f403f57b9c8e3ed936bdb076caf6bd61c"
+      }
+    },
+    "captures": [
+      {
+        "path": "TIMING7/captures/kernel_000.avi",
+        "bytes": 2730946,
+        "sha256": "6f03185d69e9450d718eaa0c77d9e82f260c2a49bab845928e4fbaa199ee66f3"
+      },
+      {
+        "path": "TIMING7/captures/kernel_001.avi",
+        "bytes": 635848,
+        "sha256": "bcd4e7cacca65fc38bc61d23a879d619d3292f0be5290b16a73ea28fe61dfb5a"
+      },
+      {
+        "path": "TIMING7/captures/tplay_000.avi",
+        "bytes": 192590,
+        "sha256": "7264dc743bf34a8f6bbc3f5a0d0dfaba57a05aff6ab98815b3bb84fb3ce597f3"
+      },
+      {
+        "path": "TIMING7/captures/tplay_000.wav",
+        "bytes": 3344876,
+        "sha256": "5cd54dc8c95917c0d73cd390870cdfb2dd19ef005784fcea7e1e7ecb1ad37e1f"
+      }
+    ],
+    "scope": "Factual timing and delivery measurements only; not a full PASS. STREAM open110/play384ms; original BLONDIE open2361/play495ms, errors0. BLONDIE Stop first returned289 busy; subsequent Close0 and final driver/PIT release succeeded. Busy-stop contract reviewed by parent; raw assertion unchanged.",
+    "songs": [
+      {
+        "path": "TIMING7/CROOT/MMLAB/FIX/STREAM.MID",
+        "bytes": 3100,
+        "sha256": "5ffbdbbb556f2c9964cdedfea6d58ec9f74746f65ef7c6c5083523be5016ac76"
+      },
+      {
+        "path": "TIMING7/CROOT/MMLAB/FIX/BLONDIE.MID",
+        "bytes": 57716,
+        "sha256": "bd67338aff0948cedfbf3f37fe46e0449c4a224218202346395212746952a620"
+      }
+    ]
+  },
+  "successful_scoped_assertions": 161,
+  "assertion_count_scope": "23 RUN1 named RAW/MID +11 RUN2 controller +22 RUN3 phase6 only +80 current RUN6 +25 current RUN5 =161. Old RUN3 phase0 binding15 not recounted; no old-MCI fixture assertions inherited.",
+  "candidate3_runtime_identity_only": {
+    "candidate": {
+      "path": "CANDIDATE3/CANDIDATE.JSN",
+      "bytes": 22608,
+      "sha256": "1a4cf45fa9967ffc1763f2d2438d514390e6102ca1f67e11e7a7f235ad904768"
+    },
+    "package": {
+      "bytes": 2119250,
+      "sha256": "fe980c230db707e8097fd39de9e46d5cf5613a95f51a98e8854ce2813ba505a8"
+    },
+    "OEM_source": "2448c92843445ab3c141b05971fbc133019df95f"
+  },
+  "normal_current_package_gate": "PENDING separate exact current-package repair/GO/UI/normal-exit acceptance; engine receipt does not assert READY or package PASS",
+  "physical_test": false,
+  "raw_records_modified": false,
+  "emulator_started": false
+}

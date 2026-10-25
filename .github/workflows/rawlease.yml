@@ -19,8 +19,15 @@ jobs:
           persist-credentials: false
       - name: Confirm exact reviewed head
         run: test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
-      - name: Exercise both actual RAWCLK variants
+      - name: Exercise both RAWCLK variants and paired lifecycle
         run: python3 libtandywin/AUDIO/HOST/RUNRAW.PY --out "$RUNNER_TEMP/rawlease"
+      - name: Exercise paired MIDI and controller state
+        run: python3 libtandywin/AUDIO/TESTS/RUNPAIR.PY --out "$RUNNER_TEMP/midi-pair"
+      - name: Exercise single-pass MCI admission
+        run: >-
+          python3 libtandywin/AUDIO/TESTS/RUNADMIT.PY --out "$RUNNER_TEMP/midi-admission"
+          --song libtandywin/AUDIO/TESTS/FIXTURES/SUSTAIN.MID
+          --song libtandywin/AUDIO/TESTS/FIXTURES/EXTRAS.MID
       - name: Verify focused source receipt
         run: |
           python3 - <<'PY'
@@ -31,5 +38,6 @@ jobs:
               path=Path(name.replace('\\','/'))
               assert hashlib.sha256(path.read_bytes()).hexdigest()==wanted, name
           assert all(row['passed'] for row in receipt['results'])
+          assert {row['name'] for row in receipt['results']} == {'winamp','speaker','paired'}
           print('PASS shared sound ownership source receipt')
           PY

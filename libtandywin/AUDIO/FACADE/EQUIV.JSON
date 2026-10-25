@@ -27,15 +27,15 @@
     },
     {
       "name": "MIDICLK.C",
-      "sha256": "e6814c627ac735e9380934e73da4cf65464bd2656732d27b48b98862e1b45f5e"
+      "sha256": "86d5309c4845f180389b55f88ccd449a26ca4388a2ac756589a4894b3ed2bf0a"
     },
     {
       "name": "MIDISYN.C",
-      "sha256": "fa9cd4a15b5da9c4b2c3b5b04165ad3bad8f6a97cbbdf96de019a687f1b5213b"
+      "sha256": "d8927fb136b2e36afcaeb0a948a87a479b5547c85c3e8d3fd3849c1a624e0d49"
     },
     {
       "name": "INSTR.C",
-      "sha256": "3d7960b4dd8a1c66f67466748882934d38bc9d2b788ffb3e34aa67604e30b9da"
+      "sha256": "cec224198dad374731f740d845cec8c25dbeae5f5cdfd22c74f8b0211320db72"
     },
     {
       "name": "TIMECLK.C",

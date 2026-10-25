@@ -393,13 +393,13 @@
     },
     {
       "path": "SOURCE/INSTR.C",
-      "bytes": 2062,
-      "sha256": "3d7960b4dd8a1c66f67466748882934d38bc9d2b788ffb3e34aa67604e30b9da"
+      "bytes": 2023,
+      "sha256": "cec224198dad374731f740d845cec8c25dbeae5f5cdfd22c74f8b0211320db72"
     },
     {
       "path": "SOURCE/INSTR.H",
-      "bytes": 333,
-      "sha256": "4af9dd69ce78d2e7752d391ff0c8232a44daf8aa1f20d83b45fa02ab46d10cf7"
+      "bytes": 348,
+      "sha256": "ec0a1845a298fdd67d573dbd8cc623838d87b90d82c1727b4686c4ac175b2dd6"
     },
     {
       "path": "SOURCE/INTERGUI.C",
@@ -427,6 +427,16 @@
       "sha256": "412872225825a54c8226b5273c3286444c12973d2a716ee4a1a3c801b2629cbd"
     },
     {
+      "path": "SOURCE/LTPBASE.H",
+      "bytes": 797,
+      "sha256": "5b7d46083bf4b761bdd1bebbf238436e16a97f26ce85fccabc897e5c83ade4c6"
+    },
+    {
+      "path": "SOURCE/LTMATH.H",
+      "bytes": 1180,
+      "sha256": "15164238a5c74b0311752872a46ebe56161feda5f77b68cfc2dfd0e24e119f02"
+    },
+    {
       "path": "SOURCE/LWAUDIO.H",
       "bytes": 178,
       "sha256": "ab8c170161d422703a3351e2e01bfbd20ff5d6fd1be364fc527571a96db833ab"
@@ -438,8 +448,8 @@
     },
     {
       "path": "SOURCE/MCIPSG.C",
-      "bytes": 3585,
-      "sha256": "a75fcedee621697c7f032ccef4b9e25cc45bca339fc5541f44656ebf18d8f461"
+      "bytes": 3664,
+      "sha256": "3c0c97b3fd5ea456e05ac1d3cc4f7afb2f6dd1d8f4dc416ee90fedeea776cce2"
     },
     {
       "path": "SOURCE/MCIPSG.H",
@@ -448,8 +458,8 @@
     },
     {
       "path": "SOURCE/MCITNDY.C",
-      "bytes": 6171,
-      "sha256": "ea82d054a859760dd197f3171c992067374790bde3967750685748b106ddd587"
+      "bytes": 5997,
+      "sha256": "2cdeda16600380ccd0bfe1f054b13a84a36a153d70d1501025f22b81762c8dfc"
     },
     {
       "path": "SOURCE/MCITNDY.DEF",
@@ -473,8 +483,8 @@
     },
     {
       "path": "SOURCE/MIDICLK.C",
-      "bytes": 10170,
-      "sha256": "e6814c627ac735e9380934e73da4cf65464bd2656732d27b48b98862e1b45f5e"
+      "bytes": 10297,
+      "sha256": "86d5309c4845f180389b55f88ccd449a26ca4388a2ac756589a4894b3ed2bf0a"
     },
     {
       "path": "SOURCE/MIDICLK.DEF",
@@ -487,14 +497,24 @@
       "sha256": "cd6827f15a8f42549a329a25ca3408b5fe267daa8d7a789859725f397d433145"
     },
     {
+      "path": "SOURCE/MIDIMSG.H",
+      "bytes": 811,
+      "sha256": "4eb8e78a83846bf625ebc0f84a0da9b3469c4c1a0fc578f185b8f8cd4147d43c"
+    },
+    {
       "path": "SOURCE/MIDISYN.C",
-      "bytes": 2981,
-      "sha256": "fa9cd4a15b5da9c4b2c3b5b04165ad3bad8f6a97cbbdf96de019a687f1b5213b"
+      "bytes": 8251,
+      "sha256": "d8927fb136b2e36afcaeb0a948a87a479b5547c85c3e8d3fd3849c1a624e0d49"
     },
     {
       "path": "SOURCE/MIDISYN.H",
-      "bytes": 548,
-      "sha256": "dae6122f431d2fe6455ccbcafdbb0695a7573115dd126dc9f84b34819b2e96b3"
+      "bytes": 1128,
+      "sha256": "b920312440e2da974f7b9ab480bc3dbe0aed33bb52f8109d7efe937a0d0a76ac"
+    },
+    {
+      "path": "SOURCE/MIDISKIP.H",
+      "bytes": 808,
+      "sha256": "6821fbeca7480dbefe43187acad236a12e9e8472b4a2a4f0a2a61ae56f88265f"
     },
     {
       "path": "SOURCE/MINIPLAY.C",
@@ -523,8 +543,13 @@
     },
     {
       "path": "SOURCE/PERIODS.H",
-      "bytes": 301,
-      "sha256": "4fbb8b010c03e768909093494f6549f4781f6e80c13984b0592a8305ea5a513e"
+      "bytes": 660,
+      "sha256": "5ae78d5167aae9ca223bcfb0855312f4d6669dc5f3c40ed398cab5c61f80df93"
+    },
+    {
+      "path": "SOURCE/PITNOTES.H",
+      "bytes": 670,
+      "sha256": "2ec6e70221ad49ffb71baec4b1c6798241d22a850f1289cf8d6108b7a6740840"
     },
     {
       "path": "SOURCE/PSG.ASM",
@@ -588,13 +613,13 @@
     },
     {
       "path": "SOURCE/SMF.C",
-      "bytes": 12314,
-      "sha256": "27a1bd9b879f999132c1e77c78f09f554c47e853111c9075d09cada0939f0540"
+      "bytes": 13875,
+      "sha256": "2bc192f7d8f0c1a1ac5706497f19f2c3aff83b7a62a8c703f18cb052a29db096"
     },
     {
       "path": "SOURCE/SMF.H",
-      "bytes": 2255,
-      "sha256": "1283c8ec525e594ee57499e0bea9db71be4336ce8a8833a76c28efa9176fbca4"
+      "bytes": 2882,
+      "sha256": "1faf8042273a73138362ce17e9cd5b2d234501763bd7748c56876d7a223a8d05"
     },
     {
       "path": "SOURCE/TBRIDGE.ASM",
@@ -638,8 +663,8 @@
     },
     {
       "path": "SOURCE/TPLAY.C",
-      "bytes": 8103,
-      "sha256": "bb9606e0e5445aafcd613cff52e70f465856e027e714f9f475767cca58767a01"
+      "bytes": 8884,
+      "sha256": "ef6db50749ff237a9cabaabfb4132e948eb8631cc5d5485003b4688ccf79aabf"
     },
     {
       "path": "SOURCE/TPLAY.RSP",
