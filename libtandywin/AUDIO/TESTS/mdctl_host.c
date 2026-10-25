@@ -109,6 +109,13 @@ static void run(void){unsigned i,j;EV a[40];WORD x;
   E(a,0,100,ON(0,60));E(a,1,200,CC(0,64,127));E(a,2,202,OFF(0,60));E(a,3,400,CC(0,64,0));play(a,4,500);
   ck(vol(250,0)==0&&vol(450,0)==15,"pedal 2ms before note-off");
  }
+ /* low notes: original key kept, sounded octave-folded on the PSG */
+ E(a,0,100,ON(0,33));E(a,1,200,ON(0,45));play(a,2,300);
+ ck(at(150)->p[0]==1017&&vol(150,0)==0,"low note folds up");
+ {unsigned n=0;for(i=0;i<3;i++)if(synth.note[i]==45&&synth.key[i]==34)n++;ck(n==1,"original key kept");}
+ E(a,0,100,ON(0,33));E(a,1,200,OFF(0,33));play(a,2,300);ck(vol(150,0)==0&&vol(250,0)==15,"low note-off matches original key");
+ E(a,0,100,ON(0,33));E(a,1,110,ON(0,45));E(a,2,200,OFF(0,33));play(a,3,300);
+ ck(vol(250,0)==15&&vol(250,1)==0,"folded and real same pitch independent");
  /* admission */
  {MSYN s;unsigned c,v;DWORD m;
   static const unsigned ccs[]={0,1,7,10,11,32,64,91,93,120,121,123};
@@ -124,8 +131,9 @@ static void run(void){unsigned i,j;EV a[40];WORD x;
    &&MSSkipMessage(CC(0,98,0))&&MSSkipMessage(CC(0,71,64)),"skip list");
   ck(!MSSkipMessage(CC(0,7,100))&&!MSSkipMessage(CC(0,64,127))&&!MSSkipMessage(BEND(0,100))
    &&!MSSkipMessage(CC(0,0,0)),"valid not skipped");
-  ck(!MSSkipMessage(CC(0,0,1))&&!MSValidMessage(CC(0,0,1),0)&&!MSSkipMessage(CC(0,32,5))
-   &&!MSValidMessage(ON(0,44),0)&&!MSSkipMessage(ON(0,44))&&!MSValidMessage(M(0x90,9,82,100),0),"refused list");
+  ck(MSSkipMessage(CC(0,0,1))&&MSSkipMessage(CC(0,32,5))&&MSSkipMessage(M(0x90,9,82,100))
+   &&MSSkipMessage(M(0x90,9,27,100))&&!MSSkipMessage(M(0x80,9,82,0)),"bank/drum range skipped");
+  ck(MSValidMessage(ON(0,44),1)&&MSValidMessage(ON(0,0),1)&&!MSSkipMessage(ON(0,44)),"low notes admitted");
   MDReset(h,0);MDStatus(h,&inf,sizeof(inf));gen=inf.generation;
   ck(MDPush(h,gen,10000,M(0xa0,0,60,40))==MD_BAD&&MDPush(h,gen,10000,CC(0,6,0))==MD_BAD,"push refuses unskipped");}
  ck(MDClose(h)==0,"close");}
