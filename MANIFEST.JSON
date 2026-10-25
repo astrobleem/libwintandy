@@ -688,8 +688,8 @@
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MINIPLAY.C",
-      "bytes": 28746,
-      "sha256": "96038d1b1c097b7af8a05ef6980e8c1d80af8a3006ceea8b67dc0255f9f719cf"
+      "bytes": 28962,
+      "sha256": "76c9f2eba1408734c716d72e94888caeffaf3611e2dba39a82d44f1ec2c88449"
     },
     {
       "path": "libtandywin/AUDIO/SOURCE/MINIPLAY.DEF",
