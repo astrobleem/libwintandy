@@ -1363,8 +1363,8 @@
     },
     {
       "path": "libtandywin/AUDIO/TESTS/RAWLEASE.JSON",
-      "bytes": 5090,
-      "sha256": "0da67d9c24b9fc27df9237799452940d3f2210c808b7a48948ca6cae37873030"
+      "bytes": 4980,
+      "sha256": "e7e734ec8cc2e42f643164939c5858097da86d0e4791dda791870e55fd0ec811"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/RUNADMIT.PY",

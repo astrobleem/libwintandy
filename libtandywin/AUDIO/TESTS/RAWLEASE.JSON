@@ -4,7 +4,7 @@
     "libtandywin/AUDIO/HOST/TEST_BURST.C": "20443f30517f066ed83e8d7e1d74594e161d2fa61f4d44b9d3aad6bca613b2af",
     "libtandywin/AUDIO/HOST/TEST_PAIR.C": "f0b07aedd56cfa2e5a862e0f7b0962cc1505087cc582c30173d874908c46de6a",
     "libtandywin/AUDIO/HOST/STUB/windows.h": "11942ac291c34cb921275ea27111ae03bb9796fcea55b171eeaaf5f4c76f2906",
-    "libtandywin/AUDIO/SOURCE/TIMECLK.C": "d6ed9ca5c39853a832d37fc98e5b6cacf2e4c3a8c17d28467c52a57be865501f",
+    "libtandywin/AUDIO/SOURCE/TIMECLK.C": "dd67cd34b0f59353a419da9e25a7c81048b71f87e6ff5e6a67c4d0eb1762c1a9",
     "libtandywin/AUDIO/SOURCE/TIMECLK.H": "478d911587645d6d2acb2965dc7b78e8b6e3b67373e8a8a4933395398ff9d193",
     "libtandywin/AUDIO/SOURCE/PSGOWN.H": "aaae2ff214e7737be79e7284a382648155cd4dee20ee168652b10b08b8cd31d5",
     "libtandywin/AUDIO/SOURCE/TCBURST.H": "7249a5885cfde8afe0c3c405ac129d92ee3b654a65923f49ceff8f295bb57776",
@@ -36,13 +36,13 @@
         "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
         "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_BURST.C",
         "-o",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi-review-ci\\raw\\winamp.exe"
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi-review-ci\\union-raw\\winamp.exe"
       ],
       "compile": 0,
       "passed": true,
       "exit": 0,
       "output": "actual RAWCLK burst: 3298 checks, 0 failures, unsafe IRQ calls=0",
-      "executable_sha256": "73d44f645ae58e6c43ba25777f02fcf334b3f458115529d1daa36999c33a3faf"
+      "executable_sha256": "f01e025717584c50ad850a02cda772863d5d963021755eb5995f4026d74f5462"
     },
     {
       "name": "speaker",
@@ -61,13 +61,13 @@
         "-DSPEAKER_CLOCK",
         "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_BURST.C",
         "-o",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi-review-ci\\raw\\speaker.exe"
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi-review-ci\\union-raw\\speaker.exe"
       ],
       "compile": 0,
       "passed": true,
       "exit": 0,
       "output": "actual RAWCLK burst: 3311 checks, 0 failures, unsafe IRQ calls=0",
-      "executable_sha256": "7a74f27846e541e65d3fd457d1a4507258b111c0ebdcdcc032a360ded860e372"
+      "executable_sha256": "6eaaab201facd43d7c6e68ab926f83a9f32d8a6363a6ce06602a7e733131341e"
     },
     {
       "name": "paired",
@@ -84,14 +84,13 @@
         "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
         "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_PAIR.C",
         "-o",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi-review-ci\\raw\\paired.exe"
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi-review-ci\\union-raw\\paired.exe"
       ],
       "compile": 0,
       "passed": true,
       "exit": 0,
       "output": "actual RAWCLK burst: 3311 checks, 0 failures, unsafe IRQ calls=0\npaired RAWCLK: 3431 total checks, 0 failures, unsafe IRQ calls=0",
-      "executable_sha256": "77b8dddd9377cd8eab7d675ac6369a4491f5007a23a3d1a6b551748b133b0418"
+      "executable_sha256": "23a9163ccfe46c436764613e98dd6d9d3920206b0d0a73fe290d1c1bacdd4bb9"
     }
-  ],
-  "source_scope": "Current paired Winamp RAWCLK and retained speaker-compatible RAWCLK; host ownership/lifecycle checks only"
+  ]
 }
