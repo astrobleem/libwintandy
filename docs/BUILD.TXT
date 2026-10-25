@@ -18,6 +18,31 @@ Windows --cc may name only that launcher. Linux --cc selects a host compiler.
 The tests exercise actual source with USER or hardware mocks; native Windows
 execution uses the separate guarded builders below.
 
+MIDI host checks (run from repository root):
+  POSIX: sh libtandywin/AUDIO/TESTS/run_midi_host.sh
+The shell runner uses cc directly; do not run it on this Windows host.
+Windows PowerShell equivalents, using the established wrapper:
+
+  $gcc = 'C:/Users/chad/Documents/Codex/toolchains/gcc-ucrt64.py'
+  $a = 'libtandywin/AUDIO'
+  $out = Join-Path $env:TEMP ('midi-host-' + [guid]::NewGuid())
+  New-Item -ItemType Directory -Path $out | Out-Null
+  python $gcc -- -x c -std=c99 -DSYNTH_HOST -I "$a/TESTS/mdhost" -I "$a/SOURCE" "$a/TESTS/mdhost/driver.c" "$a/SOURCE/MIDISYN.C" "$a/SOURCE/INSTR.C" -o "$out/driver.exe"
+  & "$out/driver.exe"
+  python $gcc -- -x c -std=c99 -DSYNTH_HOST -I "$a/SOURCE" "$a/TESTS/synth_host.c" "$a/SOURCE/MIDISYN.C" "$a/SOURCE/INSTR.C" -o "$out/synth.exe"
+  & "$out/synth.exe"
+  python $gcc -- -x c -std=gnu99 -DSYNTH_HOST -I "$a/TESTS/mdhost" -I "$a/SOURCE" "$a/TESTS/mdctl_host.c" "$a/SOURCE/MIDISYN.C" "$a/SOURCE/INSTR.C" -o "$out/controllers.exe"
+  & "$out/controllers.exe"
+  python $gcc -- -x c -std=gnu99 -DSMF_FAR= -I "$a/SOURCE" "$a/TESTS/smf_stream_host.c" "$a/SOURCE/SMF.C" -o "$out/stream.exe"
+  $fixtures = Get-ChildItem "$a/TESTS/FIXTURES/*.MID" | ForEach-Object FullName
+  & "$out/stream.exe" @fixtures
+
+Stop on a nonzero compile/test exit code. These fixture harnesses use
+C99/gnu99; production remains C89. Uppercase .C must be selected with -x c.
+Developer Python is permitted; none of these commands is consumer setup.
+This suite covers the actual MIDICLK producer, renderer, controllers and
+streamed SMF; it does not establish native segment size or audible quality.
+
 Win16 UI: use caller-supplied MSC6 and Windows3.0 headers/libraries.
   CL /nologo /c /G0 /Gw /AS /W3 /Od /I<owned-include> LTWUI.C
 Link LTWUI.OBJ once with the caller, using the same memory model. Include
@@ -37,3 +62,11 @@ preflight external tools, acquire the shared emulator lease, inspect running
 processes and run only a bounded owned child. Their receipts pin source and
 runtime bytes. OEMSound tools/WINAMP generates the complete native DOS Setup
 package. Retained earlier builders and receipts remain historical records.
+
+The published three-DLL MIDI engine is built by OEMSound
+experimental/WINLIB30/SOURCE/BLDMIDI.BAT using MSC6 /G0 /Gw /Gs /AS /W3 /Od,
+MASM and LINK4. MIDICLK.RSP links MIDISYN.OBJ and INSTR.OBJ; MCITNDY.RSP
+links MCIPSG.OBJ and SMF.OBJ. There is no BLDMIDI.PY in current main.
+The older AUDIO/BUILD/PLAYER30.PY does not acquire the shared lease and
+is not a substitute for an approved native build session. Do not launch
+emulators for the documentation/bank handoff. Read AGENTS.md for scope.
