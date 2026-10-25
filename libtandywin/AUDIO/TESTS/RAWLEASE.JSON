@@ -1,11 +1,24 @@
 {
   "scope": "Actual RAWCLK source, stub Win16/hardware; native IRQ timing separate",
   "source_sha256": {
-    "libtandywin\\AUDIO\\HOST\\TEST_BURST.C": "5ccc61a820efa159bb530709230cf5b703485bedc95042afb6343d2b9a8a779c",
-    "libtandywin\\AUDIO\\SOURCE\\TIMECLK.C": "177defa774a03215935bcb44b11e6399b7dc5fe7a4918b7d411a7fb54df5443f",
-    "libtandywin\\AUDIO\\SOURCE\\PSGOWN.H": "aaae2ff214e7737be79e7284a382648155cd4dee20ee168652b10b08b8cd31d5",
-    "sound\\TIMECLK.C": "f8ce32ebef5e1d51a6ccfe44b2650b47fd4d16e2b6904f29510a32fbe1d279fe",
-    "sound\\PSGOWN.H": "aaae2ff214e7737be79e7284a382648155cd4dee20ee168652b10b08b8cd31d5"
+    "libtandywin/AUDIO/HOST/TEST_BURST.C": "20443f30517f066ed83e8d7e1d74594e161d2fa61f4d44b9d3aad6bca613b2af",
+    "libtandywin/AUDIO/HOST/TEST_PAIR.C": "f0b07aedd56cfa2e5a862e0f7b0962cc1505087cc582c30173d874908c46de6a",
+    "libtandywin/AUDIO/HOST/STUB/windows.h": "11942ac291c34cb921275ea27111ae03bb9796fcea55b171eeaaf5f4c76f2906",
+    "libtandywin/AUDIO/SOURCE/TIMECLK.C": "d6ed9ca5c39853a832d37fc98e5b6cacf2e4c3a8c17d28467c52a57be865501f",
+    "libtandywin/AUDIO/SOURCE/TIMECLK.H": "478d911587645d6d2acb2965dc7b78e8b6e3b67373e8a8a4933395398ff9d193",
+    "libtandywin/AUDIO/SOURCE/PSGOWN.H": "aaae2ff214e7737be79e7284a382648155cd4dee20ee168652b10b08b8cd31d5",
+    "libtandywin/AUDIO/SOURCE/TCBURST.H": "7249a5885cfde8afe0c3c405ac129d92ee3b654a65923f49ceff8f295bb57776",
+    "libtandywin/AUDIO/SOURCE/TCXBASS.H": "8ebcc407a7af1fc3166c92de5c3140fb9c82dfdf112573050bcd42b5cac274fe",
+    "libtandywin/AUDIO/SOURCE/PITLINK.H": "b6a9d41c5765b1b166caf0ff1aa7d83edfd2662a7b8f46d802bf08367b5cb452",
+    "libtandywin/AUDIO/SOURCE/WINHOOK.ASM": "6e44cbcb0ce6eb2a29f039aaebd5dc6534ba76d5f1648780c5010b2ae94a3520",
+    "libtandywin/AUDIO/SOURCE/TIMECLK.DEF": "a9fb0ab6e1afd0547eebd1e152546c999bd6f782ac0b38bd3a860567d1284271",
+    "sound/TIMECLK.C": "f8ce32ebef5e1d51a6ccfe44b2650b47fd4d16e2b6904f29510a32fbe1d279fe",
+    "sound/TIMECLK.H": "478d911587645d6d2acb2965dc7b78e8b6e3b67373e8a8a4933395398ff9d193",
+    "sound/PSGOWN.H": "aaae2ff214e7737be79e7284a382648155cd4dee20ee168652b10b08b8cd31d5",
+    "sound/TCBURST.H": "7249a5885cfde8afe0c3c405ac129d92ee3b654a65923f49ceff8f295bb57776",
+    "sound/TCXBASS.H": "70a17e7341fe5352ebaeaab194f3afd39bd9052b8ef9e808c3b02b23c4b6f6dc",
+    "sound/TCNOISE.H": "63597e8e3021931c5270dc954e61000e38f681f29847154451b4d149110693e3",
+    "sound/PITLINK.H": "b6a9d41c5765b1b166caf0ff1aa7d83edfd2662a7b8f46d802bf08367b5cb452"
   },
   "results": [
     {
@@ -20,16 +33,16 @@
         "-Wall",
         "-Wextra",
         "-I",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_BURST.C",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_BURST.C",
         "-o",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified\\raw-host-4\\winamp.exe"
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi-review-ci\\raw\\winamp.exe"
       ],
       "compile": 0,
       "passed": true,
       "exit": 0,
       "output": "actual RAWCLK burst: 3298 checks, 0 failures, unsafe IRQ calls=0",
-      "executable_sha256": "a5ba94b1d310925111b9ebfffbb0f1027f22c241f547e57e6854a4b8afbdec22"
+      "executable_sha256": "73d44f645ae58e6c43ba25777f02fcf334b3f458115529d1daa36999c33a3faf"
     },
     {
       "name": "speaker",
@@ -43,19 +56,42 @@
         "-Wall",
         "-Wextra",
         "-I",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
         "-DCLOCK_SOURCE=\"../../../sound/TIMECLK.C\"",
         "-DSPEAKER_CLOCK",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_BURST.C",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_BURST.C",
         "-o",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified\\raw-host-4\\speaker.exe"
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi-review-ci\\raw\\speaker.exe"
       ],
       "compile": 0,
       "passed": true,
       "exit": 0,
       "output": "actual RAWCLK burst: 3311 checks, 0 failures, unsafe IRQ calls=0",
-      "executable_sha256": "ebe8b8da65abf36c21827e6be88aa8bbed1eea0fa406bd1027c29d84c76620c1"
+      "executable_sha256": "7a74f27846e541e65d3fd457d1a4507258b111c0ebdcdcc032a360ded860e372"
+    },
+    {
+      "name": "paired",
+      "command": [
+        "C:\\Users\\chad\\Miniconda3\\python.exe",
+        "C:\\Users\\chad\\Documents\\Codex\\toolchains\\gcc-ucrt64.py",
+        "--",
+        "-x",
+        "c",
+        "-std=c89",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_PAIR.C",
+        "-o",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-midi-review-ci\\raw\\paired.exe"
+      ],
+      "compile": 0,
+      "passed": true,
+      "exit": 0,
+      "output": "actual RAWCLK burst: 3311 checks, 0 failures, unsafe IRQ calls=0\npaired RAWCLK: 3431 total checks, 0 failures, unsafe IRQ calls=0",
+      "executable_sha256": "77b8dddd9377cd8eab7d675ac6369a4491f5007a23a3d1a6b551748b133b0418"
     }
   ],
-  "source_scope": "canonical Winamp RAWCLK plus speaker-capable compatibility RAWCLK"
+  "source_scope": "Current paired Winamp RAWCLK and retained speaker-compatible RAWCLK; host ownership/lifecycle checks only"
 }

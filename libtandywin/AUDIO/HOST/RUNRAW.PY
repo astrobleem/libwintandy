@@ -25,12 +25,13 @@ env = os.environ.copy()
 if os.name == 'nt':
     env['PATH'] = r'C:\msys64\ucrt64\bin' + os.pathsep + env.get('PATH', '')
 rows = []
-for name, extra in [('winamp', []), ('speaker', [
-        '-DCLOCK_SOURCE="../../../sound/TIMECLK.C"', '-DSPEAKER_CLOCK'])]:
+for name, source, extra in [('winamp', 'TEST_BURST.C', []), ('speaker', 'TEST_BURST.C', [
+        '-DCLOCK_SOURCE="../../../sound/TIMECLK.C"', '-DSPEAKER_CLOCK']),
+        ('paired', 'TEST_PAIR.C', [])]:
     exe = out / (name + ('.exe' if os.name == 'nt' else ''))
     command = cc + ['-x', 'c', '-std=c89', '-Wall', '-Wextra',
                     '-I', str(HERE/'STUB'), *extra,
-                    str(HERE/'TEST_BURST.C'), '-o', str(exe)]
+                    str(HERE/source), '-o', str(exe)]
     # GCC's own launcher preflights before any compiler child is created.
     built = subprocess.run(command, capture_output=True, text=True, timeout=30)
     log = built.stdout + built.stderr
@@ -49,9 +50,13 @@ for name, extra in [('winamp', []), ('speaker', [
 (out/'RESULT.JSON').write_text(json.dumps({
     'scope': 'Actual RAWCLK source, stub Win16/hardware; native IRQ timing separate',
     'source_sha256': {
-        str(path.resolve().relative_to(HERE.parents[2].resolve())): hashlib.sha256(path.read_bytes()).hexdigest()
-        for path in (HERE/'TEST_BURST.C', HERE/'../SOURCE/TIMECLK.C',
-                     HERE/'../SOURCE/PSGOWN.H', HERE/'../../../sound/TIMECLK.C',
-                     HERE/'../../../sound/PSGOWN.H')},
+        path.resolve().relative_to(HERE.parents[2].resolve()).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in (HERE/'TEST_BURST.C', HERE/'TEST_PAIR.C', HERE/'STUB/windows.h',
+                     *(HERE/'../SOURCE'/name for name in
+                       ('TIMECLK.C', 'TIMECLK.H', 'PSGOWN.H', 'TCBURST.H',
+                        'TCXBASS.H', 'PITLINK.H', 'WINHOOK.ASM', 'TIMECLK.DEF')),
+                     *(HERE/'../../../sound'/name for name in
+                       ('TIMECLK.C', 'TIMECLK.H', 'PSGOWN.H', 'TCBURST.H',
+                        'TCXBASS.H', 'TCNOISE.H', 'PITLINK.H')))},
     'results': rows}, indent=2)+'\n')
 raise SystemExit(0 if all(row['passed'] for row in rows) else 1)
