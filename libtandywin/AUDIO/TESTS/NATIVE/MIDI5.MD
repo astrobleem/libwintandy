@@ -5,8 +5,11 @@ C6 compiled source `f48e41e1d66fbcd99c6867e0abae24ae9e0c15af`; all 33 inputs
 match reviewed source head `36e6be7dc5f5138c0a42d1d8995fa43fda782243`.
 This publication adds evidence and documentation without changing those inputs.
 
-The engine runs on 8088 Windows 3.0 real mode with the same canonical
-SOUND.DRV used by desktop alerts and other sound clients. MIDI controllers
+The engine targets 8086/8088 Windows 3.0 real mode with the same canonical
+SOUND.DRV used by desktop alerts and other sound clients. Recorded native
+execution and all timings here use DOSBox-X `8086_prefetch`, 640 KB and
+Windows 3.0 real mode; they are emulator results, not physical hardware results.
+MIDI controllers
 include sustain, volume/expression, pitch bend and CC120/121/123. SMF format
 0/1 input is streamed; syntax and event admission are validated in one scan.
 Original low-note keys remain intact. A prepared speaker voice and folded PSG

@@ -1338,8 +1338,8 @@
     },
     {
       "path": "libtandywin/AUDIO/TESTS/NATIVE/MIDI5.MD",
-      "bytes": 3949,
-      "sha256": "ca26e7ed99f42aba4e365cab38e86a8746939d0af6212ee4929d5f16f7175afc"
+      "bytes": 4123,
+      "sha256": "43bed9b695ecaa057cb7048cb2d11aad8f7c6682b598c41495a9b7b8cb16f6d3"
     },
     {
       "path": "libtandywin/AUDIO/TESTS/NATIVE/MINIPLAY.PNG",
