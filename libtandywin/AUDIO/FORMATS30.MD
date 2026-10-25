@@ -19,8 +19,10 @@ VGM accepts the first-party parser's SN command/wait subset, version
 1.00-1.71 syntax, with a strict target profile of 3,579,545 Hz, feedback 6,
 15-bit SN76496 and zero flags. Unsupported chips, variants, stereo writes,
 data blocks, PCM commands, malformed headers and unsupported commands are
-refused before sound acquisition. VGM/VGZ are limited to 60,000 uncompressed
-bytes. The output is the Tandy chip's native register behavior, including
+refused before sound acquisition. A plain stream (VGM, or inflated VGZ) is
+limited to 16 MiB (FMT_MAX_PLAIN, a policy bound on the preflight scan and temp
+disk) and to 2^31-1 PIT cycles of playback, about 30 minutes including the loop
+repeat, because RAWCLK timestamps are refused above that. The output is the Tandy chip's native register behavior, including
 tone-2-coupled noise and its zero-period behavior; this is not chip emulation.
 
 All writes at a source timestamp form one group, retaining byte order and
@@ -32,8 +34,12 @@ the exact 3,579,545/132,300 PIT-cycle ratio per 44.1 kHz sample. A looped VGM
 plays its initial traversal plus one bounded loop repeat, preserving fractional
 time across that boundary. Zero-duration/invalid loops are refused.
 
-VGZ is decoded in foreground into a caller-owned FAR buffer of at most
-60,000 bytes. The first-party C decoder supports stored, fixed-Huffman and
+VGZ is inflated in foreground, before sound is acquired, through a 32 KiB
+history ring into an automatically named DOS temp file (GetTempFileName in
+the TEMP directory), which Stop, EOF, the next open and exit delete. The
+player then reads that file like a plain VGM, so the replay after preflight
+and the loop jump need no re-inflation. Open takes the inflate time on an
+8088 and the UI is blocked meanwhile. The first-party C decoder supports stored, fixed-Huffman and
 dynamic-Huffman DEFLATE blocks, verifies CRC32 and ISIZE, rejects concatenated
 members/trailing bytes, and caps optional name/comment lengths. Header CRC16
 is outside this bounded profile and is refused. Python is only used to build
@@ -91,8 +97,9 @@ Saved MSC6 `/G0 /Gw /Gs /AS /W3 /Od` compile/link results are in
 `TESTS/BUILD/BUILD04`. RAWCLK is 10,814 bytes (+2,048); MINIPLAY is 47,997
 bytes (+25,888). RAWCLK map code grows from 7,296 to 9,136 bytes; initialized
 plus uninitialized DGROUP grows from 16,706 to 28,002 bytes (+11,296).
-The app stack increases from 4,096 to 8,192 bytes. Only VGZ allocates the
-additional 60,000-byte output buffer; plain VGM/MOD use a 512-byte file cache.
+The app stack increases from 4,096 to 8,192 bytes. Only VGZ allocates
+a 32 KiB inflate ring, and only until open finishes (this replaced a 60,000-byte
+output buffer held for the whole song); plain VGM/MOD use a 512-byte file cache.
 These are measured file/map costs, not calibrated CPU percentages.
 The app's initialized/uninitialized data grows from 4,512 to 10,496 bytes
 (+5,984); the stack is accounted separately. The interactive native case

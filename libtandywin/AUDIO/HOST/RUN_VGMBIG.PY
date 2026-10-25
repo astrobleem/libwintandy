@@ -44,11 +44,20 @@ def main():
     cc += [str(src / n) for n in CORE] + ["-o", str(exe)]
     if run(cc):
         return 1
-    rc = 0
+    gzexe = a.out / "test_gzring.exe"
+    gcc = shlex.split(a.cc) + ["-x", "c", "-std=gnu99", "-w", "-I", str(src),
+                              str(here / "TEST_GZRING.C"),
+                              str(src / "GUNZIP.C"), "-o", str(gzexe)]
+    if run(gcc):
+        return 1
+    rc = run([str(gzexe), str(inputs / "BIG.VGM")] +
+             [str(inputs / n) for n in ("BIG0.VGZ", "BIG1.VGZ", "BIG9.VGZ")])
     plain = str(inputs / "PLAIN.VGM")
     big = str(inputs / "BIG.VGM")
     rc |= run([str(exe), str(tmp), plain, "--good", plain])
-    rc |= run([str(exe), str(tmp), big, "--good", big])
+    rc |= run([str(exe), str(tmp), big, "--good", big] +
+              [str(inputs / n) for n in ("BIG0.VGZ", "BIG1.VGZ", "BIG9.VGZ")] +
+              ["--bad"] + [str(p) for p in sorted((inputs / "bad").glob("*"))])
     return rc
 
 
