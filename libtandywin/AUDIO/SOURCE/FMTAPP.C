@@ -5,6 +5,10 @@
 #include "FMTCORE.H"
 #include "GUNZIP.H"
 #include "FMTAPP.H"
+/* Policy bound on one plain stream (VGM bytes, later also inflated VGZ):
+   it limits the preflight scan and, for VGZ, temp-disk use. Offsets are DWORD
+   and _llseek takes a signed LONG, so nothing in the path is 16-bit. */
+#define FMT_MAX_PLAIN 16777216L
 typedef WORD (FAR PASCAL *CALL0)(void);
 typedef WORD (FAR PASCAL *CALL1)(WORD);
 typedef DWORD (FAR PASCAL *CALLD)(void);
@@ -13,8 +17,8 @@ typedef WORD (FAR PASCAL *CALLPUT)(TCBURST FAR *);
 static HMODULE module;static CALL0 openClock,startClock,endClock,closeClock,resumeClock,pauseClock,unpauseClock;
 static CALL1 debugClock;static CALLD readClock;static CALLPUT putClock;static CALLCAP getCaps;
 static char dll[144],reason[144]="Ready";static WORD saved[29],paused,ended,pending;
-static HTASK owner;static HFILE file=HFILE_ERROR;static HGLOBAL unpacked;
-static BYTE FAR *memory;static DWORD inputSize,sourceSize,cacheAt=0xffffffffUL;
+static HTASK owner;static HFILE file=HFILE_ERROR,tfile=HFILE_ERROR;static char tname[144];static OFSTRUCT tof;
+static DWORD inputSize,sourceSize,cacheAt=0xffffffffUL;
 static WORD cacheCount;static BYTE cache[512];static FXCORE core;static FXBURST next;
 static TCBURST wire;static TCBINFO caps;
 static WORD lastAdmission,minQueued;
@@ -33,9 +37,13 @@ static int fileRead(void *u,unsigned long at,unsigned char *out,unsigned short n
 }
 static int readSource(void *u,unsigned long at,unsigned char *out,unsigned short n)
 {
- (void)u;if(!memory)return fileRead(0,at,out,n);
- if(at>sourceSize||n>sourceSize-at)return 0;while(n--)*out++=memory[(WORD)at++];return 1;
+ (void)u;return fileRead(0,at,out,n);
 }
+/* VGZ is inflated once, before sound is acquired, into an automatically named
+   DOS temp file that FmtClose deletes. The player then reads it exactly like
+   a plain VGM (random access through the 512-byte cache, so the replay after
+   preflight and the loop jump cost no re-inflation). */
+static int spool(void *u,const GZ8 GZ_FAR *p,GZ16 n){(void)u;return _lwrite(tfile,p,n)==n;}
 void FmtInit(LPSTR directory){lstrcpy(dll,directory);lstrcat(dll,"RAWCLK.DLL");}
 static WORD load(void){
  module=LoadLibrary(dll);if(module<32){module=0;return 1;}
@@ -51,8 +59,9 @@ static WORD load(void){
 WORD FmtClose(void){WORD i;
  if(owner&&owner!=GetCurrentTask())return 1;
  if(owner){if(closeClock())return 1;owner=0;}
- if(unpacked){GlobalUnlock(unpacked);if(GlobalFree(unpacked)){memory=GlobalLock(unpacked);return 1;}unpacked=0;memory=0;}
  if(file!=HFILE_ERROR){_lclose(file);file=HFILE_ERROR;}
+ if(tfile!=HFILE_ERROR){_lclose(tfile);tfile=HFILE_ERROR;}
+ if(tname[0]){OpenFile(tname,&tof,OF_DELETE);tname[0]=0;}
  if(module){if(debugClock)for(i=0;i<29;i++)saved[i]=debugClock(i);FreeLibrary(module);module=0;}
  paused=ended=pending=0;return 0;
 }
@@ -64,18 +73,24 @@ static WORD fill(WORD budget){int r;WORD q,i;
   q=putClock(&wire);lastAdmission=q;if(q==2)return 0;if(q){refusedAt=wire.at;refusedClock=readClock();refusedQueue=debugClock(0);refusedSource=core.sourceOffset;refusedGroups=(WORD)core.groups;lstrcpy(reason,q==4?"Playback buffer ran late":"Queue refused input");return 3;}pending=0;
  }return 0;
 }
-WORD FmtOpen(LPSTR path,WORD kind){LONG size;WORD r,plainSize;static BYTE magic[2];
+WORD FmtOpen(LPSTR path,WORD kind){LONG size;WORD r;DWORD plainSize;HGLOBAL ring;GZ8 GZ_FAR *window;static BYTE magic[2];
  if(FmtClose())return 1;lstrcpy(reason,"Input rejected");
  file=_lopen(path,OF_READ|OF_SHARE_DENY_WRITE);if(file==HFILE_ERROR){lstrcpy(reason,"Cannot open file");return 4;}
  size=_llseek(file,0L,2);cacheAt=0xffffffffUL;inputSize=(DWORD)size;sourceSize=inputSize;
- if(size<18||size>4194304L){lstrcpy(reason,"File outside bounded profile");FmtClose();return 2;}
+ if(size<18||size>FMT_MAX_PLAIN){lstrcpy(reason,"File outside bounded profile");FmtClose();return 2;}
  if(!fileRead(0,0,magic,2)){FmtClose();return 4;}
  if(magic[0]==31&&magic[1]==139){
-  if(kind!=FX_VGM||inputSize>60000UL){lstrcpy(reason,"Compressed input too large");FmtClose();return 2;}
-  unpacked=GlobalAlloc(GMEM_MOVEABLE,60000UL);if(!unpacked||(memory=GlobalLock(unpacked))==0){FmtClose();return 5;}
-  r=gz_decode(fileRead,0,inputSize,memory,60000,&plainSize);
-  if(r){lstrcpy(reason,"VGZ integrity or bounded decode refusal");FmtClose();return 2;}sourceSize=plainSize;
- }else if(kind==FX_VGM&&inputSize>60000UL){lstrcpy(reason,"VGM exceeds 60000 bytes");FmtClose();return 2;}
+  if(kind!=FX_VGM){lstrcpy(reason,"Compressed input is VGZ only");FmtClose();return 2;}
+  if(!GetTempFileName(0,"VGZ",0,tname)){tname[0]=0;lstrcpy(reason,"No TEMP location for VGZ");FmtClose();return 6;}
+  tfile=_lcreat(tname,0);if(tfile==HFILE_ERROR){lstrcpy(reason,"Cannot create VGZ temp file");FmtClose();return 6;}
+  ring=GlobalAlloc(GMEM_MOVEABLE,(DWORD)GZ_WINDOW);if(!ring||(window=GlobalLock(ring))==0){if(ring)GlobalFree(ring);FmtClose();return 5;}
+  r=gz_decode_stream(fileRead,0,inputSize,window,spool,0,(DWORD)FMT_MAX_PLAIN,&plainSize);
+  GlobalUnlock(ring);GlobalFree(ring);
+  if(r){lstrcpy(reason,r==5?"VGZ temp file write failed (disk full?)":r==2?"VGZ larger than bounded profile":r==4?"VGZ CRC or size check failed":"VGZ integrity or bounded decode refusal");FmtClose();return r==5?6:2;}
+  _lclose(file);file=tfile;tfile=HFILE_ERROR;cacheAt=0xffffffffUL;
+  size=_llseek(file,0L,2);if(size<18||(DWORD)size!=plainSize){lstrcpy(reason,"VGZ temp file inconsistent");FmtClose();return 6;}
+  inputSize=sourceSize=(DWORD)size;
+ }
  /* Complete source scan and replay initialization precede SOUND ownership. */
  if(FXPreflight(&core,readSource,0,sourceSize,kind)||FXOpen(&core,readSource,0,sourceSize,kind)){
   setReason(FXReason(&core));FmtClose();return 2;
@@ -94,5 +109,5 @@ WORD FmtPause(void){WORD r;if(!owner||owner!=GetCurrentTask())return 1;
  r=paused?unpauseClock():pauseClock();if(!r)paused=!paused;return r;
 }
 DWORD FmtPosition(void){DWORD n=owner?readClock():0;return (n/3579545UL)*3000UL+((n%3579545UL)*3UL)/3580UL;}
-WORD FmtDebug(WORD i){if(i==35)return (WORD)refusedAt;if(i==36)return (WORD)(refusedAt>>16);if(i==37)return (WORD)refusedClock;if(i==38)return (WORD)(refusedClock>>16);if(i==39)return refusedQueue;if(i==40)return (WORD)refusedSource;if(i==41)return refusedGroups;if(i==33)return lastAdmission;if(i==34)return minQueued;if(i==30)return module&&debugClock?debugClock(27):saved[27];if(i==31)return module&&debugClock?debugClock(28):saved[28];if(i==32)return owner?(WORD)readClock():0;if(i==27)return paused;if(i==28)return core.error;if(i==29)return (WORD)core.groups;return i<27?(module&&debugClock?debugClock(i):saved[i]):0;}
+WORD FmtDebug(WORD i){if(i==42)return (WORD)(core.groups>>16);if(i==43)return (WORD)(core.sourceOffset>>16);if(i==44)return (WORD)(refusedSource>>16);if(i==35)return (WORD)refusedAt;if(i==36)return (WORD)(refusedAt>>16);if(i==37)return (WORD)refusedClock;if(i==38)return (WORD)(refusedClock>>16);if(i==39)return refusedQueue;if(i==40)return (WORD)refusedSource;if(i==41)return refusedGroups;if(i==33)return lastAdmission;if(i==34)return minQueued;if(i==30)return module&&debugClock?debugClock(27):saved[27];if(i==31)return module&&debugClock?debugClock(28):saved[28];if(i==32)return owner?(WORD)readClock():0;if(i==27)return paused;if(i==28)return core.error;if(i==29)return (WORD)core.groups;return i<27?(module&&debugClock?debugClock(i):saved[i]):0;}
 char *FmtReason(void){return reason;}
