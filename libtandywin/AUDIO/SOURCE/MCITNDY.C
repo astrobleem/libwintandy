@@ -32,9 +32,11 @@ static DWORD readFile(LPCSTR name)
     if(!smf_event_count())return MC_BADFILE;
     count=smf_event_count();fileBytes=(WORD)size;
     while((r=smf_next(&e))==1){
-        if(e.ms!=groupAt){groupAt=e.ms;group=0;}if(++group>1024)return MC_BADFILE;
+        if(e.ms!=groupAt){groupAt=e.ms;group=0;}
         msg=(DWORD)e.status|((DWORD)e.data1<<8)|((DWORD)e.data2<<16);
-        if(!MSSkipMessage(msg) && !MSValidMessage(msg,0))
+        if(MSSkipMessage(msg))continue;
+        if(++group>1024)return MC_BADFILE;
+        if(!MSValidMessage(msg,0))
             return MC_UNSUPPORTED;
     }
     return r<0?MC_BADFILE:0L;

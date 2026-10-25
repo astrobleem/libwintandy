@@ -4,8 +4,10 @@
 /* Ordinary SMF traffic the PSG renderer deliberately does not model:
    channel/key aftertouch and controllers outside the MIDIMSG.H list
    (RPN/NRPN, data entry, filters, ...). The producer drops them so such
-   files still open. Notes outside the supported range, nonzero banks and
-   anything else MSValidMessage refuses are still refused, never skipped. */
+   files still open. Melodic notes 45..127, drum notes 35..81, program,
+   bend and the MIDIMSG.H controllers are played. Notes outside those
+   ranges, nonzero banks and anything else MSValidMessage refuses are
+   still refused, never skipped. */
 static LTP_U16 MSSkipMessage(LTP_U32 msg)
 {
  LTP_U16 s=(LTP_U16)msg&240,a=((LTP_U16)msg>>8)&255;

@@ -249,8 +249,8 @@
     },
     {
       "path": "SOURCE/MCITNDY.C",
-      "bytes": 6115,
-      "sha256": "0329f957d5257c3eed3e8c6f8331bb2e98b89562c8cc25daf7c04c99d42d205c"
+      "bytes": 6143,
+      "sha256": "7db60e3081584bd958e488ad9eba68405a2b5e10a0d84aca23ef9f2542112ace"
     },
     {
       "path": "SOURCE/MCITNDY.DEF",
@@ -294,8 +294,8 @@
     },
     {
       "path": "SOURCE/MIDISKIP.H",
-      "bytes": 641,
-      "sha256": "e3df78080e2becbda0b0bfc19c3720d0b94fc92dfde388b019c262dc4068a304"
+      "bytes": 740,
+      "sha256": "9060e882c6dc1a47c576ccb41e19302a87892dc704d2ec9ed7e816d7d573661e"
     },
     {
       "path": "SOURCE/MIDISYN.C",
