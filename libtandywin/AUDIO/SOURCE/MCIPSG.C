@@ -19,7 +19,9 @@ static WORD feed(WORD budget){int r;WORD result;DWORD through,msg;
  if(e.ms){through=e.ms-1;if(through>=committed){result=commit(handle,info.generation,through,0);if(result)return 1;committed=through;}}
  return 0;}
 WORD SCStop(void){if(dll){if(handle&&closeClock(handle))return 1;handle=0;FreeLibrary(dll);dll=0;}return 0;}
-WORD SCStart(void){WORD n,i,last=0;if(SCStop())return 1;n=GetModuleFileName(GetModuleHandle("MCITNDY"),path,sizeof(path));if(!n||n>=sizeof(path)-13)return 1;for(i=0;i<n;i++)if(path[i]=='\\'||path[i]=='/')last=i+1;lstrcpy(path+last,"MIDICLK.DLL");dll=LoadLibrary(path);if(dll<32){dll=0;return 1;}
+WORD SCStart(void){WORD n,i,last=0;if(SCStop())return 1;n=GetModuleFileName(GetModuleHandle("MCITNDY"),path,sizeof(path));if(!n||n>=sizeof(path)-13)return 1;for(i=0;i<n;i++)if(path[i]=='\\'||path[i]=='/')last=i+1;lstrcpy(path+last,"MIDICLK.DLL");
+ /* Consolidate free conventional memory for the fixed transport segments. */
+ GlobalCompact(0L);dll=LoadLibrary(path);if(dll<32){dll=0;return 1;}
  op=(OPEN)GetProcAddress(dll,(LPSTR)1L);put=(PUSH)GetProcAddress(dll,(LPSTR)2L);commit=(COMMIT)GetProcAddress(dll,(LPSTR)3L);start=(ONE)GetProcAddress(dll,(LPSTR)4L);pump=(ONE)GetProcAddress(dll,(LPSTR)5L);pauseClock=(ONE)GetProcAddress(dll,(LPSTR)6L);resumeClock=(ONE)GetProcAddress(dll,(LPSTR)7L);closeClock=(ONE)GetProcAddress(dll,(LPSTR)9L);status=(STATUS)GetProcAddress(dll,(LPSTR)10L);timing=(MODE)GetProcAddress(dll,(LPSTR)13L);
  if(!(op&&put&&commit&&start&&pump&&pauseClock&&resumeClock&&closeClock&&status&&timing)){FreeLibrary(dll);dll=0;return 1;}
  if(op(&handle)){handle=0;SCStop();return 1;}status(handle,&info,sizeof(info));timing(handle,1);have=eof=ended=lastError=pumps=0;committed=lastAccepted=0;
