@@ -5,6 +5,7 @@
 #include "MCIAPI.H"
 #include "SMF.H"
 #include "MCIPSG.H"
+#include "MIDISKIP.H"
 static HTASK owner,opening;static HWND service,notify;static WORD device,serial=1,playing,paused,inPump,count,fileBytes,openStage,refillCalls,maxPumpMs;
 static HGLOBAL storage;static BYTE FAR *bytes;static DWORD length,position;static HMODULE pin;
 static int valid(WORD id){return device&&id==device&&owner==GetCurrentTask();}
@@ -17,7 +18,7 @@ LONG MCEXPORT MciWnd(HWND w,WORD m,WORD a,LONG b){if(m==WM_TIMER){MciPump();retu
 static void freeFile(void){smf_close();if(storage){GlobalUnlock(storage);GlobalFree(storage);}storage=0;bytes=0;count=0;}
 static DWORD readFile(LPCSTR name)
 {
-    HFILE f;LONG size;int r;static SMF_EVENT e;WORD s,a,b,ch,group=0;DWORD groupAt=0xffffffffUL;
+    HFILE f;LONG size;int r;static SMF_EVENT e;WORD group=0;DWORD msg;DWORD groupAt=0xffffffffUL;
     f=_lopen(name,OF_READ|OF_SHARE_DENY_WRITE);if(f<0)return MC_BADFILE;
     size=_llseek(f,0L,2);_llseek(f,0L,0);
     if(size<=0L || size>32768L){_lclose(f);return MC_BADFILE;}
@@ -32,9 +33,8 @@ static DWORD readFile(LPCSTR name)
     count=smf_event_count();fileBytes=(WORD)size;
     while((r=smf_next(&e))==1){
         if(e.ms!=groupAt){groupAt=e.ms;group=0;}if(++group>1024)return MC_BADFILE;
-        s=e.status&0xf0;a=e.data1;b=e.data2;ch=e.status&15;
-        if(!(s==0x80 || s==0xc0 || (s==0xb0 && (a==120 || a==123)) ||
-            (s==0x90 && (!b || (ch==9?(a>=35 && a<=81):(a>=45 && a<=96))))))
+        msg=(DWORD)e.status|((DWORD)e.data1<<8)|((DWORD)e.data2<<16);
+        if(!MSSkipMessage(msg) && !MSValidMessage(msg,0))
             return MC_UNSUPPORTED;
     }
     return r<0?MC_BADFILE:0L;
