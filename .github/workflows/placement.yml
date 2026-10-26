@@ -1,0 +1,22 @@
+name: Placement service
+on:
+  pull_request:
+    paths:
+      - 'libtandywin/PLACE/**'
+      - '.github/workflows/placement.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'libtandywin/PLACE/**'
+      - '.github/workflows/placement.yml'
+permissions:
+  contents: read
+jobs:
+  placement:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Strict actual-source host checks
+        run: python3 libtandywin/PLACE/TESTS/RUN.PY --out "$RUNNER_TEMP/placement"
