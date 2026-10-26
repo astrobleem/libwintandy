@@ -1,5 +1,10 @@
 libwintandy - build instructions
 
+Host placement checks (strict C89, actual source with USER mocks):
+  python libtandywin/PLACE/TESTS/RUN.PY --out <new-output>
+Native consumers link WTPLACE.C once using their existing Win16 toolchain.
+See libtandywin/PLACE/README.TXT for the Windows 3.0 ABI and measured evidence.
+
 Host UI checks:
   python libtandywin/TESTS/RUN.PY
 Host production format, MOD and RAWCLK checks:

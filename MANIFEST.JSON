@@ -12,6 +12,11 @@
       "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992"
     },
     {
+      "path": ".github/workflows/placement.yml",
+      "bytes": 636,
+      "sha256": "3e3ea2fc79d55ddf7246c7508c1e4952d6bea4b494e5f1ae4a03d6e07f6a4067"
+    },
+    {
       "path": ".github/workflows/rawlease.yml",
       "bytes": 1866,
       "sha256": "aef7c9e7f5bf3ea4e46eaec7a2e7b3336850235ae5456cc578391a2a6b45fc63"
@@ -58,8 +63,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3426,
-      "sha256": "6686b8ddd6100a6d7eaa158c15f83c17eab96d162ee7240be32f3ad5ebf5c230"
+      "bytes": 3653,
+      "sha256": "c1530858978873a45dc17843267202f1ad04a6966e0b74cd0b554e8f8e9da51d"
     },
     {
       "path": "docs/ADOPT.TXT",
@@ -78,8 +83,8 @@
     },
     {
       "path": "docs/BUILD.TXT",
-      "bytes": 4469,
-      "sha256": "ab371b7f8969aaf2357ba5f7e20d4a6e24df2d5499aa50f7eb95d9dc784ae756"
+      "bytes": 4756,
+      "sha256": "aa0368e67d16e57aa54d6cd5b99976510923c4d75dcd06a57edb118eae05ffe3"
     },
     {
       "path": "docs/NAMING.TXT",
@@ -1625,6 +1630,36 @@
       "path": "libtandywin/LWTANDY.H",
       "bytes": 145,
       "sha256": "765db2a718d7852e11ae349d3d93a08da832195b57f53efdac4881aa94f25a1a"
+    },
+    {
+      "path": "libtandywin/PLACE/README.TXT",
+      "bytes": 3266,
+      "sha256": "e2d64d6f31a4567fa0a2091abf65e21d8ae3a01a5c7dbc11baaf574b130200a2"
+    },
+    {
+      "path": "libtandywin/PLACE/TESTS/RUN.PY",
+      "bytes": 1664,
+      "sha256": "ae673a5376480cc0325c115f3f7df2f1d3878e152a9b593b746337f6e8c08176"
+    },
+    {
+      "path": "libtandywin/PLACE/TESTS/WTTEST.C",
+      "bytes": 6302,
+      "sha256": "762ac9b696754c70115ea0a99921f23e8dca5e03dbf0f9c241c582d2b1ea4a50"
+    },
+    {
+      "path": "libtandywin/PLACE/TESTS/windows.h",
+      "bytes": 1954,
+      "sha256": "85568a0e0199daf4cbeaf29fc200026ffa29e12207658ddc9e38f83feb17f474"
+    },
+    {
+      "path": "libtandywin/PLACE/WTPLACE.C",
+      "bytes": 6192,
+      "sha256": "30e822766219f1d6bea9ef5b86fc625dac2828502076adef192903f976f34f56"
+    },
+    {
+      "path": "libtandywin/PLACE/WTPLACE.H",
+      "bytes": 1843,
+      "sha256": "af77584f4676029813a6e39e172b4362f0ef79dcae42df5303a2c857b3564ce1"
     },
     {
       "path": "libtandywin/README.TXT",
