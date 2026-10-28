@@ -1,0 +1,36 @@
+Prepared burst clock rolling origin
+
+The canonical libtandywin/AUDIO/SOURCE RAWCLK adds TCBRebase(DWORD amount),
+ordinal37. Ordinals1-36 and frame-mode behavior are unchanged. This is an
+owner-task operation for an active, non-ended, error-free burst session.
+It also works while user-paused. It does not acquire another owner or timer.
+
+Return0 means success;1 means wrong owner/mode/state;3 means zero or an
+unsafe amount. The amount must not exceed the logical clock, latest published
+stamp, last emitted deadline or last literal-burst write stamp. Validation and
+all changes occur under one SaveIRQ/RestoreIRQ interval.
+
+The API advances one DWORD burst origin and subtracts the amount from logical
+clock/deadline fields. Published ring entries retain modulo32 physical stamps;
+queuedAt subtracts the origin. It never walks the ring, writes sound, pauses,
+restarts a timer, or changes the physical epoch/lastStamp. Flush/open reset the
+origin. A consumer that never calls ordinal37 retains origin0.
+
+The producer must preflight a phase-aligned rebase of its own cursor, then
+adjust it and any prepared-but-unpublished timestamp immediately after the
+successful call, without yielding between those operations. Keep all logical
+timestamps in the original safe horizon. This does not automatically turn an
+arbitrary producer into an unbounded session.
+
+Beats uses a14400-state (four-minute) shift once its logical clock reaches
+eight minutes.14400 preserves every supported integer tempo's eight-step
+phase and the exact rational60Hz PIT clock. Rebase never resets a producer to
+tick0, where an initial complete-state/noise attack would be inappropriate.
+
+HOST/RUNRAW.PY includes actual RAWCLK mocks, a three-virtual-hour physical
+DWORD-wrap test (44 rolls), pending FULL retry, partial/full queue, pause,
+wrong owner/frame mode, and checks for no added PSG/PIT output at rebases.
+Native timing, Win16 ABI and sound recordings are separate application evidence.
+
+The distinct sound/TIMECLK.C compatibility producer is intentionally unchanged.
+The matching OEMSound engine mirror supplies the same current Windows source.

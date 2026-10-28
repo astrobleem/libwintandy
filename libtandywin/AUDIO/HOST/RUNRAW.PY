@@ -27,7 +27,7 @@ if os.name == 'nt':
 rows = []
 for name, source, extra in [('winamp', 'TEST_BURST.C', []), ('speaker', 'TEST_BURST.C', [
         '-DCLOCK_SOURCE="../../../sound/TIMECLK.C"', '-DSPEAKER_CLOCK']),
-        ('paired', 'TEST_PAIR.C', []), ('fxmerge', 'TEST_FX.C', [])]:
+        ('paired', 'TEST_PAIR.C', []), ('fxmerge', 'TEST_FX.C', []), ('rebase', 'TEST_REBASE.C', [])]:
     exe = out / (name + ('.exe' if os.name == 'nt' else ''))
     command = cc + ['-x', 'c', '-std=c89', '-Wall', '-Wextra',
                     '-I', str(HERE/'STUB'), *extra,
@@ -51,7 +51,7 @@ for name, source, extra in [('winamp', 'TEST_BURST.C', []), ('speaker', 'TEST_BU
     'scope': 'Actual RAWCLK source, stub Win16/hardware; native IRQ timing separate',
     'source_sha256': {
         path.resolve().relative_to(HERE.parents[2].resolve()).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
-        for path in (HERE/'TEST_BURST.C', HERE/'TEST_PAIR.C', HERE/'TEST_FX.C', HERE/'STUB/windows.h',
+        for path in (HERE/'TEST_BURST.C', HERE/'TEST_PAIR.C', HERE/'TEST_FX.C', HERE/'TEST_REBASE.C', HERE/'STUB/windows.h',
                      *(HERE/'../SOURCE'/name for name in
                        ('TIMECLK.C', 'TIMECLK.H', 'PSGOWN.H', 'TCBURST.H',
                         'TCXBASS.H', 'PITLINK.H', 'WINHOOK.ASM', 'TIMECLK.DEF', 'FXMERGE.C', 'FXMERGE.H')),
