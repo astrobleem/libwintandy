@@ -9,7 +9,7 @@ Host UI checks:
   python libtandywin/TESTS/RUN.PY
 Host production format, MOD and RAWCLK checks:
   python libtandywin/AUDIO/HOST/RUNHOST.PY --out <new-output>
-Host shared PSG/PIT ownership checks:
+Host shared PSG/PIT ownership and pure FX state merger checks:
   python libtandywin/AUDIO/HOST/RUNRAW.PY --out <new-output>
 Host layout and typed facade checks:
   python libtandywin/AUDIO/TESTS/FACADE/RUN.PY
