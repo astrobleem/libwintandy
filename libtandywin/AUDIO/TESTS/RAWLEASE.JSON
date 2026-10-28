@@ -3,15 +3,19 @@
   "source_sha256": {
     "libtandywin/AUDIO/HOST/TEST_BURST.C": "7cd5743eedfb8f46ba30943e26a42c4da25db81c95c93b6a62086fb90c9a3d29",
     "libtandywin/AUDIO/HOST/TEST_PAIR.C": "bb6863e0afc50e47c24aa529d58e03e8b78093a53de4302028ed25de14a34e8b",
+    "libtandywin/AUDIO/HOST/TEST_FX.C": "b4bff2351132d5ef2c20647c8715dd23aa4c1cc832604e240d99125dba5b4289",
+    "libtandywin/AUDIO/HOST/TEST_REBASE.C": "b4e42a14dce63e4cc58bc659b967adf549abc2cb427a5c069e5808cfabadb76d",
     "libtandywin/AUDIO/HOST/STUB/windows.h": "11942ac291c34cb921275ea27111ae03bb9796fcea55b171eeaaf5f4c76f2906",
-    "libtandywin/AUDIO/SOURCE/TIMECLK.C": "f3bdd89bb83aa9ed612b3daa6d054cd667996d4ceebac2f1a9d3bc188f8ca369",
+    "libtandywin/AUDIO/SOURCE/TIMECLK.C": "27707d5cff137b247c9ab8a8b3002069a0a9ccd7b446b43f7bb426e7e5c4b6e7",
     "libtandywin/AUDIO/SOURCE/TIMECLK.H": "478d911587645d6d2acb2965dc7b78e8b6e3b67373e8a8a4933395398ff9d193",
     "libtandywin/AUDIO/SOURCE/PSGOWN.H": "aaae2ff214e7737be79e7284a382648155cd4dee20ee168652b10b08b8cd31d5",
-    "libtandywin/AUDIO/SOURCE/TCBURST.H": "7249a5885cfde8afe0c3c405ac129d92ee3b654a65923f49ceff8f295bb57776",
+    "libtandywin/AUDIO/SOURCE/TCBURST.H": "d29b49a70b213e980b548e45bce2f72e8f4ab7c24d8ba28a6ed00264c0c3144e",
     "libtandywin/AUDIO/SOURCE/TCXBASS.H": "8ebcc407a7af1fc3166c92de5c3140fb9c82dfdf112573050bcd42b5cac274fe",
     "libtandywin/AUDIO/SOURCE/PITLINK.H": "b6a9d41c5765b1b166caf0ff1aa7d83edfd2662a7b8f46d802bf08367b5cb452",
     "libtandywin/AUDIO/SOURCE/WINHOOK.ASM": "6e44cbcb0ce6eb2a29f039aaebd5dc6534ba76d5f1648780c5010b2ae94a3520",
-    "libtandywin/AUDIO/SOURCE/TIMECLK.DEF": "a9fb0ab6e1afd0547eebd1e152546c999bd6f782ac0b38bd3a860567d1284271",
+    "libtandywin/AUDIO/SOURCE/TIMECLK.DEF": "5b2036d25bf0b93812593fa2799d63e6a8fc72e9f7c497bb2bc55c0bf47eb9bd",
+    "libtandywin/AUDIO/SOURCE/FXMERGE.C": "cd4bb236a5bf935027b321dbc4bed399edcfe2e4a22acc8ffb8c5c931e4cd5f1",
+    "libtandywin/AUDIO/SOURCE/FXMERGE.H": "a9a8e0d58e2b2c4c7f7319aca31fe84d37380fffd9460f292c54a95be247ebcd",
     "sound/TIMECLK.C": "f8ce32ebef5e1d51a6ccfe44b2650b47fd4d16e2b6904f29510a32fbe1d279fe",
     "sound/TIMECLK.H": "478d911587645d6d2acb2965dc7b78e8b6e3b67373e8a8a4933395398ff9d193",
     "sound/PSGOWN.H": "aaae2ff214e7737be79e7284a382648155cd4dee20ee168652b10b08b8cd31d5",
@@ -33,16 +37,16 @@
         "-Wall",
         "-Wextra",
         "-I",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-bank\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-bank\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_BURST.C",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_BURST.C",
         "-o",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-bank-qa\\RAWCI1\\winamp.exe"
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\host-raw-roll-final\\winamp.exe"
       ],
       "compile": 0,
       "passed": true,
       "exit": 0,
       "output": "actual RAWCLK burst: 3298 checks, 0 failures, unsafe IRQ calls=0",
-      "executable_sha256": "d09efd34409c58a6585e0ea10743da0c9f3290a8a238a9fd3d4a11c2108067b2"
+      "executable_sha256": "bb98382e132453cb0d6b6615dc35b649ee19b8f187245b2844a4ff5b0677e342"
     },
     {
       "name": "speaker",
@@ -56,18 +60,18 @@
         "-Wall",
         "-Wextra",
         "-I",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-bank\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
         "-DCLOCK_SOURCE=\"../../../sound/TIMECLK.C\"",
         "-DSPEAKER_CLOCK",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-bank\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_BURST.C",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_BURST.C",
         "-o",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-bank-qa\\RAWCI1\\speaker.exe"
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\host-raw-roll-final\\speaker.exe"
       ],
       "compile": 0,
       "passed": true,
       "exit": 0,
       "output": "actual RAWCLK burst: 3311 checks, 0 failures, unsafe IRQ calls=0",
-      "executable_sha256": "a269feded202e0f1adadb0f41537ef75ccc921ff945b83bd7b5a7b68a7cf1e97"
+      "executable_sha256": "362bb1ad900b3674797036b55f3106f68524f29409f9f2caedf885fad209f3cf"
     },
     {
       "name": "paired",
@@ -81,16 +85,62 @@
         "-Wall",
         "-Wextra",
         "-I",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-bank\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-bank\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_PAIR.C",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_PAIR.C",
         "-o",
-        "C:\\Users\\chad\\Documents\\Codex\\2026-10-24\\task-4\\unified-bank-qa\\RAWCI1\\paired.exe"
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\host-raw-roll-final\\paired.exe"
       ],
       "compile": 0,
       "passed": true,
       "exit": 0,
       "output": "actual RAWCLK burst: 3311 checks, 0 failures, unsafe IRQ calls=0\npaired RAWCLK: 3435 total checks, 0 failures, unsafe IRQ calls=0",
-      "executable_sha256": "b75e20c4ac15afbdd0f4a0c54018a3d47a74d5ee2150f227095031cc60676df7"
+      "executable_sha256": "e2e9b33495b7a91d330ea68c96fa638a9e4b6c8335cd55c49f3ed7c1c6696dc8"
+    },
+    {
+      "name": "fxmerge",
+      "command": [
+        "C:\\Users\\chad\\Miniconda3\\python.exe",
+        "C:\\Users\\chad\\Documents\\Codex\\toolchains\\gcc-ucrt64.py",
+        "--",
+        "-x",
+        "c",
+        "-std=c89",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_FX.C",
+        "-o",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\host-raw-roll-final\\fxmerge.exe"
+      ],
+      "compile": 0,
+      "passed": true,
+      "exit": 0,
+      "output": "PASS shared FX merger checks=12",
+      "executable_sha256": "f211819ff40611f824c2363d74c5a42203e2c7f5bc80e9d617c2b5e5eab221ab"
+    },
+    {
+      "name": "rebase",
+      "command": [
+        "C:\\Users\\chad\\Miniconda3\\python.exe",
+        "C:\\Users\\chad\\Documents\\Codex\\toolchains\\gcc-ucrt64.py",
+        "--",
+        "-x",
+        "c",
+        "-std=c89",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\libwintandy\\libtandywin\\AUDIO\\HOST\\STUB",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\libwintandy\\libtandywin\\AUDIO\\HOST\\TEST_REBASE.C",
+        "-o",
+        "C:\\Users\\chad\\Documents\\Codex\\2026-10-27\\task-11\\host-raw-roll-final\\rebase.exe"
+      ],
+      "compile": 0,
+      "passed": true,
+      "exit": 0,
+      "output": "actual RAWCLK burst: 3312 checks, 0 failures, unsafe IRQ calls=0\nPASS rolling RAWCLK three-hour/wrap/ownership checks=328160 failures=0 rebases=44",
+      "executable_sha256": "d7cf031da0a96ef6c78a3c21ef574f228451bd318c120c754343a9e3a06eab8e"
     }
   ]
 }
