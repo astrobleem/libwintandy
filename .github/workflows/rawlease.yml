@@ -38,6 +38,6 @@ jobs:
               path=Path(name.replace('\\','/'))
               assert hashlib.sha256(path.read_bytes()).hexdigest()==wanted, name
           assert all(row['passed'] for row in receipt['results'])
-          assert {row['name'] for row in receipt['results']} == {'winamp','speaker','paired'}
+          assert {row['name'] for row in receipt['results']} == {'winamp','speaker','paired','fxmerge','rebase'}
           print('PASS shared sound ownership source receipt')
           PY
