@@ -5,6 +5,11 @@ Host placement checks (strict C89, actual source with USER mocks):
 Native consumers link WTPLACE.C once using their existing Win16 toolchain.
 See libtandywin/PLACE/README.TXT for the Windows 3.0 ABI and measured evidence.
 
+Host canvas/damage checks (strict C89, actual source with GDI mocks):
+  python libtandywin/CANVAS/TESTS/RUN.PY --out <new-output>
+Native consumers link CANVAS/WTCANVAS.C once with their existing Win16
+toolchain; see examples/CANVAS30 for a small MSC6 /G0 /Gw /AS consumer.
+
 Host UI checks:
   python libtandywin/TESTS/RUN.PY
 Host production format, MOD and RAWCLK checks:
