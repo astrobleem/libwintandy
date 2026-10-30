@@ -1,0 +1,24 @@
+name: Bounded canvas helper
+on:
+  pull_request:
+    paths:
+      - 'libtandywin/CANVAS/**'
+      - 'examples/CANVAS30/**'
+      - '.github/workflows/canvas.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'libtandywin/CANVAS/**'
+      - 'examples/CANVAS30/**'
+      - '.github/workflows/canvas.yml'
+permissions:
+  contents: read
+jobs:
+  host-contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Strict C89 actual-source tests (mock GDI, not native qualification)
+        run: python3 libtandywin/CANVAS/TESTS/RUN.PY --out "$RUNNER_TEMP/canvas"
