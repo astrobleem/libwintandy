@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "status": "PARTIAL_NATIVE_VALIDATION",
+  "source_code_commit": "58361f68cb164b39619648d5cb0f1f6b724962bc",
+  "helper_unchanged": true,
+  "production_runtime": {
+    "bytes": 8207,
+    "sha256": "869e7d28d7a267f367a43307aae84c19f07bdaa810dfe87e92eec1759155bbfd"
+  },
+  "instrumented_runtime": {
+    "bytes": 10143,
+    "sha256": "d6e859b66eb8c794a7c5f2496384d9df0aafb684c80091291292a96116c62ad7"
+  },
+  "host_example_assertions": 1485,
+  "reproduced_original_states": {
+    "destroy": {
+      "retained_dcs": 1,
+      "retained_bitmaps": 1,
+      "quit_posted": 1
+    },
+    "background": {
+      "damage_full": 0,
+      "update_pending": 0
+    }
+  },
+  "fixes": [
+    "One application task timer is reserved before window/canvas creation, drives animation, survives HWND destruction and retries retained cleanup. Quit and timer cancellation follow complete release.",
+    "Background FillRect failure prevents damage commit and requests a full-client retry before BeginPaint, including when only a small unrelated expose arrives."
+  ],
+  "native_runs": {
+    "fault320": {
+      "driver": {
+        "name": "TR53216.DRV",
+        "bytes": 54896,
+        "sha256": "33f681b0238310ae2614b3c1b923d260c816261442b1fa5cd51867c25a6cef61"
+      },
+      "example": {
+        "bytes": 10143,
+        "sha256": "d6e859b66eb8c794a7c5f2496384d9df0aafb684c80091291292a96116c62ad7"
+      },
+      "controller_checks": 1268,
+      "layout_clipped": 0,
+      "free_after_close": [
+        287552,
+        287552
+      ],
+      "faults": {
+        "launches": 2,
+        "background_failures": 2,
+        "dc_delete_failures": 2,
+        "bitmap_delete_failures": 2,
+        "clean_quits": 2
+      },
+      "owned_stopped": true,
+      "lease_released": true
+    },
+    "fault160": {
+      "driver": {
+        "name": "TR51616.DRV",
+        "bytes": 54880,
+        "sha256": "c03925071ea1dd5943654a7c180c9b7efc59340c4bee5ae086773d4228b9ce3d"
+      },
+      "example": {
+        "bytes": 10143,
+        "sha256": "d6e859b66eb8c794a7c5f2496384d9df0aafb684c80091291292a96116c62ad7"
+      },
+      "controller_checks": 1236,
+      "layout_clipped": 0,
+      "free_after_close": [
+        304800,
+        304800
+      ],
+      "faults": {
+        "launches": 2,
+        "background_failures": 2,
+        "dc_delete_failures": 2,
+        "bitmap_delete_failures": 2,
+        "clean_quits": 2
+      },
+      "owned_stopped": true,
+      "lease_released": true
+    },
+    "clean160": {
+      "driver": {
+        "name": "TR51616.DRV",
+        "bytes": 54880,
+        "sha256": "c03925071ea1dd5943654a7c180c9b7efc59340c4bee5ae086773d4228b9ce3d"
+      },
+      "example": {
+        "bytes": 8207,
+        "sha256": "869e7d28d7a267f367a43307aae84c19f07bdaa810dfe87e92eec1759155bbfd"
+      },
+      "controller_checks": 1236,
+      "layout_clipped": 0,
+      "free_after_close": [
+        304800,
+        304800
+      ],
+      "faults": null,
+      "owned_stopped": true,
+      "lease_released": true
+    },
+    "clean320": {
+      "driver": {
+        "name": "TR53216.DRV",
+        "bytes": 54896,
+        "sha256": "33f681b0238310ae2614b3c1b923d260c816261442b1fa5cd51867c25a6cef61"
+      },
+      "example": {
+        "bytes": 8207,
+        "sha256": "869e7d28d7a267f367a43307aae84c19f07bdaa810dfe87e92eec1759155bbfd"
+      },
+      "controller_checks": 1268,
+      "layout_clipped": 0,
+      "free_after_close": [
+        287552,
+        287552
+      ],
+      "faults": null,
+      "owned_stopped": true,
+      "lease_released": true
+    }
+  },
+  "footprint": {
+    "previous": {
+      "bytes": 7663,
+      "sha256": "b444ec3724022dd7fed5b89f9d947431b68ab52d974fceca3ead815d69c42dea",
+      "code_bytes": 6208,
+      "data_bytes": 495,
+      "data_minimum": 544,
+      "heap": 1024,
+      "stack": 4096,
+      "ne_target": "0x300"
+    },
+    "fixed": {
+      "bytes": 8207,
+      "sha256": "869e7d28d7a267f367a43307aae84c19f07bdaa810dfe87e92eec1759155bbfd",
+      "code_bytes": 6512,
+      "data_bytes": 527,
+      "data_minimum": 592,
+      "heap": 1024,
+      "stack": 4096,
+      "ne_target": "0x300"
+    },
+    "fault_instrumented": {
+      "bytes": 10143,
+      "sha256": "d6e859b66eb8c794a7c5f2496384d9df0aafb684c80091291292a96116c62ad7",
+      "code_bytes": 7840,
+      "data_bytes": 927,
+      "data_minimum": 1200,
+      "heap": 1024,
+      "stack": 4096,
+      "ne_target": "0x300"
+    }
+  },
+  "limits": [
+    "Synthetic native GDI wrappers inject one FillRect failure with partial red painting, one DeleteDC failure and one bitmap deletion failure per launch. This is API-return failure qualification, not actual GDI resource exhaustion.",
+    "A persistent real deletion failure deliberately retains the task, canvas state and existing task timer and retries on later100ms ticks. It does not spin or abandon ownership; indefinite/permanent-failure UI behavior is not otherwise qualified.",
+    "Four native runs use matched current TR51616/TR53216 on private TandyHX 8088/640KB Windows3.0 real-mode fixtures. Other native modes, physical mouse actions, long-duration exhaustion and physical hardware remain unqualified.",
+    "The library helper C/H and its existing ABI/color/damage/copy tests are unchanged and reused. The sample message-loop changed, so normal and injected actual-WinMain tests were repeated; earlier sample binaries are not presented as the fixed runtime.",
+    "No push, PR, release, approval, merge or BOR/Mesen interaction."
+  ],
+  "evidence": "Full raw logs/configs/captures, failed controls, build inputs and patch verification retained in private CUBEVAL validation archive. No foreign tools or OS media bundled."
+}

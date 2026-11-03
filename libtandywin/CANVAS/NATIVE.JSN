@@ -1,0 +1,264 @@
+{
+  "schema": 1,
+  "status": "PARTIAL_NATIVE_VALIDATION",
+  "source_code_commit": "31f076391afa540a191bdc12dd02f8341c6c267d",
+  "helper_source": {
+    "libtandywin/CANVAS/WTCANVAS.C": {
+      "bytes": 5879,
+      "sha256": "67271757b00c5fbc761c77f7a06a4ee08b20cc334f342b26be345e911a5e94f4"
+    },
+    "libtandywin/CANVAS/WTCANVAS.H": {
+      "bytes": 2292,
+      "sha256": "06e8a9beb7ee7c6e6b7ed0d272452c26867178097a7e622b9de36c071d28d17b"
+    }
+  },
+  "example_runtime": {
+    "original": {
+      "runtime": {
+        "bytes": 7663,
+        "sha256": "cd654026d65f7f4c91c13022dfe22653e2c66cb6d8f5852e3fde6a142ec13bee"
+      },
+      "code_bytes": 6096,
+      "data_bytes": 495,
+      "data_minimum": 544,
+      "heap": 1024,
+      "stack": 4096,
+      "ne_target": "0x300"
+    },
+    "fit": {
+      "runtime": {
+        "bytes": 7663,
+        "sha256": "b444ec3724022dd7fed5b89f9d947431b68ab52d974fceca3ead815d69c42dea"
+      },
+      "code_bytes": 6208,
+      "data_bytes": 495,
+      "data_minimum": 544,
+      "heap": 1024,
+      "stack": 4096,
+      "ne_target": "0x300"
+    }
+  },
+  "window_runs": {
+    "original160": {
+      "example": {
+        "bytes": 7663,
+        "sha256": "cd654026d65f7f4c91c13022dfe22653e2c66cb6d8f5852e3fde6a142ec13bee"
+      },
+      "driver": {
+        "name": "TR51616.DRV",
+        "bytes": 54880,
+        "sha256": "c03925071ea1dd5943654a7c180c9b7efc59340c4bee5ae086773d4228b9ce3d"
+      },
+      "cpu": "Tandy 1000 HX 8088 7159092 Hz; RESERVE 32",
+      "memory_kb": 640,
+      "checks": 1252,
+      "normal_frames": [
+        [
+          0,
+          0,
+          168,
+          150
+        ],
+        [
+          0,
+          18,
+          168,
+          168
+        ]
+      ],
+      "layout_clipped": 4,
+      "launches": 2,
+      "closes": 2,
+      "free_after_close": [
+        304800,
+        304800
+      ],
+      "owned_stopped": true,
+      "lease_released": true
+    },
+    "fit160": {
+      "example": {
+        "bytes": 7663,
+        "sha256": "b444ec3724022dd7fed5b89f9d947431b68ab52d974fceca3ead815d69c42dea"
+      },
+      "driver": {
+        "name": "TR51616.DRV",
+        "bytes": 54880,
+        "sha256": "c03925071ea1dd5943654a7c180c9b7efc59340c4bee5ae086773d4228b9ce3d"
+      },
+      "cpu": "Tandy 1000 HX 8088 7159092 Hz; RESERVE 32",
+      "memory_kb": 640,
+      "checks": 1236,
+      "normal_frames": [
+        [
+          0,
+          0,
+          160,
+          150
+        ],
+        [
+          0,
+          0,
+          160,
+          150
+        ]
+      ],
+      "layout_clipped": 0,
+      "launches": 2,
+      "closes": 2,
+      "free_after_close": [
+        304800,
+        304800
+      ],
+      "owned_stopped": true,
+      "lease_released": true
+    },
+    "fit320": {
+      "example": {
+        "bytes": 7663,
+        "sha256": "b444ec3724022dd7fed5b89f9d947431b68ab52d974fceca3ead815d69c42dea"
+      },
+      "driver": {
+        "name": "TR53216.DRV",
+        "bytes": 54896,
+        "sha256": "33f681b0238310ae2614b3c1b923d260c816261442b1fa5cd51867c25a6cef61"
+      },
+      "cpu": "Tandy 1000 HX 8088 7159092 Hz; RESERVE 32",
+      "memory_kb": 640,
+      "checks": 1268,
+      "normal_frames": [
+        [
+          0,
+          0,
+          220,
+          150
+        ],
+        [
+          31,
+          18,
+          251,
+          168
+        ]
+      ],
+      "layout_clipped": 0,
+      "launches": 2,
+      "closes": 2,
+      "free_after_close": [
+        287552,
+        287552
+      ],
+      "owned_stopped": true,
+      "lease_released": true
+    }
+  },
+  "prior_helper_modes": {
+    "tr51616": {
+      "driver": {
+        "name": "TR51616.DRV",
+        "bytes": 54880,
+        "sha256": "c03925071ea1dd5943654a7c180c9b7efc59340c4bee5ae086773d4228b9ce3d"
+      },
+      "pixel_checks": 6834,
+      "warm_free_bytes": [
+        300992,
+        300992,
+        300992,
+        300992,
+        300992,
+        300992,
+        300992,
+        300992,
+        300992,
+        300992,
+        300992,
+        300992
+      ],
+      "native_abi": "ABI int=2 long=4 rect=8 canvas=12 damage=26",
+      "far_segments": "FAR state_segment=6451 stack_segment=19109",
+      "timing_mean_ms_per_frame": {
+        "color": {
+          "dirty": {
+            "draw_ms": 10.3125,
+            "copy_ms": 14.59375
+          },
+          "full": {
+            "draw_ms": 10.296875,
+            "copy_ms": 109.859375
+          },
+          "copy_reduction_percent": 86.71597212345328
+        },
+        "mono": {
+          "dirty": {
+            "draw_ms": 6.875,
+            "copy_ms": 17.15625
+          },
+          "full": {
+            "draw_ms": 6.0,
+            "copy_ms": 112.421875
+          },
+          "copy_reduction_percent": 84.73940236275192
+        }
+      }
+    },
+    "tr53216": {
+      "driver": {
+        "name": "TR53216.DRV",
+        "bytes": 54896,
+        "sha256": "33f681b0238310ae2614b3c1b923d260c816261442b1fa5cd51867c25a6cef61"
+      },
+      "pixel_checks": 6834,
+      "warm_free_bytes": [
+        283744,
+        283744,
+        283744,
+        283744,
+        283744,
+        283744,
+        283744,
+        283744,
+        283744,
+        283744,
+        283744,
+        283744
+      ],
+      "native_abi": "ABI int=2 long=4 rect=8 canvas=12 damage=26",
+      "far_segments": "FAR state_segment=6503 stack_segment=20185",
+      "timing_mean_ms_per_frame": {
+        "color": {
+          "dirty": {
+            "draw_ms": 10.296875,
+            "copy_ms": 15.453125
+          },
+          "full": {
+            "draw_ms": 8.546875,
+            "copy_ms": 110.734375
+          },
+          "copy_reduction_percent": 86.04487089036263
+        },
+        "mono": {
+          "dirty": {
+            "draw_ms": 6.875,
+            "copy_ms": 17.15625
+          },
+          "full": {
+            "draw_ms": 7.734375,
+            "copy_ms": 111.5625
+          },
+          "copy_reduction_percent": 84.6218487394958
+        }
+      }
+    }
+  },
+  "host_example_assertions": 720,
+  "host_helper_assertions_reused": 44048,
+  "limits": [
+    "Real original/modified overlapped WinMain and separate task are executed through WinExec, without instrumenting the application or helper. Controller reads visible client scanlines, not every pixel of every frame.",
+    "System commands exercise actual Windows maximize/minimize/restore and close paths. Second close uses native headless XT Alt-F4; physical mouse dragging/caption clicks are not qualified.",
+    "Two real launches/closes per run show identical quiescent free memory and task unload; long-duration exhaustion testing remains unqualified.",
+    "Native compact160x200 and320x200 with matched current TR5 drivers only;160x100 placement and invalid metrics are host tested, not new native fixtures.",
+    "Existing helper ABI/lifecycle/color/failure/timing results are reused because helper bytes are unchanged. The earlier copy timing is not an overlapped-window FPS measurement.",
+    "No push, PR, release, merge, approval or BOR/Mesen interaction."
+  ],
+  "evidence": "Full native logs, configs, source/build pins, original failure and captures retained in private CUBEVAL validation archive; no SDK, OS media, emulator image or ROM in source.",
+  "latest_sample_failure_validation": "FAILURES.JSN"
+}

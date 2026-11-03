@@ -1,0 +1,12 @@
+@ECHO OFF
+REM Run in a private staging directory with the five example/build files and
+REM WTCANVAS.C/H. Caller supplies MSC6 + Win3 SDK in PATH, INCLUDE and LIB.
+CL /nologo /c /G0 /Gw /AS /W3 /Od CANVAS.C WTCANVAS.C > BUILD.LOG
+IF ERRORLEVEL 1 GOTO FAIL
+LINK4 /MAP /NOE /NOD @CANVAS.RSP >> BUILD.LOG
+IF ERRORLEVEL 1 GOTO FAIL
+ECHO PASS >> BUILD.LOG
+GOTO END
+:FAIL
+ECHO FAIL >> BUILD.LOG
+:END

@@ -11,6 +11,9 @@ This library contains its consumer interfaces.
 * [Placement service](libtandywin/PLACE/README.TXT) supplies caller-owned normal
   window rectangles and recovery for the Windows XT window-moving desktop.
   It preserves minimized/maximized state without changing USER.EXE.
+* [Bounded canvas/damage helper](libtandywin/CANVAS/README.TXT) is an opt-in
+  caller-owned GDI module with optional monochrome surfaces;
+  [CANVAS30](examples/CANVAS30/README.TXT) is a separate small consumer.
 * `LWTANDY.H` exposes the existing USER repaint helpers.
 * `LWAUDIO.H` forwards the app-local MCI/raw-player interfaces.
 * [TPLAY](docs/TPLAYXT.TXT) supplies the guarded Windows XT HPXY/XRSYNC launcher
